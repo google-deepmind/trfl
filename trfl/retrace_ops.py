@@ -33,12 +33,12 @@ import collections
 # Dependency imports
 from six.moves import zip
 import tensorflow as tf
-from trfl import action_value_ops
 from trfl import base_ops
+from trfl import indexing_ops
 from trfl import sequence_ops
 
-RetraceCoreExtra = collections.namedtuple('retrace_core_extra',
-                                          ['retrace_weights', 'target'])
+RetraceCoreExtra = collections.namedtuple(
+    'retrace_core_extra', ['retrace_weights', 'target'])
 
 
 def retrace(lambda_,
@@ -261,7 +261,7 @@ def _general_off_policy_corrected_multistep_target(r_t,
   with tf.name_scope(
       name, 'general_returns_based_off_policy_target', values=args):
     exp_q_t = tf.reduce_sum(target_policy_t * q_t, axis=2)
-    qa_t = action_value_ops.index_with_actions(q_t, a_t)
+    qa_t = indexing_ops.batched_index(q_t, a_t)
     current = r_t + pcont_t * (exp_q_t - c_t * qa_t)
     initial_value = qa_t[-1]
     return sequence_ops.scan_discounted_sum(
@@ -394,7 +394,7 @@ def retrace_core(lambda_,
     a_tm1 = a_tm1
     # Evaluate importance weights.
     c_t = _retrace_weights(
-        action_value_ops.index_with_actions(target_policy_t, a_t),
+        indexing_ops.batched_index(target_policy_t, a_t),
         behaviour_policy_t) * lambda_
     # Targets are evaluated by using only Q values from the target network.
     # This provides fixed regression targets until the next target network
@@ -407,7 +407,7 @@ def retrace_core(lambda_,
       target = tf.stop_gradient(target)
     # Regress Q values of the learning network towards the targets evaluated
     # by using the target network.
-    qa_tm1 = action_value_ops.index_with_actions(q_tm1, a_tm1)
+    qa_tm1 = indexing_ops.batched_index(q_tm1, a_tm1)
     delta = target - qa_tm1
     loss = 0.5 * tf.square(delta)
 

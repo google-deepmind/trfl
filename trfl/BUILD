@@ -10,52 +10,29 @@ exports_files([
 py_library(
     name = "trfl",
     srcs = ["__init__.py"],
-)
-
-py_test(
-    name = "dpg_ops_test",
-    srcs = ["dpg_ops_test.py"],
+    visibility = ["//visibility:public"],
     deps = [
+        ":action_value_ops",
+        ":base_ops",
+        ":discrete_policy_gradient_ops",
         ":dpg_ops",
-        # numpy dep,
-        # tensorflow dep,
-    ],
-)
-
-py_test(
-    name = "sequence_ops_test",
-    srcs = ["sequence_ops_test.py"],
-    deps = [
+        ":indexing_ops",
+        ":pixel_control_ops",
+        ":policy_gradient_ops",
+        ":retrace_ops",
         ":sequence_ops",
-        # numpy dep,
-        # six dep,
-        # tensorflow dep,
-    ],
-)
-
-py_test(
-    name = "value_ops_test",
-    srcs = ["value_ops_test.py"],
-    deps = [
         ":value_ops",
-        # absl/testing:parameterized dep,
-        # tensorflow dep,
+        ":vtrace_ops",
     ],
 )
 
 py_library(
-    name = "dpg_ops",
-    srcs = ["dpg_ops.py"],
+    name = "action_value_ops",
+    srcs = ["action_value_ops.py"],
     deps = [
         ":base_ops",
-        # tensorflow dep,
-    ],
-)
-
-py_library(
-    name = "sequence_ops",
-    srcs = ["sequence_ops.py"],
-    deps = [
+        ":indexing_ops",
+        ":sequence_ops",
         # tensorflow dep,
     ],
 )
@@ -70,11 +47,29 @@ py_library(
 )
 
 py_library(
-    name = "value_ops",
-    srcs = ["value_ops.py"],
+    name = "discrete_policy_gradient_ops",
+    srcs = ["discrete_policy_gradient_ops.py"],
     deps = [
         ":base_ops",
-        ":sequence_ops",
+        ":value_ops",
+        # six dep,
+        # tensorflow dep,
+    ],
+)
+
+py_library(
+    name = "dpg_ops",
+    srcs = ["dpg_ops.py"],
+    deps = [
+        ":base_ops",
+        # tensorflow dep,
+    ],
+)
+
+py_library(
+    name = "indexing_ops",
+    srcs = ["indexing_ops.py"],
+    deps = [
         # tensorflow dep,
     ],
 )
@@ -85,6 +80,7 @@ py_library(
     deps = [
         ":action_value_ops",
         ":base_ops",
+        # sonnet dep,
         # tensorflow dep,
     ],
 )
@@ -113,22 +109,19 @@ py_library(
 )
 
 py_library(
-    name = "action_value_ops",
-    srcs = ["action_value_ops.py"],
+    name = "sequence_ops",
+    srcs = ["sequence_ops.py"],
     deps = [
-        ":base_ops",
-        ":sequence_ops",
         # tensorflow dep,
     ],
 )
 
 py_library(
-    name = "discrete_policy_gradient_ops",
-    srcs = ["discrete_policy_gradient_ops.py"],
+    name = "value_ops",
+    srcs = ["value_ops.py"],
     deps = [
         ":base_ops",
-        ":value_ops",
-        # six dep,
+        ":sequence_ops",
         # tensorflow dep,
     ],
 )
@@ -147,6 +140,37 @@ py_test(
     deps = [
         ":action_value_ops",
         # numpy dep,
+        # tensorflow dep,
+    ],
+)
+
+py_test(
+    name = "discrete_policy_gradient_ops_test",
+    srcs = ["discrete_policy_gradient_ops_test.py"],
+    deps = [
+        ":discrete_policy_gradient_ops",
+        # absl/testing:parameterized dep,
+        # numpy dep,
+        # six dep,
+        # tensorflow dep,
+    ],
+)
+
+py_test(
+    name = "dpg_ops_test",
+    srcs = ["dpg_ops_test.py"],
+    deps = [
+        ":dpg_ops",
+        # numpy dep,
+        # tensorflow dep,
+    ],
+)
+
+py_library(
+    name = "indexing_ops_test",
+    srcs = ["indexing_ops_test.py"],
+    deps = [
+        ":indexing_ops",
         # tensorflow dep,
     ],
 )
@@ -174,11 +198,10 @@ py_test(
 )
 
 py_test(
-    name = "discrete_policy_gradient_ops_test",
-    srcs = ["discrete_policy_gradient_ops_test.py"],
+    name = "retrace_ops_test",
+    srcs = ["retrace_ops_test.py"],
     deps = [
-        ":discrete_policy_gradient_ops",
-        # absl/testing:parameterized dep,
+        ":retrace_ops",
         # numpy dep,
         # six dep,
         # tensorflow dep,
@@ -186,12 +209,33 @@ py_test(
 )
 
 py_test(
-    name = "retrace_ops_test",
-    srcs = ["retrace_ops_test.py"],
+    name = "sequence_ops_test",
+    srcs = ["sequence_ops_test.py"],
     deps = [
-        ":retrace_ops",
+        ":sequence_ops",
         # numpy dep,
         # six dep,
+        # tensorflow dep,
+    ],
+)
+
+py_test(
+    name = "value_ops_test",
+    srcs = ["value_ops_test.py"],
+    deps = [
+        ":value_ops",
+        # absl/testing:parameterized dep,
+        # tensorflow dep,
+    ],
+)
+
+py_test(
+    name = "vtrace_ops_test",
+    srcs = ["vtrace_ops_test.py"],
+    deps = [
+        ":vtrace_ops",
+        # absl/testing:parameterized dep,
+        # numpy dep,
         # tensorflow dep,
     ],
 )
