@@ -19,10 +19,11 @@ The loss functions and other operations provided here are implemented in pure
 TensorFlow. They are not complete algorithms, but implementations of RL-specific
 mathematical operations needed when building fully-functional RL agents. In
 particular, the updates are only valid if the input data are sampled in the
-correct manner. For example, the Sequence-Advantage-Actor-Critic loss (A2C) is
-only valid if the input trajectory is an unbiased sample from the current
-policy; i.e. the data are _on-policy_. This library cannot check or enforce such
-constraints.
+correct manner. For example, the
+[Sequence-Advantage-Actor-Critic loss] (trfl.md#sequence_advantage_actor_critic_loss)
+(i.e. A2C) is only valid if the input trajectory is an unbiased sample from the
+current policy; i.e. the data are _on-policy_. This library cannot check or
+enforce such constraints.
 
 ## Example usage
 
@@ -115,7 +116,7 @@ Throughout this module, we use the following conventions:
     *   [sarse](trfl.md#sarse)
     *   [qlambda](trfl.md#qlambda)
 
-*   DPG:
+*   Deterministic Policy Gradient:
 
     *   [dpg](trfl.md#dpg)
 
@@ -129,7 +130,7 @@ Throughout this module, we use the following conventions:
     *   [discrete_policy_gradient_loss](trfl.md#discrete_policy_gradient_loss)
         **old convention**
 
-*   Distributional:
+*   Distributional Values:
 
     *   [categorical_dist_qlearning](trfl.md#categorical_dist_qlearning)
     *   [categorical_dist_double_qlearning](trfl.md#categorical_dist_double_qlearning)

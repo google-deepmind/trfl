@@ -45,7 +45,7 @@ def td_learning(v_tm1, r_t, pcont_t, v_t, name="TDLearning"):
     r_t: Tensor holding rewards, shape [B].
     pcont_t: Tensor holding pcontinue values, shape [B].
     v_t: Tensor holding values at current timestep, shape [B].
-    name: name to prefix ops created by this class.
+    name: name to prefix ops created by this function.
 
   Returns:
     A namedtuple with fields:

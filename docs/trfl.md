@@ -4,7 +4,7 @@
 # trfl - module reference
 Flattened namespace for trfl.
 
-## Other Functions and Classes
+## Other Functions
 ### [`assert_rank_and_shape_compatibility(tensors, rank)`](https://github.com/deepmind/trfl/blob/master/trflbase_ops.py?l=64)<!-- assert_rank_and_shape_compatibility .code-reference -->
 
 Asserts that the tensors have the correct rank and compatible shapes.
@@ -918,7 +918,7 @@ van Hasselt, Whiteson et al.
     shape [B x num_actions].
 * `debug`: Boolean flag, when set to True adds ops to check whether probs_a_t
     is a batch of (approximately) valid probability distributions.
-* `name`: name to prefix ops created by this class.
+* `name`: name to prefix ops created by this function.
 
 ##### Returns:
 
@@ -983,7 +983,7 @@ reward/pcontinue sequence. The `baseline_cost` parameter scales the
 gradients w.r.t the baseline relative to the policy gradient, i.e.
 d(loss) / d(baseline) = baseline_cost * (n_step_return - baseline)`.
 
-This class is designed for batches of sequences of data. Tensors are assumed
+This function is designed for batches of sequences of data. Tensors are assumed
 to be time major (i.e. the outermost dimension is time, the second outermost
 dimension is the batch dimension). We denote the sequence length in the
 shapes of the arguments with the variable `T`, the batch size with the
@@ -1005,7 +1005,7 @@ at index `i+1`, or in the `bootstrap_value` tensor if `i == T`.
 For n-dimensional action vectors, a multivariate distribution must be used
 for `policies`. In case there is no multivariate version for the desired
 univariate distribution, or in case the `actions` object is a nested
-structure (e.g. for multiple action types), this class also accepts a
+structure (e.g. for multiple action types), this function also accepts a
 nested structure  of `policies`. In this case, the loss is given by
 `sum_i(loss(p_i, a_i))` where `p_i` are members of the `policies` nest, and
 `a_i` are members of the `actions` nest. We assume that a single baseline is
@@ -1213,7 +1213,7 @@ See "Learning to Predict by the Methods of Temporal Differences" by Sutton.
 * `r_t`: Tensor holding rewards, shape [B].
 * `pcont_t`: Tensor holding pcontinue values, shape [B].
 * `v_t`: Tensor holding values at current timestep, shape [B].
-* `name`: name to prefix ops created by this class.
+* `name`: name to prefix ops created by this function.
 
 ##### Returns:
 
@@ -1331,5 +1331,3 @@ NUM_ACTIONS refers to the number of actions.
       behaviour policy action log probabilities (log \mu(a_t)).
 * `target_action_log_probs`: A float32 tensor of shape [T, B] containing
       target policy action probabilities (log \pi(a_t)).
-
-

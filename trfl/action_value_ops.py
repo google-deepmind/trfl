@@ -263,7 +263,7 @@ def sarse(
       shape [B x num_actions].
     debug: Boolean flag, when set to True adds ops to check whether probs_a_t
       is a batch of (approximately) valid probability distributions.
-    name: name to prefix ops created by this class.
+    name: name to prefix ops created by this function.
 
   Returns:
     A namedtuple with fields:

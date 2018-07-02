@@ -221,10 +221,10 @@ def sequence_a2c_loss(policies,
   gradients w.r.t the baseline relative to the policy gradient, i.e.
   d(loss) / d(baseline) = baseline_cost * (n_step_return - baseline)`.
 
-  This class is designed for batches of sequences of data. Tensors are assumed
-  to be time major (i.e. the outermost dimension is time, the second outermost
-  dimension is the batch dimension). We denote the sequence length in the
-  shapes of the arguments with the variable `T`, the batch size with the
+  This function is designed for batches of sequences of data. Tensors are
+  assumed to be time major (i.e. the outermost dimension is time, the second
+  outermost dimension is the batch dimension). We denote the sequence length in
+  the shapes of the arguments with the variable `T`, the batch size with the
   variable `B`, neither of which needs to be known at construction time. Index
   `0` of the time dimension is assumed to be the start of the sequence.
 
@@ -243,7 +243,7 @@ def sequence_a2c_loss(policies,
   For n-dimensional action vectors, a multivariate distribution must be used
   for `policies`. In case there is no multivariate version for the desired
   univariate distribution, or in case the `actions` object is a nested
-  structure (e.g. for multiple action types), this class also accepts a
+  structure (e.g. for multiple action types), this function also accepts a
   nested structure  of `policies`. In this case, the loss is given by
   `sum_i(loss(p_i, a_i))` where `p_i` are members of the `policies` nest, and
   `a_i` are members of the `actions` nest. We assume that a single baseline is
