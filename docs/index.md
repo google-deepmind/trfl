@@ -103,8 +103,7 @@ Throughout this module, we use the following conventions:
 *   State Value learning:
 
     *   [td_learning](trfl.md#td_learning)
-    *   [generalized_lambda_returns](trfl.md#generalized_lambda_returns) **old
-        convention**
+    *   [generalized_lambda_returns](trfl.md#generalized_lambda_returns)
     *   [td_lambda](trfl.md#td_lambda)
 
 *   Discrete-action Value learning:
@@ -116,6 +115,19 @@ Throughout this module, we use the following conventions:
     *   [sarse](trfl.md#sarse)
     *   [qlambda](trfl.md#qlambda)
 
+*   Distributional Value learning:
+
+    *   [categorical_dist_qlearning](trfl.md#categorical_dist_qlearning)
+    *   [categorical_dist_double_qlearning](trfl.md#categorical_dist_double_qlearning)
+    *   [categorical_dist_td_learning](trfl.md#categorical_dist_td_learning)
+
+*   Continuous-action Policy Gradient:
+
+    *   [policy_gradient](trfl.md#policy_gradient)
+    *   [policy_gradient_loss](trfl.md#policy_gradient_loss)
+    *   [policy_entropy_loss](trfl.md#policy_entropy_loss)
+    *   [sequence_a2c_loss](trfl.md#sequence_a2c_loss)
+
 *   Deterministic Policy Gradient:
 
     *   [dpg](trfl.md#dpg)
@@ -125,23 +137,13 @@ Throughout this module, we use the following conventions:
     *   [discrete_policy_entropy_loss](trfl.md#discrete_policy_entropy_loss)
     *   [sequence_advantage_actor_critic_loss](trfl.md#sequence_advantage_actor_critic_loss):
         this is the commonly-used A2C/A3C loss function.
-    *   [discrete_policy_gradient](trfl.md#discrete_policy_gradient) **old
-        convention**
+    *   [discrete_policy_gradient](trfl.md#discrete_policy_gradient)
     *   [discrete_policy_gradient_loss](trfl.md#discrete_policy_gradient_loss)
-        **old convention**
 
-*   Distributional Values:
+*   Pixel control:
 
-    *   [categorical_dist_qlearning](trfl.md#categorical_dist_qlearning)
-    *   [categorical_dist_double_qlearning](trfl.md#categorical_dist_double_qlearning)
-    *   [categorical_dist_td_learning](trfl.md#categorical_dist_td_learning)
-
-*   Continuous-action Policy Gradient:
-
-    *   [policy_gradient](trfl.md#policy_gradient) **old convention**
-    *   [policy_gradient_loss](trfl.md#policy_gradient_loss) **old convention**
-    *   [policy_entropy_loss](trfl.md#policy_entropy_loss)
-    *   [sequence_a2c_loss](trfl.md#sequence_a2c_loss)
+    *   [pixel_control_rewards](trfl.md#pixel_control_rewards)
+    *   [pixel_control_loss](trfl.md#pixel_control_loss)
 
 *   Retrace:
 
@@ -155,13 +157,8 @@ Throughout this module, we use the following conventions:
 
 ## Others
 
-*   Online Retrace
-*   Pixel control
-*   Ops for creating policies
 *   Sequence ops
-*   Target update
 
 ## More information
 
 *   [Multistep Forward View](multistep_forward_view.md)
-*   [Online Retrace](online_retrace.md)
