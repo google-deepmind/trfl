@@ -20,7 +20,7 @@ TensorFlow. They are not complete algorithms, but implementations of RL-specific
 mathematical operations needed when building fully-functional RL agents. In
 particular, the updates are only valid if the input data are sampled in the
 correct manner. For example, the
-[Sequence-Advantage-Actor-Critic loss] (trfl.md#sequence_advantage_actor_critic_loss)
+[Sequence-Advantage-Actor-Critic loss](trfl.md#sequence_advantage_actor_critic_loss)
 (i.e. A2C) is only valid if the input trajectory is an unbiased sample from the
 current policy; i.e. the data are _on-policy_. This library cannot check or
 enforce such constraints.
