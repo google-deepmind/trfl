@@ -23,6 +23,7 @@ from absl.testing import parameterized
 import numpy as np
 from six.moves import xrange  # pylint: disable=redefined-builtin
 import tensorflow as tf
+import tensorflow_probability as tfp
 from trfl import policy_gradient_ops as pg_ops
 
 nest = tf.contrib.framework.nest
@@ -73,7 +74,7 @@ def _setup_pgops(multi_actions=False,
   # MVN actions
   mu = tf.placeholder(tf.float32, shape=(t, b, a))
   sigma = tf.placeholder(tf.float32, shape=(t, b, a))
-  mvn_policies = tf.contrib.distributions.MultivariateNormalDiag(
+  mvn_policies = tfp.distributions.MultivariateNormalDiag(
       loc=mu, scale_diag=sigma)
   mvn_actions = tf.placeholder(tf.float32, shape=(t, b, a))
   mvn_params = [mu, sigma]
@@ -83,7 +84,7 @@ def _setup_pgops(multi_actions=False,
     n_cat = 2
     cat_logits = [tf.placeholder(tf.float32, shape=(t, b, c))
                   for _ in xrange(n_cat)]
-    cat_policies = [tf.contrib.distributions.Categorical(logits=logits)
+    cat_policies = [tfp.distributions.Categorical(logits=logits)
                     for logits in cat_logits]
     cat_actions = [tf.placeholder(tf.int32, shape=(t, b))
                    for _ in xrange(n_cat)]
@@ -91,7 +92,7 @@ def _setup_pgops(multi_actions=False,
 
     # Create an exponential distribution
     exp_rate = tf.placeholder(tf.float32, shape=(t, b))
-    exp_policies = tf.contrib.distributions.Exponential(rate=exp_rate)
+    exp_policies = tfp.distributions.Exponential(rate=exp_rate)
     exp_actions = tf.placeholder(tf.float32, shape=(t, b))
     exp_params = [exp_rate]
 

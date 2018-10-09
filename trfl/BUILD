@@ -194,6 +194,7 @@ py_test(
         # numpy dep,
         # six dep,
         # tensorflow dep,
+        # tensorflow_probability dep,
     ],
 )
 
