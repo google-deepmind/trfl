@@ -45,15 +45,13 @@ def policy_gradient(policies, actions, action_values, policy_vars=None,
     policies: A distribution over a batch supporting a `log_prob` method, e.g.
         an instance of `tfp.distributions.Distribution`. For example, for
         a diagonal gaussian policy:
-        `policies = tfp.distributions.MultivariateNormalDiag(mus,
-                                                                    sigmas)`
+        `policies = tfp.distributions.MultivariateNormalDiag(mus, sigmas)`
     actions: An action batch Tensor used as the argument for `log_prob`. Has
         shape equal to the batch shape of the policies concatenated with the
         event shape of the policies (which may be scalar, in which case
         concatenation leaves shape just equal to batch shape).
-    action_values: A Tensor containing estimates of the values of the `actions`,
-        with same shape as `actions`. Has shape equal to the batch shape of the
-        policies.
+    action_values: A Tensor containing estimates of the values of the `actions`.
+        Has shape equal to the batch shape of the policies.
     policy_vars: An optional iterable of Tensors used by `policies`. If provided
         is used in scope checks. For the multivariate normal example above this
         would be `[mus, sigmas]`.
