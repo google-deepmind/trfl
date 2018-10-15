@@ -104,6 +104,9 @@ class DpgTest(tf.test.TestCase):
       for i in range(int(self.batch_size)):
         self.assertAllClose(np.linalg.norm(dpg_extra.dqda.eval()[i]), 0.01)
 
+  def testLossShape(self):
+    self.assertEqual(self.loss.shape.as_list(), [self.batch_size])
+
   def calculateTrueGradient(self, value_w, value_s_tm1):
     """Calculates the true gradient over the batch.
 

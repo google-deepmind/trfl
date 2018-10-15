@@ -86,6 +86,6 @@ def dpg(q_max, a_max, dqda_clipping=None, clip_norm=False, name="DpgLearning"):
     # Stop the gradient going through Q network when backprop.
     target_a = tf.stop_gradient(target_a)
     # Gradient only go through actor network.
-    loss = 0.5 * tf.square(target_a - a_max)
+    loss = 0.5 * tf.reduce_sum(tf.square(target_a - a_max), axis=-1)
     return base_ops.LossOutput(
         loss, DPGExtra(q_max=q_max, a_max=a_max, dqda=dqda))
