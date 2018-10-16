@@ -15,6 +15,7 @@ py_library(
         ":action_value_ops",
         ":base_ops",
         ":discrete_policy_gradient_ops",
+        ":dist_value_ops",
         ":dpg_ops",
         ":indexing_ops",
         ":pixel_control_ops",
@@ -53,6 +54,15 @@ py_library(
         ":base_ops",
         ":value_ops",
         # six dep,
+        # tensorflow dep,
+    ],
+)
+
+py_library(
+    name = "dist_value_ops",
+    srcs = ["dist_value_ops.py"],
+    deps = [
+        ":base_ops",
         # tensorflow dep,
     ],
 )
@@ -152,6 +162,16 @@ py_test(
         # absl/testing:parameterized dep,
         # numpy dep,
         # six dep,
+        # tensorflow dep,
+    ],
+)
+
+py_test(
+    name = "dist_value_ops_test",
+    srcs = ["dist_value_ops_test.py"],
+    deps = [
+        ":dist_value_ops",
+        # numpy dep,
         # tensorflow dep,
     ],
 )

@@ -26,6 +26,9 @@ from trfl.discrete_policy_gradient_ops import discrete_policy_entropy_loss
 from trfl.discrete_policy_gradient_ops import discrete_policy_gradient
 from trfl.discrete_policy_gradient_ops import discrete_policy_gradient_loss
 from trfl.discrete_policy_gradient_ops import sequence_advantage_actor_critic_loss
+from trfl.dist_value_ops import categorical_dist_double_qlearning
+from trfl.dist_value_ops import categorical_dist_qlearning
+from trfl.dist_value_ops import categorical_dist_td_learning
 from trfl.dpg_ops import dpg
 from trfl.indexing_ops import batched_index
 from trfl.pixel_control_ops import pixel_control_loss
