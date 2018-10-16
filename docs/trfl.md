@@ -4,7 +4,7 @@
 # trfl - module reference
 Flattened namespace for trfl.
 
-## Other Functions
+## Other Functions and Classes
 ### [`assert_rank_and_shape_compatibility(tensors, rank)`](https://github.com/deepmind/trfl/blob/master/trflbase_ops.py?l=64)<!-- assert_rank_and_shape_compatibility .code-reference -->
 
 Asserts that the tensors have the correct rank and compatible shapes.
@@ -80,6 +80,131 @@ Extract as much static shape information from a tensor as possible.
 
 * `ValueError`: If `with_rank` is None and `tensor` does not have
     statically-known number of dimensions.
+
+
+### [`categorical_dist_double_qlearning(atoms_tm1, logits_q_tm1, a_tm1, r_t, pcont_t, atoms_t, logits_q_t, q_t_selector, name='CategoricalDistDoubleQLearning')`](https://github.com/deepmind/trfl/blob/master/trfldist_value_ops.py?l=196)<!-- categorical_dist_double_qlearning .code-reference -->
+
+Implements Distributional Double Q-learning as TensorFlow ops.
+
+The function assumes categorical value distributions parameterized by logits,
+and combines distributional RL with double Q-learning.
+
+See "Rainbow: Combining Improvements in Deep Reinforcement Learning" by
+Hessel, Modayil, van Hasselt, Schaul et al.
+(https://arxiv.org/abs/1710.02298).
+
+##### Args:
+
+
+* `atoms_tm1`: 1-D tensor containing atom values for first timestep,
+    shape `[num_atoms]`.
+* `logits_q_tm1`: Tensor holding logits for first timestep in a batch of
+    transitions, shape `[B, num_actions, num_atoms]`.
+* `a_tm1`: Tensor holding action indices, shape `[B]`.
+* `r_t`: Tensor holding rewards, shape `[B]`.
+* `pcont_t`: Tensor holding pcontinue values, shape `[B]`.
+* `atoms_t`: 1-D tensor containing atom values for second timestep,
+    shape `[num_atoms]`.
+* `logits_q_t`: Tensor holding logits for second timestep in a batch of
+    transitions, shape `[B, num_actions, num_atoms]`.
+* `q_t_selector`: Tensor holding another set of Q-values for second timestep
+    in a batch of transitions, shape `[B, num_actions]`.
+    These values are used for estimating the best action. In Double DQN they
+    come from the online network.
+* `name`: name to prefix ops created by this function.
+
+##### Returns:
+
+  A namedtuple with fields:
+
+  * `loss`: Tensor containing the batch of losses, shape `[B]`.
+  * `extra`: a namedtuple with fields:
+      * `target`:  Tensor containing the values that `q_tm1` at actions
+      `a_tm1` are regressed towards, shape `[B, num_atoms]` .
+
+##### Raises:
+
+
+* `ValueError`: If the tensors do not have the correct rank or compatibility.
+
+
+### [`categorical_dist_qlearning(atoms_tm1, logits_q_tm1, a_tm1, r_t, pcont_t, atoms_t, logits_q_t, name='CategoricalDistQLearning')`](https://github.com/deepmind/trfl/blob/master/trfldist_value_ops.py?l=121)<!-- categorical_dist_qlearning .code-reference -->
+
+Implements Distributional Q-learning as TensorFlow ops.
+
+The function assumes categorical value distributions parameterized by logits.
+
+See "A Distributional Perspective on Reinforcement Learning" by Bellemare,
+Dabney and Munos. (https://arxiv.org/abs/1707.06887).
+
+##### Args:
+
+
+* `atoms_tm1`: 1-D tensor containing atom values for first timestep,
+    shape `[num_atoms]`.
+* `logits_q_tm1`: Tensor holding logits for first timestep in a batch of
+    transitions, shape `[B, num_actions, num_atoms]`.
+* `a_tm1`: Tensor holding action indices, shape `[B]`.
+* `r_t`: Tensor holding rewards, shape `[B]`.
+* `pcont_t`: Tensor holding pcontinue values, shape `[B]`.
+* `atoms_t`: 1-D tensor containing atom values for second timestep,
+    shape `[num_atoms]`.
+* `logits_q_t`: Tensor holding logits for second timestep in a batch of
+    transitions, shape `[B, num_actions, num_atoms]`.
+* `name`: name to prefix ops created by this function.
+
+##### Returns:
+
+  A namedtuple with fields:
+
+  * `loss`: a tensor containing the batch of losses, shape `[B]`.
+  * `extra`: a namedtuple with fields:
+      * `target`: a tensor containing the values that `q_tm1` at actions
+      `a_tm1` are regressed towards, shape `[B, num_atoms]`.
+
+##### Raises:
+
+
+* `ValueError`: If the tensors do not have the correct rank or compatibility.
+
+
+### [`categorical_dist_td_learning(atoms_tm1, logits_v_tm1, r_t, pcont_t, atoms_t, logits_v_t, name='CategoricalDistTDLearning')`](https://github.com/deepmind/trfl/blob/master/trfldist_value_ops.py?l=278)<!-- categorical_dist_td_learning .code-reference -->
+
+Implements Distributional TD-learning as TensorFlow ops.
+
+The function assumes categorical value distributions parameterized by logits.
+
+See "A Distributional Perspective on Reinforcement Learning" by Bellemare,
+Dabney and Munos. (https://arxiv.org/abs/1707.06887).
+
+##### Args:
+
+
+* `atoms_tm1`: 1-D tensor containing atom values for first timestep,
+    shape `[num_atoms]`.
+* `logits_v_tm1`: Tensor holding logits for first timestep in a batch of
+    transitions, shape `[B, num_atoms]`.
+* `r_t`: Tensor holding rewards, shape `[B]`.
+* `pcont_t`: Tensor holding pcontinue values, shape `[B]`.
+* `atoms_t`: 1-D tensor containing atom values for second timestep,
+    shape `[num_atoms]`.
+* `logits_v_t`: Tensor holding logits for second timestep in a batch of
+    transitions, shape `[B, num_atoms]`.
+* `name`: name to prefix ops created by this function.
+
+##### Returns:
+
+  A namedtuple with fields:
+
+  * `loss`: Tensor containing the batch of losses, shape `[B]`.
+  * `extra`: A namedtuple with fields:
+      * `target`: Tensor containing the values that `v_tm1` are
+      regressed towards, shape `[B, num_atoms]`.
+
+##### Raises:
+
+
+* `ValueError`: If the tensors do not have the correct rank or compatibility.
 
 
 ### [`discrete_policy_entropy_loss(policy_logits, normalise=False, name='discrete_policy_entropy_loss')`](https://github.com/deepmind/trfl/blob/master/trfldiscrete_policy_gradient_ops.py?l=40)<!-- discrete_policy_entropy_loss .code-reference -->
@@ -535,7 +660,7 @@ Categorical distribution in the `policies` nest).
 * `policies`: A (possibly nested structure of) batch distribution(s)
       supporting an `entropy` method that returns an N-D Tensor with shape
       equal to the `batch_shape` of the distribution, e.g. an instance of
-      `tf.contrib.distributions.Distribution`.
+      `tfp.distributions.Distribution`.
 * `policy_vars`: An optional (possibly nested structure of) iterable(s) of
       Tensors used by `policies`. If provided is used in scope checks.
 * `scale_op`: An optional op that takes `policies` as its only argument and
@@ -564,9 +689,9 @@ See policy_gradient_loss for more information on expected inputs and usage.
 
 
 * `policies`: A distribution over a batch supporting a `log_prob` method, e.g.
-      an instance of `tf.contrib.distributions.Distribution`. For example, for
+      an instance of `tfp.distributions.Distribution`. For example, for
       a diagonal gaussian policy:
-      `policies = tf.contrib.distributions.MultivariateNormalDiag(mus,
+      `policies = tfp.distributions.MultivariateNormalDiag(mus,
                                                                   sigmas)`
 * `actions`: An action batch Tensor used as the argument for `log_prob`. Has
       shape equal to the batch shape of the policies concatenated with the
@@ -604,7 +729,7 @@ concatenate(`[T, B]`, `event_shape` of the policies) shape for the actions.
 
 * `policies`: A (possibly nested structure of) distribution(s) supporting
       `batch_shape` and `event_shape` properties along with a `log_prob`
-      method (e.g. an instance of `tf.contrib.distributions.Distribution`),
+      method (e.g. an instance of `tfp.distributions.Distribution`),
       with `batch_shape` equal to `[T, B]`.
 * `actions`: A (possibly nested structure of) N-D Tensor(s) with shape
       `[T, B, ...]` where the final dimensions are the `event_shape` of the
@@ -983,10 +1108,10 @@ reward/pcontinue sequence. The `baseline_cost` parameter scales the
 gradients w.r.t the baseline relative to the policy gradient, i.e.
 d(loss) / d(baseline) = baseline_cost * (n_step_return - baseline)`.
 
-This function is designed for batches of sequences of data. Tensors are assumed
-to be time major (i.e. the outermost dimension is time, the second outermost
-dimension is the batch dimension). We denote the sequence length in the
-shapes of the arguments with the variable `T`, the batch size with the
+This function is designed for batches of sequences of data. Tensors are
+assumed to be time major (i.e. the outermost dimension is time, the second
+outermost dimension is the batch dimension). We denote the sequence length in
+the shapes of the arguments with the variable `T`, the batch size with the
 variable `B`, neither of which needs to be known at construction time. Index
 `0` of the time dimension is assumed to be the start of the sequence.
 
@@ -1016,11 +1141,10 @@ used across all action dimensions for each timestep.
 
 * `policies`: A (possibly nested structure of) distribution(s) supporting
       `batch_shape` and `event_shape` properties & `log_prob` and `entropy`
-      methods (e.g. an instance of `tf.contrib.distributions.Distribution`),
+      methods (e.g. an instance of `tfp.distributions.Distribution`),
       with `batch_shape` equal to `[T, B]`. E.g. for a (non-nested) diagonal
       multivariate gaussian with dimension `A` this would be:
-      `policies = tf.contrib.distributions.MultivariateNormalDiag(mus,
-                                                                  sigmas)`
+      `policies = tfp.distributions.MultivariateNormalDiag(mus, sigmas)`
       where `mus` and `sigmas` have shape `[T, B, A]`.
 * `baseline_values`: 2-D Tensor containing an estimate of the state value with
       shape `[T, B]`.
@@ -1331,3 +1455,5 @@ NUM_ACTIONS refers to the number of actions.
       behaviour policy action log probabilities (log \mu(a_t)).
 * `target_action_log_probs`: A float32 tensor of shape [T, B] containing
       target policy action probabilities (log \pi(a_t)).
+
+
