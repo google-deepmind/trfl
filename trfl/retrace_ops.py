@@ -391,7 +391,7 @@ def retrace_core(lambda_,
     (lambda_, q_tm1, a_tm1, r_t, pcont_t, target_policy_t, behaviour_policy_t,
      targnet_q_t, a_t) = (
          tf.convert_to_tensor(arg) for arg in all_args)
-    a_tm1 = a_tm1
+
     # Evaluate importance weights.
     c_t = _retrace_weights(
         indexing_ops.batched_index(target_policy_t, a_t),

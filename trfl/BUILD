@@ -110,8 +110,8 @@ py_library(
     name = "retrace_ops",
     srcs = ["retrace_ops.py"],
     deps = [
-        ":action_value_ops",
         ":base_ops",
+        ":indexing_ops",
         ":sequence_ops",
         # six dep,
         # tensorflow dep,
