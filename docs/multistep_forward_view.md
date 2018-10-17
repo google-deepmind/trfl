@@ -1,7 +1,7 @@
 ### Multistep forward view
 
 The
-[multistep_forward_view](https://github.com/deepmind/trfl/blob/master/trflsequence_ops.py?q=multistep_forward_view)
+[multistep_forward_view](https://github.com/deepmind/trfl/blob/master/trfl/sequence_ops.py?q=multistep_forward_view)
 function computes mixed multistep returns in terms of the instantaneous
 `rewards`, discount factors `pcontinues`, `state_value` estimates, and mixing
 weights `lambda_`. In the math that follows we will replace these by

@@ -61,4 +61,4 @@ each function for more information.
 # Documentation
 
 Check out the full documentation page
-[here](https://deepmind.github.io/trfl/).
+[here](https://github.com/deepmind/trfl/blob/master/docs/index.md).
