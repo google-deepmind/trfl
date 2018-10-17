@@ -35,7 +35,7 @@ loss, q_learning = trfl.qlearning(q_tm1, a_tm1, r_t, pcont_t, q_t)
 squared difference between the predicted Q-values and the TD targets, shape
 `[batch_size]`.
 
-Extra information is in the `q_learning` namedtuple, including
+Extra information is in the `q_learning` named tuple, including
 `q_learning.td_error` and `q_learning.target`.
 
 Most of the time, you may only be interested in the loss:
