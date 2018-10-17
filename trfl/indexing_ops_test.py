@@ -64,26 +64,26 @@ class BatchIndexingTest(tf.test.TestCase):
   def testInputShapeChecks(self):
     """Input shape checks can catch some, but not all, shape problems."""
     # 1. Inputs have incorrect or incompatible ranks:
-    for args in [dict(q_values=[[5, 5]], actions=1),
-                 dict(q_values=[5, 5], actions=[1]),
-                 dict(q_values=[[[5, 5]]], actions=[1]),
-                 dict(q_values=[[5, 5]], actions=[[[1]]]),]:
-      with self.assertRaisesRegexp(ValueError, "not shaped in a way"):
+    for args in [dict(values=[[5, 5]], indices=1),
+                 dict(values=[5, 5], indices=[1]),
+                 dict(values=[[[5, 5]]], indices=[1]),
+                 dict(values=[[5, 5]], indices=[[[1]]]),]:
+      with self.assertRaisesRegexp(ValueError, "do not correspond"):
         indexing_ops.batched_index(**args)
 
     # 2. Inputs have correct, compatible ranks but incompatible sizes:
-    for args in [dict(q_values=[[5, 5]], actions=[1, 1]),
-                 dict(q_values=[[5, 5], [5, 5]], actions=[1]),
-                 dict(q_values=[[[5, 5], [5, 5]]], actions=[[1, 1], [1, 1]]),
-                 dict(q_values=[[[5, 5], [5, 5]]], actions=[[1], [1]]),]:
+    for args in [dict(values=[[5, 5]], indices=[1, 1]),
+                 dict(values=[[5, 5], [5, 5]], indices=[1]),
+                 dict(values=[[[5, 5], [5, 5]]], indices=[[1, 1], [1, 1]]),
+                 dict(values=[[[5, 5], [5, 5]]], indices=[[1], [1]]),]:
       with self.assertRaisesRegexp(ValueError, "incompatible shapes"):
         indexing_ops.batched_index(**args)
 
     # (Correct ranks and sizes work fine, though):
     indexing_ops.batched_index(
-        q_values=[[5, 5]], actions=[1])
+        values=[[5, 5]], indices=[1])
     indexing_ops.batched_index(
-        q_values=[[[5, 5], [5, 5]]], actions=[[1, 1]])
+        values=[[[5, 5], [5, 5]]], indices=[[1, 1]])
 
     # 3. Shape-checking works with fully-specified placeholders, or even
     # partially-specified placeholders that still provide evidence of having
@@ -116,7 +116,7 @@ class BatchIndexingTest(tf.test.TestCase):
           tf.placeholder(tf.int32, sizes["a_size"]))
 
     # And it can't detect invalid indices at construction time, either.
-    indexing_ops.batched_index(q_values=[[5, 5, 5]], actions=[1000000000])
+    indexing_ops.batched_index(values=[[5, 5, 5]], indices=[1000000000])
 
   def testFullShapeAvailableAtRuntimeOnly(self):
     """What happens when shape information isn't available statically?

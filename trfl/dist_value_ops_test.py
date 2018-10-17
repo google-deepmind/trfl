@@ -86,7 +86,7 @@ class CategoricalDistRLTest(tf.test.TestCase):
     for i, alt_input in enumerate(invalid_inputs):
       broken_inputs = list(inputs)
       broken_inputs[i] = alt_input
-      with self.assertRaisesWithRegexpMatch(
+      with self.assertRaisesRegexp(
           ValueError,
           "{}: Error in rank and/or compatibility check".format(nt_name)):
         nt(*broken_inputs)

@@ -262,7 +262,7 @@ class VtraceTest(tf.test.TestCase, parameterized.TestCase):
         # Should be [None, 42].
         'bootstrap_value': tf.placeholder(dtype=tf.float32, shape=[None])
     }
-    with self.assertRaisesWithRegexpMatch(ValueError, 'must have rank 2'):
+    with self.assertRaisesRegexp(ValueError, 'must have rank 2'):
       vtrace_ops.vtrace_from_importance_weights(**placeholders)
 
 

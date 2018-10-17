@@ -186,7 +186,7 @@ py_test(
     ],
 )
 
-py_library(
+py_test(
     name = "indexing_ops_test",
     srcs = ["indexing_ops_test.py"],
     deps = [

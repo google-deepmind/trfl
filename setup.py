@@ -18,16 +18,23 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
+import unittest
 from setuptools import find_packages
 from setuptools import setup
-from setuptools.command.install import install as InstallCommandBase
 
-REQUIRED_PACKAGES = ['six', 'absl-py']
-
+REQUIRED_PACKAGES = ['six', 'absl-py', 'numpy', 'dm-sonnet']
 EXTRA_PACKAGES = {
-    'tensorflow': ['tensorflow>=1.0.1'],
-    'tensorflow with gpu': ['tensorflow-gpu>=1.0.1']
+    'tensorflow': ['tensorflow>=1.8.0', 'tensorflow-probability>=0.4.0'],
+    'tensorflow with gpu': ['tensorflow-gpu>=1.8.0',
+                            'tensorflow-probability-gpu>=0.4.0'],
 }
+
+
+def trfl_test_suite():
+  test_loader = unittest.TestLoader()
+  test_suite = test_loader.discover('trfl', pattern='*_test.py')
+  return test_suite
+
 
 setup(
     name='trfl',
@@ -43,9 +50,24 @@ setup(
     install_requires=REQUIRED_PACKAGES,
     extras_require=EXTRA_PACKAGES,
     zip_safe=False,
-    cmdclass={
-        'install': InstallCommandBase,
-    },
     license='Apache 2.0',
+    classifiers=[
+        'Development Status :: 5 - Production/Stable',
+        'Intended Audience :: Developers',
+        'Intended Audience :: Education',
+        'Intended Audience :: Science/Research',
+        'License :: OSI Approved :: Apache Software License',
+        'Operating System :: MacOS :: MacOS X',
+        'Operating System :: Microsoft :: Windows',
+        'Operating System :: POSIX',
+        'Operating System :: Unix',
+        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
+        'Topic :: Scientific/Engineering :: Artificial Intelligence',
+        'Topic :: Software Development :: Libraries',
+    ],
     keywords='trfl truffle tensorflow tensor machine reinforcement learning',
+    test_suite='setup.trfl_test_suite',
 )
