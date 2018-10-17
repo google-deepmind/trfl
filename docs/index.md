@@ -158,6 +158,9 @@ Throughout this module, we use the following conventions:
 
 *   Sequence ops
 
+    *   [scan_discounted_sum](trfl.md#scan_discounted_sum)
+    *   [multistep_forward_view](trfl.md#multistep_forward_view)
+
 ## More information
 
 *   [Multistep Forward View](multistep_forward_view.md)
