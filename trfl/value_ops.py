@@ -41,19 +41,19 @@ def td_learning(v_tm1, r_t, pcont_t, v_t, name="TDLearning"):
   (https://link.springer.com/article/10.1023/A:1022633531479).
 
   Args:
-    v_tm1: Tensor holding values at previous timestep, shape [B].
-    r_t: Tensor holding rewards, shape [B].
-    pcont_t: Tensor holding pcontinue values, shape [B].
-    v_t: Tensor holding values at current timestep, shape [B].
+    v_tm1: Tensor holding values at previous timestep, shape `[B]`.
+    r_t: Tensor holding rewards, shape `[B]`.
+    pcont_t: Tensor holding pcontinue values, shape `[B]`.
+    v_t: Tensor holding values at current timestep, shape `[B]`.
     name: name to prefix ops created by this function.
 
   Returns:
     A namedtuple with fields:
 
-    * `loss`: a tensor containing the batch of losses, shape [B].
+    * `loss`: a tensor containing the batch of losses, shape `[B]`.
     * `extra`: a namedtuple with fields:
-        * `target`: batch of target values for `v_tm1`, shape [B].
-        * `td_error`: batch of temporal difference errors, shape [B].
+        * `target`: batch of target values for `v_tm1`, shape `[B]`.
+        * `td_error`: batch of temporal difference errors, shape `[B]`.
   """
   # Rank and compatibility checks.
   base_ops.wrap_rank_shape_assert([[v_tm1, v_t, r_t, pcont_t]], [1], name)

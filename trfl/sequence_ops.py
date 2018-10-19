@@ -47,13 +47,14 @@ def scan_discounted_sum(sequence, decay, initial_value, reverse=False,
                         sequence_lengths=None, back_prop=True,
                         name="scan_discounted_sum"):
   """Evaluates a cumulative discounted sum along dimension 0.
-
+    ```python
     if reverse = False:
       result[1] = sequence[1] + decay[1] * initial_value
       result[k] = sequence[k] + decay[k] * result[k - 1]
     if reverse = True:
       result[last] = sequence[last] + decay[last] * initial_value
       result[k] = sequence[k] + decay[k] * result[k + 1]
+    ```
 
   Respective dimensions T, B and ... have to be the same for all input tensors.
   T: temporal dimension of the sequence; B: batch dimension of the sequence.
@@ -122,10 +123,11 @@ def multistep_forward_view(rewards, pcontinues, state_values, lambda_,
                            back_prop=True, sequence_lengths=None,
                            name="multistep_forward_view_op"):
   """Evaluates complex backups (forward view of eligibility traces).
-
+    ```python
     result[t] = rewards[t] +
         pcontinues[t]*(lambda_[t]*result[t+1] + (1-lambda_[t])*state_values[t])
     result[last] = rewards[last] + pcontinues[last]*state_values[last]
+    ```
 
     This operation evaluates multistep returns where lambda_ parameter controls
     mixing between full returns and boostrapping. It is users responsibility

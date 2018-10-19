@@ -48,21 +48,21 @@ def qlearning(q_tm1, a_tm1, r_t, pcont_t, q_t, name="QLearning"):
 
   Args:
     q_tm1: Tensor holding Q-values for first timestep in a batch of
-      transitions, shape [B x num_actions].
-    a_tm1: Tensor holding action indices, shape [B].
-    r_t: Tensor holding rewards, shape [B].
-    pcont_t: Tensor holding pcontinue values, shape [B].
+      transitions, shape `[B x num_actions]`.
+    a_tm1: Tensor holding action indices, shape `[B]`.
+    r_t: Tensor holding rewards, shape `[B]`.
+    pcont_t: Tensor holding pcontinue values, shape `[B]`.
     q_t: Tensor holding Q-values for second timestep in a batch of
-      transitions, shape [B x num_actions].
+      transitions, shape `[B x num_actions]`.
     name: name to prefix ops created within this op.
 
   Returns:
     A namedtuple with fields:
 
-    * `loss`: a tensor containing the batch of losses, shape [B].
+    * `loss`: a tensor containing the batch of losses, shape `[B]`.
     * `extra`: a namedtuple with fields:
-        * `target`: batch of target values for `q_tm1[a_tm1]`, shape [B].
-        * `td_error`: batch of temporal difference errors, shape [B].
+        * `target`: batch of target values for `q_tm1[a_tm1]`, shape `[B]`.
+        * `td_error`: batch of temporal difference errors, shape `[B]`.
   """
   # Rank and compatibility checks.
   base_ops.wrap_rank_shape_assert(
@@ -97,24 +97,24 @@ def double_qlearning(
 
   Args:
     q_tm1: Tensor holding Q-values for first timestep in a batch of
-      transitions, shape [B x num_actions].
-    a_tm1: Tensor holding action indices, shape [B].
-    r_t: Tensor holding rewards, shape [B].
-    pcont_t: Tensor holding pcontinue values, shape [B].
+      transitions, shape `[B x num_actions]`.
+    a_tm1: Tensor holding action indices, shape `[B]`.
+    r_t: Tensor holding rewards, shape `[B]`.
+    pcont_t: Tensor holding pcontinue values, shape `[B]`.
     q_t_value: Tensor of Q-values for second timestep in a batch of transitions,
-      used to estimate the value of the best action, shape [B x num_actions].
+      used to estimate the value of the best action, shape `[B x num_actions]`.
     q_t_selector: Tensor of Q-values for second timestep in a batch of
-      transitions used to estimate the best action, shape [B x num_actions].
+      transitions used to estimate the best action, shape `[B x num_actions]`.
     name: name to prefix ops created within this op.
 
   Returns:
     A namedtuple with fields:
 
-    * `loss`: a tensor containing the batch of losses, shape [B].
+    * `loss`: a tensor containing the batch of losses, shape `[B]`.
     * `extra`: a namedtuple with fields:
-        * `target`: batch of target values for `q_tm1[a_tm1]`, shape [B]
-        * `td_error`: batch of temporal difference errors, shape [B]
-        * `best_action`: batch of greedy actions wrt `q_t_selector`, shape [B]
+        * `target`: batch of target values for `q_tm1[a_tm1]`, shape `[B]`
+        * `td_error`: batch of temporal difference errors, shape `[B]`
+        * `best_action`: batch of greedy actions wrt `q_t_selector`, shape `[B]`
   """
   # Rank and compatibility checks.
   base_ops.wrap_rank_shape_assert(
@@ -151,12 +151,12 @@ def persistent_qlearning(
 
   Args:
     q_tm1: Tensor holding Q-values for first timestep in a batch of
-      transitions, shape [B x num_actions].
-    a_tm1: Tensor holding action indices, shape [B].
-    r_t: Tensor holding rewards, shape [B].
-    pcont_t: Tensor holding pcontinue values, shape [B].
+      transitions, shape `[B x num_actions]`.
+    a_tm1: Tensor holding action indices, shape `[B]`.
+    r_t: Tensor holding rewards, shape `[B]`.
+    pcont_t: Tensor holding pcontinue values, shape `[B]`.
     q_t: Tensor holding Q-values for second timestep in a batch of
-      transitions, shape [B x num_actions].
+      transitions, shape `[B x num_actions]`.
       These values are used for estimating the value of the best action. In
       DQN they come from the target network.
     action_gap_scale: coefficient in [0, 1] for scaling the action gap term.
@@ -165,10 +165,10 @@ def persistent_qlearning(
   Returns:
     A namedtuple with fields:
 
-    * `loss`: a tensor containing the batch of losses, shape [B].
+    * `loss`: a tensor containing the batch of losses, shape `[B]`.
     * `extra`: a namedtuple with fields:
-        * `target`: batch of target values for `q_tm1[a_tm1]`, shape [B].
-        * `td_error`: batch of temporal difference errors, shape [B].
+        * `target`: batch of target values for `q_tm1[a_tm1]`, shape `[B]`.
+        * `td_error`: batch of temporal difference errors, shape `[B]`.
   """
   # Rank and compatibility checks.
   base_ops.wrap_rank_shape_assert(
@@ -204,22 +204,22 @@ def sarsa(q_tm1, a_tm1, r_t, pcont_t, q_t, a_t, name="Sarsa"):
 
   Args:
     q_tm1: Tensor holding Q-values for first timestep in a batch of
-      transitions, shape [B x num_actions].
-    a_tm1: Tensor holding action indices, shape [B].
-    r_t: Tensor holding rewards, shape [B].
-    pcont_t: Tensor holding pcontinue values, shape [B].
+      transitions, shape `[B x num_actions]`.
+    a_tm1: Tensor holding action indices, shape `[B]`.
+    r_t: Tensor holding rewards, shape `[B]`.
+    pcont_t: Tensor holding pcontinue values, shape `[B]`.
     q_t: Tensor holding Q-values for second timestep in a batch of
-      transitions, shape [B x num_actions].
-    a_t: Tensor holding action indices for second timestep, shape [B].
+      transitions, shape `[B x num_actions]`.
+    a_t: Tensor holding action indices for second timestep, shape `[B]`.
     name: name to prefix ops created within this op.
 
   Returns:
     A namedtuple with fields:
 
-    * `loss`: a tensor containing the batch of losses, shape [B].
+    * `loss`: a tensor containing the batch of losses, shape `[B]`.
     * `extra`: a namedtuple with fields:
-        * `target`: batch of target values for `q_tm1[a_tm1]`, shape [B].
-        * `td_error`: batch of temporal difference errors, shape [B].
+        * `target`: batch of target values for `q_tm1[a_tm1]`, shape `[B]`.
+        * `td_error`: batch of temporal difference errors, shape `[B]`.
   """
   # Rank and compatibility checks.
   base_ops.wrap_rank_shape_assert(
@@ -253,14 +253,14 @@ def sarse(
 
   Args:
     q_tm1: Tensor holding Q-values for first timestep in a batch of
-      transitions, shape [B x num_actions].
-    a_tm1: Tensor holding action indices, shape [B].
-    r_t: Tensor holding rewards, shape [B].
-    pcont_t: Tensor holding pcontinue values, shape [B].
+      transitions, shape `[B x num_actions]`.
+    a_tm1: Tensor holding action indices, shape `[B]`.
+    r_t: Tensor holding rewards, shape `[B]`.
+    pcont_t: Tensor holding pcontinue values, shape `[B]`.
     q_t: Tensor holding Q-values for second timestep in a batch of
-      transitions, shape [B x num_actions].
+      transitions, shape `[B x num_actions]`.
     probs_a_t: Tensor holding action probabilities for second timestep,
-      shape [B x num_actions].
+      shape `[B x num_actions]`.
     debug: Boolean flag, when set to True adds ops to check whether probs_a_t
       is a batch of (approximately) valid probability distributions.
     name: name to prefix ops created by this function.
@@ -268,10 +268,10 @@ def sarse(
   Returns:
     A namedtuple with fields:
 
-    * `loss`: a tensor containing the batch of losses, shape [B].
+    * `loss`: a tensor containing the batch of losses, shape `[B]`.
     * `extra`: a namedtuple with fields:
-        * `target`: batch of target values for `q_tm1[a_tm1]`, shape [B].
-        * `td_error`: batch of temporal difference errors, shape [B].
+        * `target`: batch of target values for `q_tm1[a_tm1]`, shape `[B]`.
+        * `td_error`: batch of temporal difference errors, shape `[B]`.
   """
   # Rank and compatibility checks.
   base_ops.wrap_rank_shape_assert(
