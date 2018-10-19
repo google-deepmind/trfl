@@ -1,0 +1,38 @@
+<!-- This file is machine generated: DO NOT EDIT! -->
+<!-- common_typos_disable -->
+<!--* freshness: { exempt: true } *-->
+
+* **[trfl](trfl.md)**:
+  * [`assert_rank_and_shape_compatibility`](trfl.md#assert_rank_and_shape_compatibility)
+  * [`batched_index`](trfl.md#batched_index)
+  * [`best_effort_shape`](trfl.md#best_effort_shape)
+  * [`categorical_dist_double_qlearning`](trfl.md#categorical_dist_double_qlearning)
+  * [`categorical_dist_qlearning`](trfl.md#categorical_dist_qlearning)
+  * [`categorical_dist_td_learning`](trfl.md#categorical_dist_td_learning)
+  * [`discrete_policy_entropy_loss`](trfl.md#discrete_policy_entropy_loss)
+  * [`discrete_policy_gradient`](trfl.md#discrete_policy_gradient)
+  * [`discrete_policy_gradient_loss`](trfl.md#discrete_policy_gradient_loss)
+  * [`double_qlearning`](trfl.md#double_qlearning)
+  * [`dpg`](trfl.md#dpg)
+  * [`generalized_lambda_returns`](trfl.md#generalized_lambda_returns)
+  * [`multistep_forward_view`](trfl.md#multistep_forward_view)
+  * [`persistent_qlearning`](trfl.md#persistent_qlearning)
+  * [`pixel_control_loss`](trfl.md#pixel_control_loss)
+  * [`pixel_control_rewards`](trfl.md#pixel_control_rewards)
+  * [`policy_entropy_loss`](trfl.md#policy_entropy_loss)
+  * [`policy_gradient`](trfl.md#policy_gradient)
+  * [`policy_gradient_loss`](trfl.md#policy_gradient_loss)
+  * [`qlambda`](trfl.md#qlambda)
+  * [`qlearning`](trfl.md#qlearning)
+  * [`retrace`](trfl.md#retrace)
+  * [`retrace_core`](trfl.md#retrace_core)
+  * [`sarsa`](trfl.md#sarsa)
+  * [`sarse`](trfl.md#sarse)
+  * [`scan_discounted_sum`](trfl.md#scan_discounted_sum)
+  * [`sequence_a2c_loss`](trfl.md#sequence_a2c_loss)
+  * [`sequence_advantage_actor_critic_loss`](trfl.md#sequence_advantage_actor_critic_loss)
+  * [`td_lambda`](trfl.md#td_lambda)
+  * [`td_learning`](trfl.md#td_learning)
+  * [`vtrace_from_importance_weights`](trfl.md#vtrace_from_importance_weights)
+  * [`vtrace_from_logits`](trfl.md#vtrace_from_logits)
+
