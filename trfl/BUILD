@@ -1,5 +1,7 @@
 licenses(["notice"])  # Apache 2.0 License
 
+package(default_visibility = ["//visibility:public"])
+
 exports_files([
     "LICENSE",
     "setup.py",
@@ -10,7 +12,6 @@ exports_files([
 py_library(
     name = "trfl",
     srcs = ["__init__.py"],
-    visibility = ["//visibility:public"],
     deps = [
         ":action_value_ops",
         ":base_ops",
