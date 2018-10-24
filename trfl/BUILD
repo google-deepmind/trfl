@@ -1,6 +1,6 @@
 licenses(["notice"])  # Apache 2.0 License
 
-package(default_visibility = ["//visibility:public"])
+package(default_visibility = [":__subpackages__"])
 
 exports_files([
     "LICENSE",
@@ -12,6 +12,7 @@ exports_files([
 py_library(
     name = "trfl",
     srcs = ["__init__.py"],
+    visibility = ["//visibility:public"],
     deps = [
         ":action_value_ops",
         ":base_ops",
@@ -31,6 +32,9 @@ py_library(
 py_library(
     name = "action_value_ops",
     srcs = ["action_value_ops.py"],
+    visibility = [
+        # visibility removed.
+    ],
     deps = [
         ":base_ops",
         ":indexing_ops",
@@ -51,6 +55,9 @@ py_library(
 py_library(
     name = "discrete_policy_gradient_ops",
     srcs = ["discrete_policy_gradient_ops.py"],
+    visibility = [
+        # visibility removed.
+    ],
     deps = [
         ":base_ops",
         ":value_ops",
@@ -71,6 +78,9 @@ py_library(
 py_library(
     name = "dpg_ops",
     srcs = ["dpg_ops.py"],
+    visibility = [
+        # visibility removed.
+    ],
     deps = [
         ":base_ops",
         # tensorflow dep,
@@ -80,6 +90,9 @@ py_library(
 py_library(
     name = "indexing_ops",
     srcs = ["indexing_ops.py"],
+    visibility = [
+        # visibility removed.
+    ],
     deps = [
         # tensorflow dep,
     ],
@@ -88,6 +101,9 @@ py_library(
 py_library(
     name = "pixel_control_ops",
     srcs = ["pixel_control_ops.py"],
+    visibility = [
+        # visibility removed.
+    ],
     deps = [
         ":action_value_ops",
         ":base_ops",
@@ -99,6 +115,9 @@ py_library(
 py_library(
     name = "policy_gradient_ops",
     srcs = ["policy_gradient_ops.py"],
+    visibility = [
+        # visibility removed.
+    ],
     deps = [
         ":base_ops",
         ":value_ops",
@@ -110,6 +129,9 @@ py_library(
 py_library(
     name = "retrace_ops",
     srcs = ["retrace_ops.py"],
+    visibility = [
+        # visibility removed.
+    ],
     deps = [
         ":base_ops",
         ":indexing_ops",
@@ -122,6 +144,9 @@ py_library(
 py_library(
     name = "sequence_ops",
     srcs = ["sequence_ops.py"],
+    visibility = [
+        # visibility removed.
+    ],
     deps = [
         # tensorflow dep,
     ],
@@ -130,6 +155,9 @@ py_library(
 py_library(
     name = "value_ops",
     srcs = ["value_ops.py"],
+    visibility = [
+        # visibility removed.
+    ],
     deps = [
         ":base_ops",
         ":sequence_ops",
