@@ -44,7 +44,7 @@ import trfl
 
 Define the relevant data associated to a `transition` in the environment from
 state `s_tm1` to state `s_t`. This typically includes action values (or other
-characterization of the agent's policy) in both the `sorce` and `destination`
+characterization of the agent's policy) in both the `source` and `destination`
 states. The action `a_tm1` is the one selected after observing `s_tm1`, and
 resulted in observing the immediate reward `r_t` and the subsequent state `s_t`.
 `pcont_t` represents a time dependent discount factor, or (equivalently) the
