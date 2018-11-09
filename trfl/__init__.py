@@ -31,6 +31,7 @@ from trfl.dist_value_ops import categorical_dist_qlearning
 from trfl.dist_value_ops import categorical_dist_td_learning
 from trfl.dpg_ops import dpg
 from trfl.indexing_ops import batched_index
+from trfl.periodic_ops import periodically
 from trfl.pixel_control_ops import pixel_control_loss
 from trfl.pixel_control_ops import pixel_control_rewards
 from trfl.policy_gradient_ops import policy_entropy_loss

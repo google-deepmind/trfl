@@ -122,7 +122,7 @@ Throughout the package, we use the following conventions:
         length. Tensors are time-major, and have shape `[T, B, ...]`. Index `0`
         of the time dimension is assumed to be the start of the sequence.
 
-## Implemented functions
+## Learning updates
 
 *   State Value learning:
 
@@ -179,12 +179,20 @@ Throughout the package, we use the following conventions:
     *   [vtrace_from_logits](trfl.md#vtrace_from_logitsbehaviour_policy_logits-target_policy_logits-actions-discounts-rewards-values-bootstrap_value-clip_rho_threshold10-clip_pg_rho_threshold10-namevtrace_from_logits)
     *   [vtrace_from_importance_weights](trfl.md#vtrace_from_importance_weightslog_rhos-discounts-rewards-values-bootstrap_value-clip_rho_threshold10-clip_pg_rho_threshold10-namevtrace_from_importance_weights)
 
-## Others
+## Other
 
 *   Sequence ops
 
     *   [scan_discounted_sum](trfl.md#scan_discounted_sumsequence-decay-initial_value-reversefalse-sequence_lengthsnone-back_proptrue-namescan_discounted_sum)
     *   [multistep_forward_view](trfl.md#multistep_forward_viewrewards-pcontinues-state_values-lambda_-back_proptrue-sequence_lengthsnone-namemultistep_forward_view_op)
+
+*   Indexing ops
+
+    *   [batched_index](trfl.md#batched_indexvalues-indices)
+
+*   Periodic execution ops
+
+    *   [periodically](trfl.md#periodicallybody-period-nameperiodically)
 
 ## More information
 

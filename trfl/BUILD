@@ -20,6 +20,7 @@ py_library(
         ":dist_value_ops",
         ":dpg_ops",
         ":indexing_ops",
+        ":periodic_ops",
         ":pixel_control_ops",
         ":policy_gradient_ops",
         ":retrace_ops",
@@ -90,6 +91,17 @@ py_library(
 py_library(
     name = "indexing_ops",
     srcs = ["indexing_ops.py"],
+    visibility = [
+        # visibility removed.
+    ],
+    deps = [
+        # tensorflow dep,
+    ],
+)
+
+py_library(
+    name = "periodic_ops",
+    srcs = ["periodic_ops.py"],
     visibility = [
         # visibility removed.
     ],
@@ -220,6 +232,15 @@ py_test(
     srcs = ["indexing_ops_test.py"],
     deps = [
         ":indexing_ops",
+        # tensorflow dep,
+    ],
+)
+
+py_test(
+    name = "periodic_ops_test",
+    srcs = ["periodic_ops_test.py"],
+    deps = [
+        ":periodic_ops",
         # tensorflow dep,
     ],
 )
