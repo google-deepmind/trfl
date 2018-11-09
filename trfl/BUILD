@@ -25,6 +25,7 @@ py_library(
         ":policy_gradient_ops",
         ":retrace_ops",
         ":sequence_ops",
+        ":target_update_ops",
         ":value_ops",
         ":vtrace_ops",
     ],
@@ -165,6 +166,18 @@ py_library(
 )
 
 py_library(
+    name = "target_update_ops",
+    srcs = ["target_update_ops.py"],
+    visibility = [
+        # visibility removed.
+    ],
+    deps = [
+        ":periodic_ops",
+        # tensorflow dep,
+    ],
+)
+
+py_library(
     name = "value_ops",
     srcs = ["value_ops.py"],
     visibility = [
@@ -286,6 +299,16 @@ py_test(
         ":sequence_ops",
         # numpy dep,
         # six dep,
+        # tensorflow dep,
+    ],
+)
+
+py_test(
+    name = "target_update_ops_test",
+    srcs = ["target_update_ops_test.py"],
+    deps = [
+        ":target_update_ops",
+        # absl/testing:parameterized dep,
         # tensorflow dep,
     ],
 )

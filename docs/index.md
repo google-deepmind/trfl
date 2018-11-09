@@ -174,6 +174,11 @@ Throughout the package, we use the following conventions:
     *   [retrace](trfl.md#retracelambda_-qs-targnet_qs-actions-rewards-pcontinues-target_policy_probs-behaviour_policy_probs-stop_targnet_gradientstrue-namenone)
     *   [retrace_core](trfl.md#retrace_corelambda_-q_tm1-a_tm1-r_t-pcont_t-target_policy_t-behaviour_policy_t-targnet_q_t-a_t-stop_targnet_gradientstrue-namenone)
 
+*   Target Network Updating:
+
+    *   [update_target_variables](trfl.md#update_target_variablestarget_variables-source_variables-tau10-use_lockingfalse-nameupdate_target_variables)
+    *   [periodic_target_update](trfl.md#periodic_target_updatetarget_variables-source_variables-update_period-tau10,use_lockingfalse-nameperiodic_target_update)
+
 *   V-trace:
 
     *   [vtrace_from_logits](trfl.md#vtrace_from_logitsbehaviour_policy_logits-target_policy_logits-actions-discounts-rewards-values-bootstrap_value-clip_rho_threshold10-clip_pg_rho_threshold10-namevtrace_from_logits)
