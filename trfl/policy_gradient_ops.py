@@ -39,7 +39,7 @@ def policy_gradient(policies, actions, action_values, policy_vars=None,
                     name="policy_gradient"):
   """Computes policy gradient losses for a batch of trajectories.
 
-  See policy_gradient_loss for more information on expected inputs and usage.
+  See `policy_gradient_loss` for more information on expected inputs and usage.
 
   Args:
     policies: A distribution over a batch supporting a `log_prob` method, e.g.

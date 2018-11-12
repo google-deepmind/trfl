@@ -138,10 +138,8 @@ def sequence_advantage_actor_critic_loss(
 
   Args:
     policy_logits: A (possibly nested structure of) 3-D Tensor(s) with shape
-        `[T, B, num_actions]` and possibly non-identical values
-        of `num_actions`.
-    baseline_values: 2-D Tensor containing an estimate of the state value
-        `[T, B]`.
+        `[T, B, num_actions]` and possibly different dimension `num_actions`.
+    baseline_values: 2-D Tensor containing an estimate of state values `[T, B]`.
     actions: A (possibly nested structure of) 2-D Tensor(s) with shape
         `[T, B]` and integer type.
     rewards: 2-D Tensor with shape `[T, B]`.
