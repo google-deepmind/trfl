@@ -186,6 +186,10 @@ Throughout the package, we use the following conventions:
 
 ## Other
 
+*   Clipping ops
+
+    *   [huber_loss](trfl.md#huber_lossinput_tensor-quadratic_linear_boundary-namenone)
+
 *   Sequence ops
 
     *   [scan_discounted_sum](trfl.md#scan_discounted_sumsequence-decay-initial_value-reversefalse-sequence_lengthsnone-back_proptrue-namescan_discounted_sum)

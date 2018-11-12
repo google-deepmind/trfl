@@ -22,6 +22,7 @@ from trfl.action_value_ops import sarsa
 from trfl.action_value_ops import sarse
 from trfl.base_ops import assert_rank_and_shape_compatibility
 from trfl.base_ops import best_effort_shape
+from trfl.clipping_ops import huber_loss
 from trfl.discrete_policy_gradient_ops import discrete_policy_entropy_loss
 from trfl.discrete_policy_gradient_ops import discrete_policy_gradient
 from trfl.discrete_policy_gradient_ops import discrete_policy_gradient_loss

@@ -16,6 +16,7 @@ py_library(
     deps = [
         ":action_value_ops",
         ":base_ops",
+        ":clipping_ops",
         ":discrete_policy_gradient_ops",
         ":dist_value_ops",
         ":dpg_ops",
@@ -50,6 +51,14 @@ py_library(
     srcs = ["base_ops.py"],
     deps = [
         # six dep,
+        # tensorflow dep,
+    ],
+)
+
+py_library(
+    name = "clipping_ops",
+    srcs = ["clipping_ops.py"],
+    deps = [
         # tensorflow dep,
     ],
 )
@@ -203,6 +212,16 @@ py_test(
     srcs = ["action_value_ops_test.py"],
     deps = [
         ":action_value_ops",
+        # numpy dep,
+        # tensorflow dep,
+    ],
+)
+
+py_test(
+    name = "clipping_ops_test",
+    srcs = ["clipping_ops_test.py"],
+    deps = [
+        ":clipping_ops",
         # numpy dep,
         # tensorflow dep,
     ],
