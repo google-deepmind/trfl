@@ -245,7 +245,7 @@ H is the Shannon entropy.
       * `entropy`: Entropy of the policy, shape `[B]`.
 
 
-### [`discrete_policy_gradient(policy_logits, actions, action_values, name='discrete_policy_gradient')`](https://github.com/deepmind/trfl/blob/master/trfl/discrete_policy_gradient_ops.py?l=223)<!-- RULE: discrete_policy_gradient .code-reference -->
+### [`discrete_policy_gradient(policy_logits, actions, action_values, name='discrete_policy_gradient')`](https://github.com/deepmind/trfl/blob/master/trfl/discrete_policy_gradient_ops.py?l=221)<!-- RULE: discrete_policy_gradient .code-reference -->
 
 Computes a batch of discrete-action policy gradient losses.
 
@@ -298,7 +298,7 @@ having matching sizes for each batch dimension.
       do not match.
 
 
-### [`discrete_policy_gradient_loss(policy_logits, actions, action_values, name='discrete_policy_gradient_loss')`](https://github.com/deepmind/trfl/blob/master/trfl/discrete_policy_gradient_ops.py?l=279)<!-- RULE: discrete_policy_gradient_loss .code-reference -->
+### [`discrete_policy_gradient_loss(policy_logits, actions, action_values, name='discrete_policy_gradient_loss')`](https://github.com/deepmind/trfl/blob/master/trfl/discrete_policy_gradient_ops.py?l=277)<!-- RULE: discrete_policy_gradient_loss .code-reference -->
 
 Computes discrete policy gradient losses for a batch of trajectories.
 
@@ -365,8 +365,11 @@ See "Double Q-learning" by van Hasselt.
 
 Implements the Deterministic Policy Gradient (DPG) loss as a TensorFlow Op.
 
-See "Continuous control with deep reinforcement learning" by Lillicrap, Hunt,
-Pritzel, Heess et al. (http://arxiv.org/pdf/1509.02971v5.pdf).
+This op implements the loss for the `actor`, the `critic` can instead be
+updated by minimizing the `value_ops.td_learning` loss.
+
+See "Deterministic Policy Gradient Algorithms" by Silver, Lever, Heess,
+Degris, Wierstra, Riedmiller (http://proceedings.mlr.press/v32/silver14.pdf).
 
 ##### Args:
 
@@ -449,6 +452,41 @@ the baseline value function loss in A3C / GAE.
   2-D Tensor with shape `[T, B]`
 
 
+### [`huber_loss(input_tensor, quadratic_linear_boundary, name=None)`](https://github.com/deepmind/trfl/blob/master/trfl/clipping_ops.py?l=25)<!-- RULE: huber_loss .code-reference -->
+
+Calculates huber loss of `input_tensor`.
+
+For each value x in `input_tensor`, the following is calculated:
+
+```
+  0.5 * x^2                  if |x| <= d
+  0.5 * d^2 + d * (|x| - d)  if |x| > d
+```
+
+where d is `quadratic_linear_boundary`.
+
+When `input_tensor` is a loss this results in a form of gradient clipping.
+This is, for instance, how gradients are clipped in DQN and its variants.
+
+##### Args:
+
+
+* `input_tensor`: `Tensor`, input values to calculate the huber loss on.
+* `quadratic_linear_boundary`: `float`, the point where the huber loss function
+    changes from a quadratic to linear.
+* `name`: `string`, name for the operation (optional).
+
+##### Returns:
+
+  `Tensor` of the same shape as `input_tensor`, containing values calculated
+  in the manner described above.
+
+##### Raises:
+
+
+* `ValueError`: if quadratic_linear_boundary <= 0.
+
+
 ### [`multistep_forward_view(rewards, pcontinues, state_values, lambda_, back_prop=True, sequence_lengths=None, name='multistep_forward_view_op')`](https://github.com/deepmind/trfl/blob/master/trfl/sequence_ops.py?l=124)<!-- RULE: multistep_forward_view .code-reference -->
 
 Evaluates complex backups (forward view of eligibility traces).
@@ -512,6 +550,67 @@ Evaluates complex backups (forward view of eligibility traces).
 ##### Returns:
 
     Tensor of shape `[T, B]` containing multistep returns.
+
+
+### [`periodic_target_update(target_variables, source_variables, update_period, tau=1.0, use_locking=False, name='periodic_target_update')`](https://github.com/deepmind/trfl/blob/master/trfl/target_update_ops.py?l=89)<!-- RULE: periodic_target_update .code-reference -->
+
+Returns an op to periodically update a list of target variables.
+
+The `update_target_variables` op is executed every `update_period`
+executions of the `periodic_target_update` op.
+
+The update rule is:
+`target_variable = (1 - tau) * target_variable + tau * source_variable`.
+
+##### Args:
+
+
+* `target_variables`: a list of the variables to be updated.
+* `source_variables`: a list of the variables used for the update.
+* `update_period`: inverse frequency with which to apply the update.
+* `tau`: weight used to gate the update. The permitted range is 0 < tau <= 1,
+    with small tau representing an incremental update, and tau == 1
+    representing a full update (that is, a straight copy).
+* `use_locking`: use `tf.variable.Assign`'s locking option when assigning
+    source variable values to target variables.
+* `name`: sets the `name_scope` for this op.
+
+##### Returns:
+
+  An op that periodically updates `target_variables` with `source_variables`.
+
+
+### [`periodically(body, period, name='periodically')`](https://github.com/deepmind/trfl/blob/master/trfl/periodic_ops.py?l=33)<!-- RULE: periodically .code-reference -->
+
+Periodically performs a tensorflow op.
+
+The body tensorflow op will be executed every `period` times the periodically
+op is executed. More specifically, with `n` the number of times the op has
+been executed, the body will be executed when `n` is a non zero positive
+multiple of `period` (i.e. there exist an integer `k > 0` such that
+`k * period == n`).
+
+If `period` is 0 or `None`, it would not perform any op and would return a
+`tf.no_op()`.
+
+##### Args:
+
+
+* `body`: callable that returns the tensorflow op to be performed every time
+    an internal counter is divisible by the period. The op must have no
+    output (for example, a tf.group()).
+* `period`: inverse frequency with which to perform the op.
+* `name`: name of the variable_scope.
+
+##### Raises:
+
+
+* `TypeError`: if body is not a callable.
+* `ValueError`: if period is negative.
+
+##### Returns:
+
+  An op that periodically performs the specified op.
 
 
 ### [`persistent_qlearning(q_tm1, a_tm1, r_t, pcont_t, q_t, action_gap_scale=0.5, name='PersistentQLearning')`](https://github.com/deepmind/trfl/blob/master/trfl/action_value_ops.py?l=142)<!-- RULE: persistent_qlearning .code-reference -->
@@ -685,7 +784,7 @@ Categorical distribution in the `policies` nest).
 
 Computes policy gradient losses for a batch of trajectories.
 
-See policy_gradient_loss for more information on expected inputs and usage.
+See `policy_gradient_loss` for more information on expected inputs and usage.
 
 ##### Args:
 
@@ -1234,10 +1333,8 @@ each timestep.
 
 
 * `policy_logits`: A (possibly nested structure of) 3-D Tensor(s) with shape
-      `[T, B, num_actions]` and possibly non-identical values
-      of `num_actions`.
-* `baseline_values`: 2-D Tensor containing an estimate of the state value
-      `[T, B]`.
+      `[T, B, num_actions]` and possibly different dimension `num_actions`.
+* `baseline_values`: 2-D Tensor containing an estimate of state values `[T, B]`.
 * `actions`: A (possibly nested structure of) 2-D Tensor(s) with shape
       `[T, B]` and integer type.
 * `rewards`: 2-D Tensor with shape `[T, B]`.
@@ -1349,6 +1446,37 @@ See "Learning to Predict by the Methods of Temporal Differences" by Sutton.
   * `extra`: a namedtuple with fields:
       * `target`: batch of target values for `v_tm1`, shape `[B]`.
       * `td_error`: batch of temporal difference errors, shape `[B]`.
+
+
+### [`update_target_variables(target_variables, source_variables, tau=1.0, use_locking=False, name='update_target_variables')`](https://github.com/deepmind/trfl/blob/master/trfl/target_update_ops.py?l=32)<!-- RULE: update_target_variables .code-reference -->
+
+Returns an op to update a list of target variables from source variables.
+
+The update rule is:
+`target_variable = (1 - tau) * target_variable + tau * source_variable`.
+
+##### Args:
+
+
+* `target_variables`: a list of the variables to be updated.
+* `source_variables`: a list of the variables used for the update.
+* `tau`: weight used to gate the update. The permitted range is 0 < tau <= 1,
+    with small tau representing an incremental update, and tau == 1
+    representing a full update (that is, a straight copy).
+* `use_locking`: use `tf.Variable.assign`'s locking option when assigning
+    source variable values to target variables.
+* `name`: sets the `name_scope` for this op.
+
+##### Raises:
+
+
+* `TypeError`: when tau is not a Python float
+* `ValueError`: when tau is out of range, or the source and target variables
+    have different numbers or shapes.
+
+##### Returns:
+
+  An op that executes all the variable updates.
 
 
 ### [`vtrace_from_importance_weights(log_rhos, discounts, rewards, values, bootstrap_value, clip_rho_threshold=1.0, clip_pg_rho_threshold=1.0, name='vtrace_from_importance_weights')`](https://github.com/deepmind/trfl/blob/master/trfl/vtrace_ops.py?l=155)<!-- RULE: vtrace_from_importance_weights .code-reference -->
