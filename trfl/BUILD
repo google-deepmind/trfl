@@ -84,11 +84,9 @@ cc_library(
     hdrs = ["cc/distribution_ops.h"],
     visibility = ["//visibility:private"],
     deps = [
-        "//base",
         "//third_party/absl/strings",
         "//third_party/tensorflow/core:framework",
         "//third_party/tensorflow/core:lib",
-        "//util/gtl:array_slice",
     ],
     alwayslink = 1,
 )
