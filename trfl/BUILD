@@ -8,6 +8,7 @@ exports_files([
 ])
 
 # Placeholder for internal Python version compatibility macro.
+load("//third_party/tensorflow:tensorflow.bzl", "tf_gen_op_wrapper_py")
 
 py_library(
     name = "trfl",
@@ -77,11 +78,53 @@ py_library(
     ],
 )
 
+cc_library(
+    name = "distribution_ops_cc",
+    srcs = ["cc/distribution_ops.cc"],
+    hdrs = ["cc/distribution_ops.h"],
+    visibility = ["//visibility:private"],
+    deps = [
+        "//base",
+        "//third_party/absl/strings",
+        "//third_party/tensorflow/core:framework",
+        "//third_party/tensorflow/core:lib",
+        "//util/gtl:array_slice",
+    ],
+    alwayslink = 1,
+)
+
+tf_gen_op_wrapper_py(
+    name = "gen_distribution_ops",
+    out = "gen_distribution_ops.py",
+    visibility = ["//visibility:private"],
+    deps = [":distribution_ops_cc"],
+)
+
+py_library(
+    name = "distribution_ops",
+    srcs = [
+        "distribution_ops.py",
+    ],
+    visibility = [
+        # visibility removed.
+    ],
+    deps = [
+        ":distribution_ops_cc",
+        ":gen_distribution_ops",
+        # tensorflow dep,
+        # tensorflow_probability dep,
+    ],
+)
+
 py_library(
     name = "dist_value_ops",
     srcs = ["dist_value_ops.py"],
+    visibility = [
+        # visibility removed.
+    ],
     deps = [
         ":base_ops",
+        ":distribution_ops",
         # tensorflow dep,
     ],
 )
@@ -236,6 +279,18 @@ py_test(
         # numpy dep,
         # six dep,
         # tensorflow dep,
+    ],
+)
+
+py_test(
+    name = "distribution_ops_test",
+    srcs = ["distribution_ops_test.py"],
+    deps = [
+        ":distribution_ops",
+        # absl/testing:parameterized dep,
+        # numpy dep,
+        # tensorflow dep,
+        # tensorflow_probability dep,
     ],
 )
 
