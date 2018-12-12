@@ -1,3 +1,6 @@
+# Placeholder for internal Python version compatibility macro.
+load(":trfl.bzl", "gen_op_wrapper_py")
+
 licenses(["notice"])  # Apache 2.0 License
 
 package(default_visibility = [":__subpackages__"])
@@ -6,9 +9,6 @@ exports_files([
     "LICENSE",
     "setup.py",
 ])
-
-# Placeholder for internal Python version compatibility macro.
-load("//third_party/tensorflow:tensorflow.bzl", "tf_gen_op_wrapper_py")
 
 py_library(
     name = "trfl",
@@ -78,24 +78,19 @@ py_library(
     ],
 )
 
-cc_library(
-    name = "distribution_ops_cc",
-    srcs = ["cc/distribution_ops.cc"],
-    hdrs = ["cc/distribution_ops.h"],
-    visibility = ["//visibility:private"],
-    deps = [
-        "//third_party/absl/strings",
-        "//third_party/tensorflow/core:framework",
-        "//third_party/tensorflow/core:lib",
-    ],
-    alwayslink = 1,
-)
-
-tf_gen_op_wrapper_py(
+gen_op_wrapper_py(
     name = "gen_distribution_ops",
+    srcs = [
+        "cc/distribution_ops.cc",
+    ],
     out = "gen_distribution_ops.py",
+    hdrs = [
+        "cc/distribution_ops.h",
+    ],
+    op_whitelist = [
+        "ProjectDistribution",
+    ],
     visibility = ["//visibility:private"],
-    deps = [":distribution_ops_cc"],
 )
 
 py_library(
@@ -107,7 +102,6 @@ py_library(
         # visibility removed.
     ],
     deps = [
-        ":distribution_ops_cc",
         ":gen_distribution_ops",
         # tensorflow dep,
         # tensorflow_probability dep,

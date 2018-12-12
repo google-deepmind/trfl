@@ -16,6 +16,7 @@ limitations under the License.
 #define TRFL_CC_DISTRIBUTION_OPS_H_
 
 #include <algorithm>
+#include <cstdint>
 #include <functional>
 #include <map>
 #include <memory>
@@ -23,7 +24,6 @@ limitations under the License.
 #include <utility>
 #include <vector>
 
-#include "third_party/absl/strings/string_view.h"
 #include "tensorflow/core/framework/op_kernel.h"
 #include "tensorflow/core/framework/resource_mgr.h"
 #include "tensorflow/core/framework/tensor_types.h"

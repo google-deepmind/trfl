@@ -64,7 +64,10 @@ tensorflow::Status MergeWithBroadcastStatic(
 //   out: the resulting dimension.
 // Returns:
 //   error code if dimensions are incompatible.
-tensorflow::Status MergeWithBroadcastDynamic(int64 d0, int64 d1, int64* out) {
+tensorflow::Status MergeWithBroadcastDynamic(
+    int64_t d0,
+    int64_t d1,
+    int64_t* out) {
   if ((d0 == d1) || (d1 == 1)) {
     *out = d0;
     return tensorflow::Status::OK();
@@ -113,10 +116,10 @@ tensorflow::Status ProjectDistributionShapeFn(
   }
 
   // Make sure ranks are consistent.
-  const int32 rank_s1 = c->Rank(shape_s1);
-  const int32 rank_s2 = c->Rank(shape_s2);
-  const int32 rank_p = c->Rank(shape_p);
-  const int32 rank_m = c->Rank(shape_m);
+  const int32_t rank_s1 = c->Rank(shape_s1);
+  const int32_t rank_s2 = c->Rank(shape_s2);
+  const int32_t rank_p = c->Rank(shape_p);
+  const int32_t rank_m = c->Rank(shape_m);
   bool eq_rank_s1_and_p = (rank_s1 == rank_p);
   bool eq_rank_s2_and_p = (rank_s2 == rank_p);
   if (!(rank_s1 == 1 || eq_rank_s1_and_p)) {
@@ -173,30 +176,30 @@ template <typename T>
 class PermutedRow {
  public:
   PermutedRow(typename tensorflow::TTypes<T, 2>::Tensor* tensor_2d,
-              int64 row, std::vector<int64>* permutation, int64 size) :
+              int64_t row, std::vector<int64_t>* permutation, int64_t size) :
               tensor_2d_(tensor_2d), row_(row), permutation_(permutation),
               size_(size) {}
-  inline T& operator()(int64 column) {
+  inline T& operator()(int64_t column) {
     if (permutation_->empty()) {
       return (*tensor_2d_)(row_, column);
     }
     return (*tensor_2d_)(row_, (*permutation_)[column]);
   }
-  inline T& operator()(int64 column, bool backwards) {
+  inline T& operator()(int64_t column, bool backwards) {
     if (backwards) {
       column = size_ - column - 1;
     }
     return (*this)(column);
   }
-  inline int64 size() {
+  inline int64_t size() {
     return size_;
   }
 
  private:
   typename tensorflow::TTypes<T, 2>::Tensor* tensor_2d_;
-  int64 row_;
-  std::vector<int64>* permutation_;
-  int64 size_;
+  int64_t row_;
+  std::vector<int64_t>* permutation_;
+  int64_t size_;
 };
 
 // Updates the current stride and index which are used to evaluate
@@ -208,10 +211,10 @@ class PermutedRow {
 //       product of all the higher dimensions than the current one;
 //   flat_index: current row in the flat 2D input tensor.
 // The function updates stride and flat_index.
-void UpdateStrideAndIndex(int64 dim_size,
-                          int64 dim_index,
-                          int64* stride,
-                          int64* flat_index) {
+void UpdateStrideAndIndex(int64_t dim_size,
+                          int64_t dim_index,
+                          int64_t* stride,
+                          int64_t* flat_index) {
   if (dim_size > 1) {
     *flat_index += (*stride * dim_index);
     *stride *= dim_size;
@@ -224,9 +227,9 @@ void UpdateStrideAndIndex(int64 dim_size,
 // The function is O(n) when the support vector is monotonically
 // increasing and is O(n*ln(n)) otherwise.
 void Argsort(
-    std::vector<int64>* permutation,
+    std::vector<int64_t>* permutation,
     const tensorflow::TTypes<const float, 2>::Tensor & support,
-    int64 row, int64 bins) {
+    int64_t row, int64_t bins) {
   // At first we check if the support is already monotonically increasing.
   // This helps to speed up the algorithm to O(n) in those cases.
   bool monotonically_increasing = true;
@@ -274,17 +277,17 @@ inline void RowL2Project(
     PermutedRow<const float>* new_support_1d,
     PermutedRow<float>* output_1d) {
   // At this stage all supports are monotonically increasing.
-  int64 bins1 = support_1d->size();
-  int64 bins2 = new_support_1d->size();
-  int64 target_bin = 0;
+  int64_t bins1 = support_1d->size();
+  int64_t bins2 = new_support_1d->size();
+  int64_t target_bin = 0;
   float first_ge_value = (*new_support_1d)(0);
   // Zero the output tensor.
-  for (int64 bin = 0; bin < bins2; bin++) {
+  for (int64_t bin = 0; bin < bins2; bin++) {
     (*output_1d)(bin) = 0;
   }
   // Finally, for a given row we go through all input bins and
   // monotonically find respective output bins.
-  for (int64 bin = 0; bin < bins1; bin++) {
+  for (int64_t bin = 0; bin < bins1; bin++) {
     float weight = (*weights_1d)(bin);
     if (weight == 0) {
       continue;
@@ -328,11 +331,11 @@ inline void RowHardCumulativeProject(
     PermutedRow<float>* output_1d,
     bool reverse) {
   // At this stage all supports are monotonically increasing.
-  int64 bins1 = support_1d->size();
-  int64 bins2 = new_support_1d->size();
+  int64_t bins1 = support_1d->size();
+  int64_t bins2 = new_support_1d->size();
   float sumw_less = 0.0;
-  int64 bin_old = 0;
-  int64 bin_new = 0;
+  int64_t bin_old = 0;
+  int64_t bin_new = 0;
   auto less = [reverse] (float a, float b, bool reverese) {
     return reverse ? b < a : a < b;
   };
@@ -427,7 +430,7 @@ void ProjectDistribution::Compute(tensorflow::OpKernelContext* context) {
           "Rank of method must be 0"));
   tensorflow::TensorShape output_shape;
   for (int r = 0; r < rank_p - 1; r++)   {
-    int64 d0 = shape_p.dim_size(r);
+    int64_t d0 = shape_p.dim_size(r);
     if (eq_rank_s1_and_p) {
       OP_REQUIRES_OK(context,
           MergeWithBroadcastDynamic(d0, shape_s1.dim_size(r), &d0));
@@ -463,36 +466,36 @@ void ProjectDistribution::Compute(tensorflow::OpKernelContext* context) {
   // We define a callback in order to parallelize the op.
   auto DoWork = [method_id, rank_p, &shape_s1, &shape_s2, &shape_p,
                  &output_shape, &support_2d, &weights_2d, &new_support_2d,
-                 &output_2d](int64 start_row, int64 limit_row) {
-    int64 bins1 = shape_s1.dim_size(shape_s1.dims() - 1);
-    int64 bins2 = shape_s2.dim_size(shape_s2.dims() - 1);
+                 &output_2d](int64_t start_row, int64_t limit_row) {
+    int64_t bins1 = shape_s1.dim_size(shape_s1.dims() - 1);
+    int64_t bins2 = shape_s2.dim_size(shape_s2.dims() - 1);
     // Define permutation vectors for the cases when bins are not
     // monotonically increasing. In this case the algorithm's complexity
     // will increase from O(n) to O(n*ln(n)) due to sorting.
     // Note that empty vectors do not have any heap presence, so allocation
     // cost will only be served when at least one non-monotonic support is
     // found.
-    std::vector<int64> permutation_1;
-    std::vector<int64> permutation_2;
-    for (int64 row = start_row; row < limit_row; row++) {
+    std::vector<int64_t> permutation_1;
+    std::vector<int64_t> permutation_2;
+    for (int64_t row = start_row; row < limit_row; row++) {
       // Convert flat output row indixes into flat source indices by taking
       // into the account broadcasting. This is done by expanding flat output
       // rows into multi-dimensional indices, and computing respective flat
       // row indices for input tensors. Any dimension of size 1 is broadcasted
       // with the exception of the last dimension representing bins.
-      int64 index = row;
-      int64 stride_p = 1;
-      int64 stride_s1 = 1;
-      int64 stride_s2 = 1;
-      int64 index_p = 0;
-      int64 index_s1 = 0;
-      int64 index_s2 = 0;
+      int64_t index = row;
+      int64_t stride_p = 1;
+      int64_t stride_s1 = 1;
+      int64_t stride_s2 = 1;
+      int64_t index_p = 0;
+      int64_t index_s1 = 0;
+      int64_t index_s2 = 0;
 
       // Ignore the last dimension as it contains bins and can not be
       // broadcasted over.
       for (int d = rank_p - 2; d >= 0; d--) {
-        int64 current_dim_size = output_shape.dim_size(d);
-        int64 current_dim_index = index % current_dim_size;
+        int64_t current_dim_size = output_shape.dim_size(d);
+        int64_t current_dim_index = index % current_dim_size;
         index /= current_dim_size;
         UpdateStrideAndIndex(shape_p.dim_size(d), current_dim_index,
             &stride_p, &index_p);
@@ -537,8 +540,9 @@ void ProjectDistribution::Compute(tensorflow::OpKernelContext* context) {
   // Note that it is better to underestimate the values slightly than to
   // overestimate as the later could lead to an excessive thread congestion.
   // For this reason the estimate is produced for the simplest linear case.
-  const int64 sum_bins = support_2d.dimension(1) + new_support_2d.dimension(1);
-  const int64 cost = 40 * sum_bins + 16 * rank_p;
+  const int64_t sum_bins = (support_2d.dimension(1) +
+                            new_support_2d.dimension(1));
+  const int64_t cost = 40 * sum_bins + 16 * rank_p;
   tensorflow::Shard(worker_threads.num_threads, worker_threads.workers,
       output_2d.dimension(0), cost, DoWork);
 }
