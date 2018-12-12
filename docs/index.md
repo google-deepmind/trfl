@@ -190,10 +190,11 @@ Throughout the package, we use the following conventions:
 
     *   [huber_loss](trfl.md#huber_lossinput_tensor-quadratic_linear_boundary-namenone)
 
-*   Sequence ops
+*   Distributions
 
-    *   [scan_discounted_sum](trfl.md#scan_discounted_sumsequence-decay-initial_value-reversefalse-sequence_lengthsnone-back_proptrue-namescan_discounted_sum)
-    *   [multistep_forward_view](trfl.md#multistep_forward_viewrewards-pcontinues-state_values-lambda_-back_proptrue-sequence_lengthsnone-namemultistep_forward_view_op)
+    *   [l2_project](trfl.md#l2_projectsupport-weights-new_support)
+    *   [hard_cumulative_project](trfl.md#hard_cumulative_projectsupport-weights-new_support-reverse)
+    *   [factorised_kl_gaussian](trfl.md#factorised_kl_gaussiandist1_mean-dist1_covariance_or_scale-dist2_mean-dist2_covariance_or_scale-both_diagonalfalse)
 
 *   Indexing ops
 
@@ -202,6 +203,11 @@ Throughout the package, we use the following conventions:
 *   Periodic execution ops
 
     *   [periodically](trfl.md#periodicallybody-period-nameperiodically)
+
+*   Sequence ops
+
+    *   [scan_discounted_sum](trfl.md#scan_discounted_sumsequence-decay-initial_value-reversefalse-sequence_lengthsnone-back_proptrue-namescan_discounted_sum)
+    *   [multistep_forward_view](trfl.md#multistep_forward_viewrewards-pcontinues-state_values-lambda_-back_proptrue-sequence_lengthsnone-namemultistep_forward_view_op)
 
 ## More information
 

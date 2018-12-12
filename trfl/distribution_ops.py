@@ -34,10 +34,10 @@ def l2_project(support, weights, new_support):
   """Projects distribution (support, weights) onto new_support.
 
   Args:
-    support: Tensor defining support of a distribution(s). Must be of rank 1 or
-      of the same rank as `weights`. The size of the last dimension has to match
-      that of `weights`.
-    weights: Tensor defining weights on support points.
+    support: Tensor defining support of a categorical distribution(s). Must be
+      of rank 1 or of the same rank as `weights`. The size of the last dimension
+      has to match that of `weights`.
+    weights: Tensor defining weights on the support points.
     new_support: Tensor holding positions of a new support.
   Returns:
     Projection of (support, weights) onto the new_support.
@@ -47,15 +47,15 @@ def l2_project(support, weights, new_support):
 
 
 def hard_cumulative_project(support, weights, new_support, reverse):
-  """Produces a cumulative distribution on a new support.
+  """Produces a cumulative categorical distribution on a new support.
 
   Args:
-    support: Tensor defining support of a distribution(s). Must be of rank 1 or
-      of the same rank as `weights`. The size of the last dimension has to match
-      that of `weights`.
-    weights: Tensor defining weights on support points.
+    support: Tensor defining support of a categorical distribution(s). Must be
+      of rank 1 or of the same rank as `weights`. The size of the last dimension
+      has to match that of `weights`.
+    weights: Tensor defining weights on the support points.
     new_support: Tensor holding positions of a new support.
-    reverse: whether to evalute cumulative from the left or right.
+    reverse: Whether to evalute cumulative from the left or right.
   Returns:
     Cumulative distribution on the supplied support.
     The foolowing invariant is maintained across the last dimension:
@@ -106,11 +106,10 @@ def factorised_kl_gaussian(dist1_mean,
       A more efficient sparse computation path is used in this case. For all
       other cases, the full covariance matrix must be passed in.
     dist2_mean: The mean of the second Multivariate Gaussian distribution.
-    dist2_covariance_or_scale: The covariance or scale tensor, as for
-      `dist1_covariance_or_scale`.
-    both_diagonal: A `bool` to indicate whether both dist1 and dist2 are
-      diagonal matrices. A more efficient sparse computation is used in this
-      case.
+    dist2_covariance_or_scale: The covariance or scale tensor of the second
+      Multivariate Gaussian distribution, as for `dist1_covariance_or_scale`.
+    both_diagonal: A `bool` indicating that both dist1 and dist2 are diagonal
+      matrices. A more efficient sparse computation is used in this case.
 
   Returns:
     A tuple consisting of (`kl_mean`, `kl_cov`) which correspond to the mean and
