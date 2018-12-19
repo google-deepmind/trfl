@@ -82,7 +82,7 @@ Extract as much static shape information from a tensor as possible.
     statically-known number of dimensions.
 
 
-### [`categorical_dist_double_qlearning(atoms_tm1, logits_q_tm1, a_tm1, r_t, pcont_t, atoms_t, logits_q_t, q_t_selector, name='CategoricalDistDoubleQLearning')`](https://github.com/deepmind/trfl/blob/master/trfl/dist_value_ops.py?l=197)<!-- RULE: categorical_dist_double_qlearning .code-reference -->
+### [`categorical_dist_double_qlearning(atoms_tm1, logits_q_tm1, a_tm1, r_t, pcont_t, atoms_t, logits_q_t, q_t_selector, name='CategoricalDistDoubleQLearning')`](https://github.com/deepmind/trfl/blob/master/trfl/dist_value_ops.py?l=149)<!-- RULE: categorical_dist_double_qlearning .code-reference -->
 
 Implements Distributional Double Q-learning as TensorFlow ops.
 
@@ -128,7 +128,7 @@ Hessel, Modayil, van Hasselt, Schaul et al.
 * `ValueError`: If the tensors do not have the correct rank or compatibility.
 
 
-### [`categorical_dist_qlearning(atoms_tm1, logits_q_tm1, a_tm1, r_t, pcont_t, atoms_t, logits_q_t, name='CategoricalDistQLearning')`](https://github.com/deepmind/trfl/blob/master/trfl/dist_value_ops.py?l=122)<!-- RULE: categorical_dist_qlearning .code-reference -->
+### [`categorical_dist_qlearning(atoms_tm1, logits_q_tm1, a_tm1, r_t, pcont_t, atoms_t, logits_q_t, name='CategoricalDistQLearning')`](https://github.com/deepmind/trfl/blob/master/trfl/dist_value_ops.py?l=74)<!-- RULE: categorical_dist_qlearning .code-reference -->
 
 Implements Distributional Q-learning as TensorFlow ops.
 
@@ -168,7 +168,7 @@ Dabney and Munos. (https://arxiv.org/abs/1707.06887).
 * `ValueError`: If the tensors do not have the correct rank or compatibility.
 
 
-### [`categorical_dist_td_learning(atoms_tm1, logits_v_tm1, r_t, pcont_t, atoms_t, logits_v_t, name='CategoricalDistTDLearning')`](https://github.com/deepmind/trfl/blob/master/trfl/dist_value_ops.py?l=279)<!-- RULE: categorical_dist_td_learning .code-reference -->
+### [`categorical_dist_td_learning(atoms_tm1, logits_v_tm1, r_t, pcont_t, atoms_t, logits_v_t, name='CategoricalDistTDLearning')`](https://github.com/deepmind/trfl/blob/master/trfl/dist_value_ops.py?l=231)<!-- RULE: categorical_dist_td_learning .code-reference -->
 
 Implements Distributional TD-learning as TensorFlow ops.
 
