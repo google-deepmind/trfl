@@ -18,6 +18,7 @@ from trfl.action_value_ops import double_qlearning
 from trfl.action_value_ops import persistent_qlearning
 from trfl.action_value_ops import qlambda
 from trfl.action_value_ops import qlearning
+from trfl.action_value_ops import qv_learning
 from trfl.action_value_ops import sarsa
 from trfl.action_value_ops import sarse
 from trfl.base_ops import assert_rank_and_shape_compatibility
@@ -46,6 +47,7 @@ from trfl.sequence_ops import scan_discounted_sum
 from trfl.target_update_ops import periodic_target_update
 from trfl.target_update_ops import update_target_variables
 from trfl.value_ops import generalized_lambda_returns
+from trfl.value_ops import qv_max
 from trfl.value_ops import td_lambda
 from trfl.value_ops import td_learning
 from trfl.vtrace_ops import vtrace_from_importance_weights

@@ -178,5 +178,72 @@ class GeneralizedLambdaReturnsTest(parameterized.TestCase, tf.test.TestCase):
       self.assertAllClose(sess.run(discounted_returns), [[return0], [return1]])
 
 
+class QVMAXTest(tf.test.TestCase):
+  """Tests for the QVMAX loss."""
+
+  def setUp(self):
+    super(QVMAXTest, self).setUp()
+    self.v_tm1 = tf.constant([1, 1, 1, 1, 1, 1, 1, 1, 1], dtype=tf.float32)
+    self.pcont_t = tf.constant(
+        [0, 0.5, 1, 0, 0.5, 1, 0, 0.5, 1], dtype=tf.float32)
+    self.r_t = tf.constant(
+        [-1, -1, -1, -1, -1, -1, -1, -1, -1], dtype=tf.float32)
+    self.q_t = tf.constant(
+        [[0, -1], [-2, 0], [0, -3], [1, 0], [1, 1],
+         [0, 1], [1, 2], [2, -2], [2, 2]], dtype=tf.float32)
+    self.loss_op, self.extra_ops = value_ops.qv_max(
+        self.v_tm1, self.r_t, self.pcont_t, self.q_t)
+
+  def testRankCheck(self):
+    v_tm1 = tf.placeholder(tf.float32, [None, None])
+    with self.assertRaisesRegexp(
+        ValueError, 'QVMAX: Error in rank and/or compatibility check'):
+      value_ops.qv_max(v_tm1, self.r_t, self.pcont_t, self.q_t)
+
+  def testCompatibilityCheck(self):
+    pcont_t = tf.placeholder(tf.float32, [8])
+    with self.assertRaisesRegexp(
+        ValueError, 'QVMAX: Error in rank and/or compatibility check'):
+      value_ops.qv_max(self.v_tm1, self.r_t, pcont_t, self.q_t)
+
+  def testTarget(self):
+    """Tests that target value == r_t + pcont_t * max q_t."""
+    with self.test_session() as sess:
+      self.assertAllClose(
+          sess.run(self.extra_ops.target),
+          [-1, -1, -1, -1, -0.5, 0, -1, 0, 1])
+
+  def testTDError(self):
+    """Tests that td_error == target_value - v_tm1."""
+    with self.test_session() as sess:
+      self.assertAllClose(
+          sess.run(self.extra_ops.td_error),
+          [-2, -2, -2, -2, -1.5, -1, -2, -1, 0])
+
+  def testLoss(self):
+    """Tests that loss == 0.5 * td_error^2."""
+    with self.test_session() as sess:
+      # Loss is 0.5 * td_error^2
+      self.assertAllClose(
+          sess.run(self.loss_op),
+          [2, 2, 2, 2, 1.125, 0.5, 2, 0.5, 0])
+
+  def testGradVtm1(self):
+    """Tests that the gradients of negative loss are equal to the td_error."""
+    with self.test_session() as sess:
+      # Take gradients of the negative loss, so that the tests here check the
+      # values propagated during gradient _descent_, rather than _ascent_.
+      gradients = tf.gradients([-self.loss_op], [self.v_tm1])
+      grad_v_tm1 = sess.run(gradients[0])
+      self.assertAllClose(grad_v_tm1, [-2, -2, -2, -2, -1.5, -1, -2, -1, 0])
+
+  def testNoOtherGradients(self):
+    """Tests no gradient propagates through things other than v_tm1."""
+    # Gradients are only defined for v_tm1, not any other input.
+    gradients = tf.gradients([self.loss_op],
+                             [self.q_t, self.r_t, self.pcont_t])
+    self.assertEqual(gradients, [None] * len(gradients))
+
+
 if __name__ == '__main__':
   tf.test.main()

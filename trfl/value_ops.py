@@ -219,3 +219,44 @@ def td_lambda(state_values,
         loss, TDLambdaExtra(
             temporal_differences=temporal_differences,
             discounted_returns=discounted_returns))
+
+
+def qv_max(v_tm1, r_t, pcont_t, q_t, name="QVMAX"):
+  """Implements the QVMAX learning loss as a TensorFlow op.
+
+  The QVMAX loss is `0.5` times the squared difference between `v_tm1` and
+  the target `r_t + pcont_t * max q_t`, where `q_t` is separately learned
+  through QV learning (c.f. `action_value_ops.qv_learning`).
+
+  See "The QV Family Compared to Other Reinforcement Learning Algorithms" by
+  Wiering and van Hasselt (https://ieeexplore.ieee.org/document/4927532).
+
+  Args:
+    v_tm1: Tensor holding values at previous timestep, shape `[B]`.
+    r_t: Tensor holding rewards, shape `[B]`.
+    pcont_t: Tensor holding pcontinue values, shape `[B]`.
+    q_t: Tensor of action values at current timestep, shape `[B, num_actions]`.
+    name: name to prefix ops created by this function.
+
+  Returns:
+    A namedtuple with fields:
+
+    * `loss`: a tensor containing the batch of losses, shape `[B]`.
+    * `extra`: a namedtuple with fields:
+        * `target`: batch of target values for `v_tm1`, shape `[B]`.
+        * `td_error`: batch of temporal difference errors, shape `[B]`.
+  """
+  # Rank and compatibility checks.
+  base_ops.wrap_rank_shape_assert([[v_tm1, r_t, pcont_t], [q_t]], [1, 2], name)
+
+  # The QVMAX op.
+  with tf.name_scope(name, values=[v_tm1, r_t, pcont_t, q_t]):
+
+    # Build target.
+    target = tf.stop_gradient(r_t + pcont_t * tf.reduce_max(q_t, axis=1))
+
+    # Temporal difference error and loss.
+    # Loss is MSE scaled by 0.5, so the gradient is equal to the TD error.
+    td_error = target - v_tm1
+    loss = 0.5 * tf.square(td_error)
+    return base_ops.LossOutput(loss, TDExtra(target, td_error))
