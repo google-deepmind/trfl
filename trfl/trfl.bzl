@@ -37,6 +37,7 @@ def gen_op_wrapper_py(
     native.py_library(
         name = name,
         srcs = [out],
+        srcs_version = "PY2AND3",
         visibility = ["//visibility:private"],
         data = [
             ":" + op_lib_so_name,
