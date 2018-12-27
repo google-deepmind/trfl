@@ -129,6 +129,7 @@ Throughout the package, we use the following conventions:
     *   [td_learning](trfl.md#td_learningv_tm1-r_t-pcont_t-v_t-nametdlearning)
     *   [generalized_lambda_returns](trfl.md#generalized_lambda_returnsrewards-pcontinues-values-bootstrap_value-lambda_1-namegeneralized_lambda_returns)
     *   [td_lambda](trfl.md#td_lambdastate_values-rewards-pcontinues-bootstrap_value-lambda_1-namebaselineloss)
+    *   [qv_max](trfl.md#qv_maxv_tm1-r_t-pcont_t-q_t-nameqvmax)
 
 *   Discrete-action Value learning:
 
@@ -138,6 +139,7 @@ Throughout the package, we use the following conventions:
     *   [sarsa](trfl.md#sarsaq_tm1-a_tm1-r_t-pcont_t-q_t-a_t-namesarsa)
     *   [sarse](trfl.md#sarseq_tm1-a_tm1-r_t-pcont_t-q_t-probs_a_t-debugfalse-namesarse)
     *   [qlambda](trfl.md#qlambdaq_tm1-a_tm1-r_t-pcont_t-q_t-lambda_-namegeneralizedqlambda)
+    *   [qv_learning](trfl.md#qv_learningq_tm1-a_tm1-r_t-pcont_t-v_t-nameqvlearning)
 
 *   Distributional Value learning:
 
