@@ -963,7 +963,8 @@ the target `r_t + pcont_t * max q_t`, where `q_t` is separately learned
 through QV learning (c.f. `action_value_ops.qv_learning`).
 
 See "The QV Family Compared to Other Reinforcement Learning Algorithms" by
-Wiering and van Hasselt (https://ieeexplore.ieee.org/document/4927532).
+Wiering and van Hasselt (2009).
+(http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.713.1931)
 
 ##### Args:
 
