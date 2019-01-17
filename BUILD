@@ -4,6 +4,7 @@ sh_binary(
     srcs = ["build_pip_pkg.sh"],
     data = [
         "LICENSE",
+        "MANIFEST.in",
         "setup.py",
         "//trfl",
     ],

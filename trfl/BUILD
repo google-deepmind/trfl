@@ -7,6 +7,7 @@ package(default_visibility = [":__subpackages__"])
 
 exports_files([
     "LICENSE",
+    "MANIFST.in",
     "setup.py",
 ])
 

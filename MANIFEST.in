@@ -1,0 +1,1 @@
+recursive-include trfl/ *.dll *.lib *.pyd *.so

@@ -49,8 +49,9 @@ function main() {
 
   echo "=== Copy TRFL files"
 
-  cp ${PIP_FILE_PREFIX}setup.py "${TMPDIR}"
   cp ${PIP_FILE_PREFIX}LICENSE "${TMPDIR}"
+  cp ${PIP_FILE_PREFIX}MANIFEST.in "${TMPDIR}"
+  cp ${PIP_FILE_PREFIX}setup.py "${TMPDIR}"
   rsync -avm -L --exclude='*_test.py' ${PIP_FILE_PREFIX}trfl "${TMPDIR}"
 
   pushd ${TMPDIR}
