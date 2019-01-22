@@ -1654,3 +1654,439 @@ time dimension ranging from `0` to `T-1`. `B` refers to the batch size and
       target policy action probabilities (log \pi(a_t)).
 
 
+### [`class action_value_ops.DoubleQExtra`](https://github.com/deepmind/trfl/blob/master/trfl/action_value_ops.py?q=class:double_qlearning_extra)<!-- RULE: action_value_ops.DoubleQExtra .code-reference -->
+
+double_qlearning_extra(target, td_error, best_action)
+
+#### `action_value_ops.DoubleQExtra.best_action`<!-- RULE: action_value_ops.DoubleQExtra.best_action .code-reference -->
+
+Alias for field number 2
+
+
+#### `action_value_ops.DoubleQExtra.target`<!-- RULE: action_value_ops.DoubleQExtra.target .code-reference -->
+
+Alias for field number 0
+
+
+#### `action_value_ops.DoubleQExtra.td_error`<!-- RULE: action_value_ops.DoubleQExtra.td_error .code-reference -->
+
+Alias for field number 1
+
+
+
+### [`class action_value_ops.QExtra`](https://github.com/deepmind/trfl/blob/master/trfl/action_value_ops.py?q=class:qlearning_extra)<!-- RULE: action_value_ops.QExtra .code-reference -->
+
+qlearning_extra(target, td_error)
+
+#### `action_value_ops.QExtra.target`<!-- RULE: action_value_ops.QExtra.target .code-reference -->
+
+Alias for field number 0
+
+
+#### `action_value_ops.QExtra.td_error`<!-- RULE: action_value_ops.QExtra.td_error .code-reference -->
+
+Alias for field number 1
+
+
+
+### [`class base_ops.LossOutput`](https://github.com/deepmind/trfl/blob/master/trfl/base_ops.py?q=class:loss_output)<!-- RULE: base_ops.LossOutput .code-reference -->
+
+loss_output(loss, extra)
+
+#### `base_ops.LossOutput.extra`<!-- RULE: base_ops.LossOutput.extra .code-reference -->
+
+Alias for field number 1
+
+
+#### `base_ops.LossOutput.loss`<!-- RULE: base_ops.LossOutput.loss .code-reference -->
+
+Alias for field number 0
+
+
+
+### [`base_ops.assert_arg_bounded(value, min_value, max_value, op_name, arg_name)`](https://github.com/deepmind/trfl/blob/master/trfl/base_ops.py?l=100)<!-- RULE: base_ops.assert_arg_bounded .code-reference -->
+
+
+
+
+### [`base_ops.wrap_rank_shape_assert(tensors_list, expected_ranks, op_name)`](https://github.com/deepmind/trfl/blob/master/trfl/base_ops.py?l=89)<!-- RULE: base_ops.wrap_rank_shape_assert .code-reference -->
+
+
+
+
+### [`class discrete_policy_gradient_ops.DiscretePolicyEntropyExtra`](https://github.com/deepmind/trfl/blob/master/trfl/discrete_policy_gradient_ops.py?q=class:discrete_policy_entropy_extra)<!-- RULE: discrete_policy_gradient_ops.DiscretePolicyEntropyExtra .code-reference -->
+
+discrete_policy_entropy_extra(entropy,)
+
+#### `discrete_policy_gradient_ops.DiscretePolicyEntropyExtra.entropy`<!-- RULE: discrete_policy_gradient_ops.DiscretePolicyEntropyExtra.entropy .code-reference -->
+
+Alias for field number 0
+
+
+
+### [`class discrete_policy_gradient_ops.SequenceAdvantageActorCriticExtra`](https://github.com/deepmind/trfl/blob/master/trfl/discrete_policy_gradient_ops.py?q=class:sequence_advantage_actor_critic_extra)<!-- RULE: discrete_policy_gradient_ops.SequenceAdvantageActorCriticExtra .code-reference -->
+
+sequence_advantage_actor_critic_extra(entropy, entropy_loss, baseline_loss, policy_gradient_loss, advantages, discounted_returns)
+
+#### `discrete_policy_gradient_ops.SequenceAdvantageActorCriticExtra.advantages`<!-- RULE: discrete_policy_gradient_ops.SequenceAdvantageActorCriticExtra.advantages .code-reference -->
+
+Alias for field number 4
+
+
+#### `discrete_policy_gradient_ops.SequenceAdvantageActorCriticExtra.baseline_loss`<!-- RULE: discrete_policy_gradient_ops.SequenceAdvantageActorCriticExtra.baseline_loss .code-reference -->
+
+Alias for field number 2
+
+
+#### `discrete_policy_gradient_ops.SequenceAdvantageActorCriticExtra.discounted_returns`<!-- RULE: discrete_policy_gradient_ops.SequenceAdvantageActorCriticExtra.discounted_returns .code-reference -->
+
+Alias for field number 5
+
+
+#### `discrete_policy_gradient_ops.SequenceAdvantageActorCriticExtra.entropy`<!-- RULE: discrete_policy_gradient_ops.SequenceAdvantageActorCriticExtra.entropy .code-reference -->
+
+Alias for field number 0
+
+
+#### `discrete_policy_gradient_ops.SequenceAdvantageActorCriticExtra.entropy_loss`<!-- RULE: discrete_policy_gradient_ops.SequenceAdvantageActorCriticExtra.entropy_loss .code-reference -->
+
+Alias for field number 1
+
+
+#### `discrete_policy_gradient_ops.SequenceAdvantageActorCriticExtra.policy_gradient_loss`<!-- RULE: discrete_policy_gradient_ops.SequenceAdvantageActorCriticExtra.policy_gradient_loss .code-reference -->
+
+Alias for field number 3
+
+
+
+### [`class dist_value_ops.Extra`](https://github.com/deepmind/trfl/blob/master/trfl/dist_value_ops.py?q=class:dist_value_extra)<!-- RULE: dist_value_ops.Extra .code-reference -->
+
+dist_value_extra(target,)
+
+#### `dist_value_ops.Extra.target`<!-- RULE: dist_value_ops.Extra.target .code-reference -->
+
+Alias for field number 0
+
+
+
+### [`distribution_ops.factorised_kl_gaussian(dist1_mean, dist1_covariance_or_scale, dist2_mean, dist2_covariance_or_scale, both_diagonal=False)`](https://github.com/deepmind/trfl/blob/master/trfl/distribution_ops.py?l=71)<!-- RULE: distribution_ops.factorised_kl_gaussian .code-reference -->
+
+Compute the KL divergence KL(dist1, dist2) between two Gaussians.
+
+The KL is factorised into two terms - `kl_mean` and `kl_cov`. This
+factorisation is specific to multivariate gaussian distributions and arises
+from its analytic form.
+Specifically, if we assume two multivariate Gaussian distributions with rank
+k and means, M1 and M2 and variance S1 and S2, the analytic KL can be written
+out as:
+
+D_KL(N0 || N1) = 0.5 * (tr(inv(S1) * S0) + ln(det(S1)/det(S0)) - k +
+                       (M1 - M0).T * inv(S1) * (M1 - M0))
+
+The terms on the first row correspond to the covariance factor and the terms
+on the second row correspond to the mean factor in the factorized KL.
+These terms can thus be used to independently control how much the mean and
+covariance between the two gaussians can vary.
+
+This implementation ensures that gradient flow is equivalent to calling
+`tfp.distributions.kl_divergence` once.
+
+More details on the equation can be found here:
+https://stats.stackexchange.com/questions/60680/kl-divergence-between-two-multivariate-gaussians
+
+
+##### Args:
+
+
+* `dist1_mean`: The mean of the first Multivariate Gaussian distribution.
+* `dist1_covariance_or_scale`: The covariance or scale of the first Multivariate
+    Gaussian distribution. In cases where *both* distributions are Gaussians
+    with diagonal covariance matrices (for instance, if both are instances of
+    `tfp.distributions.MultivariateNormalDiag`), then the `scale` can be
+    passed in instead and the `both_diagonal` flag must be set to `True`.
+    A more efficient sparse computation path is used in this case. For all
+    other cases, the full covariance matrix must be passed in.
+* `dist2_mean`: The mean of the second Multivariate Gaussian distribution.
+* `dist2_covariance_or_scale`: The covariance or scale tensor of the second
+    Multivariate Gaussian distribution, as for `dist1_covariance_or_scale`.
+* `both_diagonal`: A `bool` indicating that both dist1 and dist2 are diagonal
+    matrices. A more efficient sparse computation is used in this case.
+
+##### Returns:
+
+  A tuple consisting of (`kl_mean`, `kl_cov`) which correspond to the mean and
+  the covariance factorisation of the KL.
+
+
+### [`distribution_ops.hard_cumulative_project(support, weights, new_support, reverse)`](https://github.com/deepmind/trfl/blob/master/trfl/distribution_ops.py?l=50)<!-- RULE: distribution_ops.hard_cumulative_project .code-reference -->
+
+Produces a cumulative categorical distribution on a new support.
+
+##### Args:
+
+
+* `support`: Tensor defining support of a categorical distribution(s). Must be
+    of rank 1 or of the same rank as `weights`. The size of the last dimension
+    has to match that of `weights`.
+* `weights`: Tensor defining weights on the support points.
+* `new_support`: Tensor holding positions of a new support.
+* `reverse`: Whether to evalute cumulative from the left or right.
+
+##### Returns:
+
+  Cumulative distribution on the supplied support.
+  The foolowing invariant is maintained across the last dimension:
+  result[i] = (sum_j weights[j] for all j where support[j] < new_support[i])
+              if reverse == False else
+              (sum_j weights[j] for all j where support[j] > new_support[i])
+
+
+### [`distribution_ops.l2_project(support, weights, new_support)`](https://github.com/deepmind/trfl/blob/master/trfl/distribution_ops.py?l=34)<!-- RULE: distribution_ops.l2_project .code-reference -->
+
+Projects distribution (support, weights) onto new_support.
+
+##### Args:
+
+
+* `support`: Tensor defining support of a categorical distribution(s). Must be
+    of rank 1 or of the same rank as `weights`. The size of the last dimension
+    has to match that of `weights`.
+* `weights`: Tensor defining weights on the support points.
+* `new_support`: Tensor holding positions of a new support.
+
+##### Returns:
+
+  Projection of (support, weights) onto the new_support.
+
+
+### [`class dpg_ops.DPGExtra`](https://github.com/deepmind/trfl/blob/master/trfl/dpg_ops.py?q=class:dpg_extra)<!-- RULE: dpg_ops.DPGExtra .code-reference -->
+
+dpg_extra(q_max, a_max, dqda)
+
+#### `dpg_ops.DPGExtra.a_max`<!-- RULE: dpg_ops.DPGExtra.a_max .code-reference -->
+
+Alias for field number 1
+
+
+#### `dpg_ops.DPGExtra.dqda`<!-- RULE: dpg_ops.DPGExtra.dqda .code-reference -->
+
+Alias for field number 2
+
+
+#### `dpg_ops.DPGExtra.q_max`<!-- RULE: dpg_ops.DPGExtra.q_max .code-reference -->
+
+Alias for field number 0
+
+
+
+### [`gen_distribution_ops.project_distribution(support, weights, new_support, method, name=None)`](https://github.com/deepmind/trfl/blob/master/trfl/gen_distribution_ops.py?l=29)<!-- RULE: gen_distribution_ops.project_distribution .code-reference -->
+
+Projects one categorical distribution onto another.
+
+##### Args:
+
+
+* `support`: A `Tensor` of type `float32`.
+* `weights`: A `Tensor` of type `float32`.
+* `new_support`: A `Tensor` of type `float32`.
+* `method`: A `Tensor` of type `int32`.
+* `name`: A name for the operation (optional).
+
+##### Returns:
+
+  A `Tensor` of type `float32`.
+
+
+### [`gen_distribution_ops.project_distribution_eager_fallback(support, weights, new_support, method, name=None, ctx=None)`](https://github.com/deepmind/trfl/blob/master/trfl/gen_distribution_ops.py?l=96)<!-- RULE: gen_distribution_ops.project_distribution_eager_fallback .code-reference -->
+
+This is the slowpath function for Eager mode.
+This is for function project_distribution
+
+
+### [`indexing_ops.assert_compatible_shapes(value_shape, index_shape)`](https://github.com/deepmind/trfl/blob/master/trfl/indexing_ops.py?l=32)<!-- RULE: indexing_ops.assert_compatible_shapes .code-reference -->
+
+Check shapes of the indices and the tensor to be indexed.
+
+If all input shapes are known statically, obtain shapes of arguments and
+perform compatibility checks. Otherwise, print a warning. The only check
+we cannot perform statically (and do not attempt elsewhere) is making
+sure that each action index in actions is in [0, num_actions).
+
+##### Args:
+
+
+* `value_shape`: static shape of the values.
+* `index_shape`: static shape of the indices.
+
+
+### [`class pixel_control_ops.PixelControlExtra`](https://github.com/deepmind/trfl/blob/master/trfl/pixel_control_ops.py?q=class:pixel_control_extra)<!-- RULE: pixel_control_ops.PixelControlExtra .code-reference -->
+
+pixel_control_extra(spatial_loss, pseudo_rewards)
+
+#### `pixel_control_ops.PixelControlExtra.pseudo_rewards`<!-- RULE: pixel_control_ops.PixelControlExtra.pseudo_rewards .code-reference -->
+
+Alias for field number 1
+
+
+#### `pixel_control_ops.PixelControlExtra.spatial_loss`<!-- RULE: pixel_control_ops.PixelControlExtra.spatial_loss .code-reference -->
+
+Alias for field number 0
+
+
+
+### [`class policy_gradient_ops.PolicyEntropyExtra`](https://github.com/deepmind/trfl/blob/master/trfl/policy_gradient_ops.py?q=class:policy_entropy_extra)<!-- RULE: policy_gradient_ops.PolicyEntropyExtra .code-reference -->
+
+policy_entropy_extra(entropy,)
+
+#### `policy_gradient_ops.PolicyEntropyExtra.entropy`<!-- RULE: policy_gradient_ops.PolicyEntropyExtra.entropy .code-reference -->
+
+Alias for field number 0
+
+
+
+### [`class policy_gradient_ops.SequenceA2CExtra`](https://github.com/deepmind/trfl/blob/master/trfl/policy_gradient_ops.py?q=class:sequence_a2c_extra)<!-- RULE: policy_gradient_ops.SequenceA2CExtra .code-reference -->
+
+sequence_a2c_extra(entropy, entropy_loss, baseline_loss, policy_gradient_loss, advantages, discounted_returns)
+
+#### `policy_gradient_ops.SequenceA2CExtra.advantages`<!-- RULE: policy_gradient_ops.SequenceA2CExtra.advantages .code-reference -->
+
+Alias for field number 4
+
+
+#### `policy_gradient_ops.SequenceA2CExtra.baseline_loss`<!-- RULE: policy_gradient_ops.SequenceA2CExtra.baseline_loss .code-reference -->
+
+Alias for field number 2
+
+
+#### `policy_gradient_ops.SequenceA2CExtra.discounted_returns`<!-- RULE: policy_gradient_ops.SequenceA2CExtra.discounted_returns .code-reference -->
+
+Alias for field number 5
+
+
+#### `policy_gradient_ops.SequenceA2CExtra.entropy`<!-- RULE: policy_gradient_ops.SequenceA2CExtra.entropy .code-reference -->
+
+Alias for field number 0
+
+
+#### `policy_gradient_ops.SequenceA2CExtra.entropy_loss`<!-- RULE: policy_gradient_ops.SequenceA2CExtra.entropy_loss .code-reference -->
+
+Alias for field number 1
+
+
+#### `policy_gradient_ops.SequenceA2CExtra.policy_gradient_loss`<!-- RULE: policy_gradient_ops.SequenceA2CExtra.policy_gradient_loss .code-reference -->
+
+Alias for field number 3
+
+
+
+### [`class retrace_ops.RetraceCoreExtra`](https://github.com/deepmind/trfl/blob/master/trfl/retrace_ops.py?q=class:retrace_core_extra)<!-- RULE: retrace_ops.RetraceCoreExtra .code-reference -->
+
+retrace_core_extra(retrace_weights, target)
+
+#### `retrace_ops.RetraceCoreExtra.retrace_weights`<!-- RULE: retrace_ops.RetraceCoreExtra.retrace_weights .code-reference -->
+
+Alias for field number 0
+
+
+#### `retrace_ops.RetraceCoreExtra.target`<!-- RULE: retrace_ops.RetraceCoreExtra.target .code-reference -->
+
+Alias for field number 1
+
+
+
+### [`class value_ops.TDExtra`](https://github.com/deepmind/trfl/blob/master/trfl/value_ops.py?q=class:td_extra)<!-- RULE: value_ops.TDExtra .code-reference -->
+
+td_extra(target, td_error)
+
+#### `value_ops.TDExtra.target`<!-- RULE: value_ops.TDExtra.target .code-reference -->
+
+Alias for field number 0
+
+
+#### `value_ops.TDExtra.td_error`<!-- RULE: value_ops.TDExtra.td_error .code-reference -->
+
+Alias for field number 1
+
+
+
+### [`class value_ops.TDLambdaExtra`](https://github.com/deepmind/trfl/blob/master/trfl/value_ops.py?q=class:td_lambda_extra)<!-- RULE: value_ops.TDLambdaExtra .code-reference -->
+
+td_lambda_extra(temporal_differences, discounted_returns)
+
+#### `value_ops.TDLambdaExtra.discounted_returns`<!-- RULE: value_ops.TDLambdaExtra.discounted_returns .code-reference -->
+
+Alias for field number 1
+
+
+#### `value_ops.TDLambdaExtra.temporal_differences`<!-- RULE: value_ops.TDLambdaExtra.temporal_differences .code-reference -->
+
+Alias for field number 0
+
+
+
+### [`class vtrace_ops.VTraceFromLogitsReturns`](https://github.com/deepmind/trfl/blob/master/trfl/vtrace_ops.py?q=class:VTraceFromLogitsReturns)<!-- RULE: vtrace_ops.VTraceFromLogitsReturns .code-reference -->
+
+VTraceFromLogitsReturns(vs, pg_advantages, log_rhos, behaviour_action_log_probs, target_action_log_probs)
+
+#### `vtrace_ops.VTraceFromLogitsReturns.behaviour_action_log_probs`<!-- RULE: vtrace_ops.VTraceFromLogitsReturns.behaviour_action_log_probs .code-reference -->
+
+Alias for field number 3
+
+
+#### `vtrace_ops.VTraceFromLogitsReturns.log_rhos`<!-- RULE: vtrace_ops.VTraceFromLogitsReturns.log_rhos .code-reference -->
+
+Alias for field number 2
+
+
+#### `vtrace_ops.VTraceFromLogitsReturns.pg_advantages`<!-- RULE: vtrace_ops.VTraceFromLogitsReturns.pg_advantages .code-reference -->
+
+Alias for field number 1
+
+
+#### `vtrace_ops.VTraceFromLogitsReturns.target_action_log_probs`<!-- RULE: vtrace_ops.VTraceFromLogitsReturns.target_action_log_probs .code-reference -->
+
+Alias for field number 4
+
+
+#### `vtrace_ops.VTraceFromLogitsReturns.vs`<!-- RULE: vtrace_ops.VTraceFromLogitsReturns.vs .code-reference -->
+
+Alias for field number 0
+
+
+
+### [`class vtrace_ops.VTraceReturns`](https://github.com/deepmind/trfl/blob/master/trfl/vtrace_ops.py?q=class:VTraceReturns)<!-- RULE: vtrace_ops.VTraceReturns .code-reference -->
+
+VTraceReturns(vs, pg_advantages)
+
+#### `vtrace_ops.VTraceReturns.pg_advantages`<!-- RULE: vtrace_ops.VTraceReturns.pg_advantages .code-reference -->
+
+Alias for field number 1
+
+
+#### `vtrace_ops.VTraceReturns.vs`<!-- RULE: vtrace_ops.VTraceReturns.vs .code-reference -->
+
+Alias for field number 0
+
+
+
+### [`vtrace_ops.log_probs_from_logits_and_actions(policy_logits, actions)`](https://github.com/deepmind/trfl/blob/master/trfl/vtrace_ops.py?l=36)<!-- RULE: vtrace_ops.log_probs_from_logits_and_actions .code-reference -->
+
+Computes action log-probs from policy logits and actions.
+
+In the notation used throughout documentation and comments, T refers to the
+time dimension ranging from 0 to T-1. B refers to the batch size and
+NUM_ACTIONS refers to the number of actions.
+
+##### Args:
+
+
+* `policy_logits`: A float32 tensor of shape `[T, B, NUM_ACTIONS]` with
+    un-normalized log-probabilities parameterizing a softmax policy.
+* `actions`: An int32 tensor of shape `[T, B]` with actions.
+
+##### Returns:
+
+  A float32 tensor of shape `[T, B]` corresponding to the sampling log
+  probability of the chosen action w.r.t. the policy.
+
+
