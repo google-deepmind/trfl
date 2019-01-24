@@ -6,8 +6,8 @@ several useful building blocks for implementing Reinforcement Learning agents.
 
 ## Installation
 
-TRFL can be installed from pip directly from github, with the following command:
-`pip install git+git://github.com/deepmind/trfl.git`
+TRFL can be installed from pip with the following command:
+`pip install trfl`
 
 TRFL will work with both the CPU and GPU version of tensorflow, but to allow
 for that it does not list Tensorflow as a requirement, so you need to install
