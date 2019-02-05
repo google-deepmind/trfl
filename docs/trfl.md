@@ -1879,7 +1879,12 @@ Alias for field number 0
 
 
 
-### [`gen_distribution_ops.project_distribution(support, weights, new_support, method, name=None)`](https://github.com/deepmind/trfl/blob/master/trfl/gen_distribution_ops.py?l=29)<!-- RULE: gen_distribution_ops.project_distribution .code-reference -->
+### [`gen_distribution_ops.ProjectDistribution(**kwargs)`](https://github.com/deepmind/trfl/blob/master/trfl/gen_distribution_ops.py?l=385)<!-- RULE: gen_distribution_ops.ProjectDistribution .code-reference -->
+
+
+
+
+### [`gen_distribution_ops.project_distribution(support, weights, new_support, method, name=None)`](https://github.com/deepmind/trfl/blob/master/trfl/gen_distribution_ops.py?l=31)<!-- RULE: gen_distribution_ops.project_distribution .code-reference -->
 
 Projects one categorical distribution onto another.
 
@@ -1897,7 +1902,7 @@ Projects one categorical distribution onto another.
   A `Tensor` of type `float32`.
 
 
-### [`gen_distribution_ops.project_distribution_eager_fallback(support, weights, new_support, method, name=None, ctx=None)`](https://github.com/deepmind/trfl/blob/master/trfl/gen_distribution_ops.py?l=96)<!-- RULE: gen_distribution_ops.project_distribution_eager_fallback .code-reference -->
+### [`gen_distribution_ops.project_distribution_eager_fallback(support, weights, new_support, method, name=None, ctx=None)`](https://github.com/deepmind/trfl/blob/master/trfl/gen_distribution_ops.py?l=103)<!-- RULE: gen_distribution_ops.project_distribution_eager_fallback .code-reference -->
 
 This is the slowpath function for Eager mode.
 This is for function project_distribution
