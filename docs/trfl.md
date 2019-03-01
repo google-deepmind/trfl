@@ -1879,7 +1879,7 @@ Alias for field number 0
 
 
 
-### [`gen_distribution_ops.ProjectDistribution(**kwargs)`](https://github.com/deepmind/trfl/blob/master/trfl/gen_distribution_ops.py?l=385)<!-- RULE: gen_distribution_ops.ProjectDistribution .code-reference -->
+### [`gen_distribution_ops.ProjectDistribution(*args, **kwargs)`](https://github.com/deepmind/trfl/blob/master/trfl/gen_distribution_ops.py?l=386)<!-- RULE: gen_distribution_ops.ProjectDistribution .code-reference -->
 
 
 
