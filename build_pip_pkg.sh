@@ -40,11 +40,11 @@ function main() {
   # give us an absolute paths with tilde characters resolved to the destination
   # directory.
   mkdir -p ${DEST}
+  readlink="readlink"
   if [[ $PLATFORM == 'darwin' ]]; then
-    DEST=$(greadlink -f "${DEST}")
-  else
-    DEST=$(readlink -f "${DEST}")
+    readlink="greadlink"
   fi
+  DEST=$($readlink -f "${DEST}")
   echo "=== destination directory: ${DEST}"
 
   TMPDIR=$(mktemp -d -t tmp.XXXXXXXXXX)
