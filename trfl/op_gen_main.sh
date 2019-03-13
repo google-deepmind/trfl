@@ -1,5 +1,7 @@
 #!/bin/bash
 
+PLATFORM="$(uname -s | tr 'A-Z' 'a-z')"
+
 set -e
 
 if [ "$#" -ne 2 ]; then
@@ -14,7 +16,12 @@ EOF
 
 for name in $(echo $2 | tr "," "\n")
 do
-    snake_name=`echo $name | sed 's/^[[:upper:]]/\L&/;s/[[:upper:]]/\L_&/g'`
+    sed="sed"
+    if [[ $PLATFORM == 'darwin' ]]; then
+        sed="gsed"
+    fi
+
+    snake_name=`echo $name | $sed 's/^[[:upper:]]/\L&/;s/[[:upper:]]/\L_&/g'`
     echo "$snake_name = _op_lib.$snake_name"
 done
 

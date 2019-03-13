@@ -9,6 +9,15 @@ instructions](https://www.tensorflow.org/install/).
 Ensure you have a recent version of bazel (>= 0.21.0) and JDK (>= 1.8). If not,
 follow [these directions](https://bazel.build/versions/master/docs/install.html).
 
+### (Optional) macOS Support
+
+If building on macOS, ensure you have [Homebrew](https://brew.sh) installed and
+install the necessary dependencies:
+
+```shell
+brew install coreutils gnu-sed
+```
+
 ### (virtualenv TensorFlow installation) Activate virtualenv
 
 If using virtualenv, activate your virtualenv for the rest of the installation,
