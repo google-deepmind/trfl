@@ -16,12 +16,7 @@ EOF
 
 for name in $(echo $2 | tr "," "\n")
 do
-    sed="sed"
-    if [[ $PLATFORM == 'darwin' ]]; then
-        sed="gsed"
-    fi
-
-    snake_name=`echo $name | $sed 's/^[[:upper:]]/\L&/;s/[[:upper:]]/\L_&/g'`
+    snake_name=$(python -c "import stringcase; import sys; print(stringcase.snakecase(sys.argv[1]))" $name)
     echo "$snake_name = _op_lib.$snake_name"
 done
 
