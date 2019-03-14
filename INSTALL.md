@@ -15,7 +15,7 @@ If building on macOS, ensure you have [Homebrew](https://brew.sh) installed and
 install the necessary dependencies:
 
 ```shell
-brew install coreutils gnu-sed
+brew install coreutils
 ```
 
 ### (virtualenv TensorFlow installation) Activate virtualenv
