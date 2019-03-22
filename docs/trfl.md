@@ -1881,7 +1881,20 @@ Alias for field number 0
 
 ### [`gen_distribution_ops.ProjectDistribution(*args, **kwargs)`](https://github.com/deepmind/trfl/blob/master/trfl/gen_distribution_ops.py?l=387)<!-- RULE: gen_distribution_ops.ProjectDistribution .code-reference -->
 
+Projects one categorical distribution onto another.
 
+##### Args:
+
+
+* `support`: A `Tensor` of type `float32`.
+* `weights`: A `Tensor` of type `float32`.
+* `new_support`: A `Tensor` of type `float32`.
+* `method`: A `Tensor` of type `int32`.
+* `name`: A name for the operation (optional).
+
+##### Returns:
+
+  A `Tensor` of type `float32`.
 
 
 ### [`gen_distribution_ops.project_distribution(support, weights, new_support, method, name=None)`](https://github.com/deepmind/trfl/blob/master/trfl/gen_distribution_ops.py?l=31)<!-- RULE: gen_distribution_ops.project_distribution .code-reference -->
