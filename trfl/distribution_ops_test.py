@@ -573,7 +573,7 @@ class FactorisedKLGaussianTest(tf.test.TestCase, parameterized.TestCase):
     with self.test_session() as sess:
       sess.run(tf.global_variables_initializer())
       actual_kl, kl_mean_np, kl_cov_np = sess.run([kl, kl_mean, kl_cov])
-      self.assertAllClose(actual_kl, kl_mean_np + kl_cov_np, rtol=1e-5)
+      self.assertAllClose(actual_kl, kl_mean_np + kl_cov_np, rtol=1e-4)
 
   def testShapeAssertion(self):
     dist_type = tfp.distributions.MultivariateNormalDiag
