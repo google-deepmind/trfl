@@ -23,12 +23,14 @@ from setuptools import find_packages
 from setuptools import setup
 from setuptools.dist import Distribution
 
-
 REQUIRED_PACKAGES = ['six', 'absl-py', 'numpy', 'dm-sonnet', 'wrapt']
 EXTRA_PACKAGES = {
-    'tensorflow': ['tensorflow>=1.12.0', 'tensorflow-probability>=0.4.0'],
-    'tensorflow with gpu': ['tensorflow-gpu>=1.12.0',
-                            'tensorflow-probability-gpu>=0.4.0'],
+    'tensorflow': [
+        'tensorflow>=1.13,<1.14', 'tensorflow-probability>=0.6,<0.7'
+    ],
+    'tensorflow with gpu': [
+        'tensorflow-gpu>=1.13,<1.14', 'tensorflow-probability>=0.6,<0.7'
+    ],
 }
 
 
@@ -47,7 +49,7 @@ class BinaryDistribution(Distribution):
 
 setup(
     name='trfl',
-    version='1.0',
+    version='1.0.1',
     description=('trfl is a library of building blocks for '
                  'reinforcement learning algorithms.'),
     long_description='',
