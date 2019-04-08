@@ -106,7 +106,7 @@ def sequence_advantage_actor_critic_loss(
   more detail).
 
   Note: This function takes policy _logits_ as input, not the log-policy like
-  Reinforce does.
+  `learning.deepmind.lua.rl.learners.Reinforce` does.
 
   This loss jointly learns the policy and the baseline. Therefore, gradients
   for this loss flow through each tensor in `policy_logits` and

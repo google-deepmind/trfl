@@ -27,6 +27,7 @@ py_library(
         ":periodic_ops",
         ":pixel_control_ops",
         ":policy_gradient_ops",
+        ":policy_ops",
         ":retrace_ops",
         ":sequence_ops",
         ":target_update_ops",
@@ -193,6 +194,16 @@ py_library(
         ":value_ops",
         # six dep,
         # tensorflow dep,
+    ],
+)
+
+py_library(
+    name = "policy_ops",
+    srcs = ["policy_ops.py"],
+    srcs_version = "PY2AND3",
+    deps = [
+        # tensorflow dep,
+        # tensorflow_probability dep,
     ],
 )
 
@@ -372,6 +383,16 @@ py_test(
         # six dep,
         # tensorflow dep,
         # tensorflow_probability dep,
+    ],
+)
+
+py_test(
+    name = "policy_ops_test",
+    srcs = ["policy_ops_test.py"],
+    srcs_version = "PY2AND3",
+    deps = [
+        ":policy_ops",
+        # tensorflow dep,
     ],
 )
 

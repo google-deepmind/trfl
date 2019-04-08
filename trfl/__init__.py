@@ -40,6 +40,7 @@ from trfl.policy_gradient_ops import policy_entropy_loss
 from trfl.policy_gradient_ops import policy_gradient
 from trfl.policy_gradient_ops import policy_gradient_loss
 from trfl.policy_gradient_ops import sequence_a2c_loss
+from trfl.policy_ops import epsilon_greedy
 from trfl.retrace_ops import retrace
 from trfl.retrace_ops import retrace_core
 from trfl.sequence_ops import multistep_forward_view

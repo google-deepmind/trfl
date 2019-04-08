@@ -206,6 +206,10 @@ Throughout the package, we use the following conventions:
 
     *   [periodically](trfl.md#periodicallybody-period-nameperiodically)
 
+*   Policy ops
+
+    *   [epsilon_greedy](trfl.md#epsilon_greedy)
+
 *   Sequence ops
 
     *   [scan_discounted_sum](trfl.md#scan_discounted_sumsequence-decay-initial_value-reversefalse-sequence_lengthsnone-back_proptrue-namescan_discounted_sum)
