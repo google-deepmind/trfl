@@ -68,32 +68,22 @@ def pixel_control_rewards(observations, cell_size):
     `cell_size`. If evenly-divisible, `H' = H/cell_size`, and similar for `W`.
   """
   # Calculate the absolute differences across the sequence.
-  abs_observation_diff = tf.abs(observations[1:] - observations[:-1])
-  # Average over cells. abs_observation_diff has shape [T,B,H,W,C...], e.g.,
-  # [T,B,H,W,C] if we have a colour channel. We want to use the TF avg_pool
-  # op, but it expects 4D inputs. We collapse T and B then collapse all channel
-  # dimensions. After pooling, we can then undo the sequence/batch collapse.
-  obs_shape = abs_observation_diff.get_shape().as_list()
-  # Collapse sequence and batch into one: [TB,H,W,C...].
-  abs_diff = tf.reshape(abs_observation_diff, [-1] + obs_shape[2:])
-  # Merge remaining dimensions after W: [TB,H,W,C'].
-  abs_diff = snt.FlattenTrailingDimensions(dim_from=3)(abs_diff)
+  abs_diff = tf.abs(observations[1:] - observations[:-1])
+  # Average over cells. `abs_diff` has shape [T,B,H,W,C...], e.g.,
+  # [T,B,H,W,C] if we have a colour channel. We want to use the TF avg_pool3d
+  # op, but it expects 5D inputs so we collapse all channel dimensions.
+  # Merge remaining dimensions after W: [T,B,H,W,C'].
+  abs_diff = snt.FlattenTrailingDimensions(dim_from=4)(abs_diff)
   # Apply the averaging using average pooling and reducing over channel.
-  avg_abs_diff = tf.nn.avg_pool(
+  avg_abs_diff = tf.nn.avg_pool3d(
       abs_diff,
-      ksize=[1, cell_size, cell_size, 1],
-      strides=[1, cell_size, cell_size, 1],
-      padding="VALID")  # [TB, H', W', C'].
-  avg_abs_diff = tf.reduce_mean(avg_abs_diff, axis=[3])  # [TB,H',W'].
-  # Restore sequence and batch dimensions, and static shape info where possible.
-  pseudo_rewards = tf.reshape(
-      avg_abs_diff, [
-          tf.shape(abs_observation_diff)[0], tf.shape(abs_observation_diff)[1],
-          tf.shape(avg_abs_diff)[1], tf.shape(avg_abs_diff)[2]
-      ],
-      name="pseudo_rewards")  # [T,B,H',W'].
-  sequence_batch = abs_observation_diff.get_shape()[:2]
-  new_height_width = avg_abs_diff.get_shape()[1:]
+      ksize=[1, 1, cell_size, cell_size, 1],
+      strides=[1, 1, cell_size, cell_size, 1],
+      padding="VALID")  # [T,B,H',W',C'].
+  pseudo_rewards = tf.reduce_mean(
+      avg_abs_diff, axis=[4], name="pseudo_rewards")  # [T,B,H',W'].
+  sequence_batch = abs_diff.get_shape()[:2]
+  new_height_width = avg_abs_diff.get_shape()[2:4]
   pseudo_rewards.set_shape(sequence_batch.concatenate(new_height_width))
   return pseudo_rewards
 
