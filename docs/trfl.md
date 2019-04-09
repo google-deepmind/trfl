@@ -400,6 +400,34 @@ Degris, Wierstra, Riedmiller (http://proceedings.mlr.press/v32/silver14.pdf).
 * `ValueError`: If `q_max` doesn't depend on `a_max` or if `dqda_clipping <= 0`.
 
 
+### [`epsilon_greedy(action_values, epsilon)`](https://github.com/deepmind/trfl/blob/master/trfl/policy_ops.py?l=28)<!-- RULE: epsilon_greedy .code-reference -->
+
+Computes an epsilon-greedy distribution over actions.
+
+This returns a categorical distribution over a discrete action space. It is
+assumed that the trailing dimension of `action_values` is of length A, i.e.
+the number of actions. It is also assumed that actions are 0-indexed.
+
+This policy does the following:
+
+- With probability 1 - epsilon, take the action corresponding to the highest
+action value, breaking ties uniformly at random.
+- With probability epsilon, take an action uniformly at random.
+
+##### Args:
+
+
+* `action_values`: A Tensor of action values with any rank >= 1 and dtype float.
+    Shape can be flat ([A]), batched ([B, A]), a batch of sequences
+    ([T, B, A]), and so on.
+* `epsilon`: A scalar Tensor (or Python float) with value between 0 and 1.
+
+##### Returns:
+
+
+* `policy`: tfp.distributions.Categorical distribution representing the policy.
+
+
 ### [`generalized_lambda_returns(rewards, pcontinues, values, bootstrap_value, lambda_=1, name='generalized_lambda_returns')`](https://github.com/deepmind/trfl/blob/master/trfl/value_ops.py?l=75)<!-- RULE: generalized_lambda_returns .code-reference -->
 
 Computes lambda-returns along a batch of (chunks of) trajectories.
@@ -649,7 +677,7 @@ by Bellemare, Ostrovski, Guez et al. (https://arxiv.org/abs/1512.04860).
       * `td_error`: batch of temporal difference errors, shape `[B]`.
 
 
-### [`pixel_control_loss(observations, actions, action_values, cell_size, discount_factor, scale, crop_height_dim=(None, None), crop_width_dim=(None, None))`](https://github.com/deepmind/trfl/blob/master/trfl/pixel_control_ops.py?l=102)<!-- RULE: pixel_control_loss .code-reference -->
+### [`pixel_control_loss(observations, actions, action_values, cell_size, discount_factor, scale, crop_height_dim=(None, None), crop_width_dim=(None, None))`](https://github.com/deepmind/trfl/blob/master/trfl/pixel_control_ops.py?l=92)<!-- RULE: pixel_control_loss .code-reference -->
 
 Calculate n-step Q-learning loss for pixel control auxiliary task.
 
