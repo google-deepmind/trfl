@@ -92,9 +92,10 @@ class DoubleQLearningTest(tf.test.TestCase):
     self.q_t_selector = tf.constant([[2, 10, 1], [11, 20, 1]], dtype=tf.float32)
     # whose values are unchanged. (Other values are changed and larger.)
     self.q_t_value = tf.constant([[99, 1, 98], [91, 2, 66]], dtype=tf.float32)
-    self.double_qlearning = rl.double_qlearning(
-        self.q_tm1, self.a_tm1, self.r_t, self.pcont_t, self.q_t_value,
-        self.q_t_selector)
+    self.double_qlearning = rl.double_qlearning(self.q_tm1, self.a_tm1,
+                                                self.r_t, self.pcont_t,
+                                                self.q_t_value,
+                                                self.q_t_selector)
 
   def testRankCheck(self):
     q_t_selector = tf.placeholder(tf.float32, [None])
@@ -121,8 +122,7 @@ class DoubleQLearningTest(tf.test.TestCase):
 
   def testDoubleQLearningTarget(self):
     with self.test_session() as sess:
-      self.assertAllClose(
-          sess.run(self.double_qlearning.extra.target), [1, 3])
+      self.assertAllClose(sess.run(self.double_qlearning.extra.target), [1, 3])
 
   def testDoubleQLearningTDError(self):
     with self.test_session() as sess:
@@ -132,8 +132,7 @@ class DoubleQLearningTest(tf.test.TestCase):
   def testDoubleQLearningLoss(self):
     with self.test_session() as sess:
       # Loss is 0.5 * td_error^2
-      self.assertAllClose(
-          sess.run(self.double_qlearning.loss), [0, 0.5])
+      self.assertAllClose(sess.run(self.double_qlearning.loss), [0, 0.5])
 
   def testDoubleQLearningGradQtm1(self):
     with self.test_session() as sess:
@@ -146,8 +145,9 @@ class DoubleQLearningTest(tf.test.TestCase):
   def testDoubleQLearningNoOtherGradients(self):
     # Gradients are only defined for q_tm1, not any other input.
     # Bellman residual variants could potentially generate a gradient wrt q_t.
-    no_grads = [self.r_t, self.a_tm1, self.pcont_t, self.q_t_value,
-                self.q_t_selector]
+    no_grads = [
+        self.r_t, self.a_tm1, self.pcont_t, self.q_t_value, self.q_t_selector
+    ]
     gradients = tf.gradients([self.double_qlearning.loss], no_grads)
     self.assertEqual(gradients, [None] * len(no_grads))
 
@@ -162,9 +162,10 @@ class PersistentQLearningTest(tf.test.TestCase):
     self.r_t = tf.constant([3, 2, 7], dtype=tf.float32)
     self.q_t = tf.constant([[11, 12], [20, 16], [-8, -4]], dtype=tf.float32)
     self.action_gap_scale = 0.25
-    self.persistent_qlearning = rl.persistent_qlearning(
-        self.q_tm1, self.a_tm1, self.r_t, self.pcont_t, self.q_t,
-        self.action_gap_scale)
+    self.persistent_qlearning = rl.persistent_qlearning(self.q_tm1, self.a_tm1,
+                                                        self.r_t, self.pcont_t,
+                                                        self.q_t,
+                                                        self.action_gap_scale)
 
   def testScalarCheck(self):
     action_gap_scale = 2
@@ -186,19 +187,19 @@ class PersistentQLearningTest(tf.test.TestCase):
 
   def testPersistentQLearningTarget(self):
     with self.test_session() as sess:
-      self.assertAllClose(sess.run(self.persistent_qlearning.extra.target),
-                          [3, 21, 5])
+      self.assertAllClose(
+          sess.run(self.persistent_qlearning.extra.target), [3, 21, 5])
 
   def testPersistentQLearningTDError(self):
     with self.test_session() as sess:
-      self.assertAllClose(sess.run(self.persistent_qlearning.extra.td_error),
-                          [2, 17, -1])
+      self.assertAllClose(
+          sess.run(self.persistent_qlearning.extra.td_error), [2, 17, -1])
 
   def testPersistentQLearningLoss(self):
     with self.test_session() as sess:
       # Loss is 0.5 * td_error^2
-      self.assertAllClose(sess.run(self.persistent_qlearning.loss),
-                          [2, 144.5, 0.5])
+      self.assertAllClose(
+          sess.run(self.persistent_qlearning.loss), [2, 144.5, 0.5])
 
   def testPersistentQLearningGradQtm1(self):
     with self.test_session() as sess:
@@ -345,10 +346,16 @@ class SarseTest(tf.test.TestCase):
     probs_a_t = tf.constant([[0.2, 0.5, 0.3], [0.3, 0.5, 0.3]],
                             dtype=tf.float32)
     with self.test_session() as sess:
-      with self.assertRaisesRegexp(
-          tf.errors.InvalidArgumentError, "probs_a_t tensor does not sum to 1"):
-        self.sarse = rl.sarse(self.q_tm1, self.a_tm1, self.r_t, self.pcont_t,
-                              self.q_t, probs_a_t, debug=True)
+      with self.assertRaisesRegexp(tf.errors.InvalidArgumentError,
+                                   "probs_a_t tensor does not sum to 1"):
+        self.sarse = rl.sarse(
+            self.q_tm1,
+            self.a_tm1,
+            self.r_t,
+            self.pcont_t,
+            self.q_t,
+            probs_a_t,
+            debug=True)
         sess.run(self.sarse.extra.target)
 
   def testVariableBatchSize(self):
@@ -424,27 +431,23 @@ class QLambdaTest(tf.test.TestCase):
   def setUp(self):
     super(QLambdaTest, self).setUp()
     # Tensor dimensions below: TxBxA (time, batch id, action).
-    self.q_tm1 = tf.constant([[[1.1, 2.1], [2.1, 3.1]],
-                              [[-1.1, 1.1], [-1.1, 0.1]],
-                              [[3.1, -3.1], [-2.1, -1.1]]], dtype=tf.float32)
-    self.q_t = tf.constant([[[1.2, 2.2], [4.2, 2.2]],
-                            [[-1.2, 0.2], [1.2, 1.2]],
-                            [[2.2, -1.2], [-1.2, -2.2]]], dtype=tf.float32)
+    self.q_tm1 = tf.constant(
+        [[[1.1, 2.1], [2.1, 3.1]], [[-1.1, 1.1], [-1.1, 0.1]],
+         [[3.1, -3.1], [-2.1, -1.1]]],
+        dtype=tf.float32)
+    self.q_t = tf.constant([[[1.2, 2.2], [4.2, 2.2]], [[-1.2, 0.2], [1.2, 1.2]],
+                            [[2.2, -1.2], [-1.2, -2.2]]],
+                           dtype=tf.float32)
     # Tensor dimensions below: TxB (time, batch id).
-    self.a_tm1 = tf.constant([[0, 1],
-                              [1, 0],
-                              [0, 0]], dtype=tf.int32)
-    self.pcont_t = tf.constant([[0.00, 0.88],
-                                [0.89, 1.00],
-                                [0.85, 0.83]], dtype=tf.float32)
-    self.r_t = tf.constant([[-1.3, 1.3],
-                            [-1.3, 5.3],
-                            [2.3, -3.3]], dtype=tf.float32)
-    self.lambda_ = tf.constant([[0.67, 0.68],
-                                [0.65, 0.69],
-                                [0.66, 0.64]], dtype=tf.float32)
-    self.qlearning = rl.qlambda(self.q_tm1, self.a_tm1, self.r_t,
-                                self.pcont_t, self.q_t, self.lambda_)
+    self.a_tm1 = tf.constant([[0, 1], [1, 0], [0, 0]], dtype=tf.int32)
+    self.pcont_t = tf.constant([[0.00, 0.88], [0.89, 1.00], [0.85, 0.83]],
+                               dtype=tf.float32)
+    self.r_t = tf.constant([[-1.3, 1.3], [-1.3, 5.3], [2.3, -3.3]],
+                           dtype=tf.float32)
+    self.lambda_ = tf.constant([[0.67, 0.68], [0.65, 0.69], [0.66, 0.64]],
+                               dtype=tf.float32)
+    self.qlearning = rl.qlambda(self.q_tm1, self.a_tm1, self.r_t, self.pcont_t,
+                                self.q_t, self.lambda_)
     # Evaluate target Q-values used for testing.
     # t20 is Target for timestep 2, batch 0
     self.t20 = 2.2 * 0.85 + 2.3
@@ -480,17 +483,16 @@ class QLambdaTest(tf.test.TestCase):
     with self.test_session() as sess:
       self.assertAllClose(
           sess.run(self.qlearning.extra.td_error),
-          [[self.t00 - 1.1, self.t01 - 3.1],
-           [self.t10 - 1.1, self.t11 + 1.1],
+          [[self.t00 - 1.1, self.t01 - 3.1], [self.t10 - 1.1, self.t11 + 1.1],
            [self.t20 - 3.1, self.t21 + 2.1]])
 
   def testLoss(self):
     with self.test_session() as sess:
       self.assertAllClose(
           sess.run(self.qlearning.loss),
-          [[0.5 * (self.t00 - 1.1) ** 2, 0.5 * (self.t01 - 3.1) ** 2],
-           [0.5 * (self.t10 - 1.1) ** 2, 0.5 * (self.t11 + 1.1) ** 2],
-           [0.5 * (self.t20 - 3.1) ** 2, 0.5 * (self.t21 + 2.1) ** 2]])
+          [[0.5 * (self.t00 - 1.1)**2, 0.5 * (self.t01 - 3.1)**2],
+           [0.5 * (self.t10 - 1.1)**2, 0.5 * (self.t11 + 1.1)**2],
+           [0.5 * (self.t20 - 3.1)**2, 0.5 * (self.t21 + 2.1)**2]])
 
   def testGradQtm1(self):
     with self.test_session() as sess:
@@ -506,9 +508,9 @@ class QLambdaTest(tf.test.TestCase):
   def testNoOtherGradients(self):
     # Gradients are only defined for q_tm1, not any other input.
     # Bellman residual variants could potentially generate a gradient wrt q_t.
-    gradients = tf.gradients([self.qlearning.loss],
-                             [self.q_t, self.r_t, self.a_tm1, self.pcont_t,
-                              self.lambda_])
+    gradients = tf.gradients(
+        [self.qlearning.loss],
+        [self.q_t, self.r_t, self.a_tm1, self.pcont_t, self.lambda_])
     self.assertEqual(gradients, [None, None, None, None, None])
 
 
@@ -522,9 +524,10 @@ class PengsQLambdaTest(tf.test.TestCase):
   def setUp(self):
     super(PengsQLambdaTest, self).setUp()
     # Tensor dimensions below: TxBxA (time, batch id, action).
-    self.q_tm1 = tf.constant([[[1.1, 2.1], [2.1, 3.1]],
-                              [[-1.1, 1.1], [-1.1, 0.1]],
-                              [[3.1, -3.1], [-2.1, -1.1]]], dtype=tf.float32)
+    self.q_tm1 = tf.constant(
+        [[[1.1, 2.1], [2.1, 3.1]], [[-1.1, 1.1], [-1.1, 0.1]],
+         [[3.1, -3.1], [-2.1, -1.1]]],
+        dtype=tf.float32)
     self.q_t = tf.constant([[[1.2, 2.2], [4.2, 2.2]], [[-1.2, 0.2], [1.2, 1.2]],
                             [[2.2, -1.2], [-1.2, -2.2]]],
                            dtype=tf.float32)
@@ -583,8 +586,54 @@ class PengsQLambdaTest(tf.test.TestCase):
       gradients = tf.gradients([-self.qlearning.loss], [self.q_tm1])
       gradients_reference = tf.gradients([-self.qlearning_reference.loss],
                                          [self.q_tm1])
-      self.assertAllClose(sess.run(gradients[0]),
-                          sess.run(gradients_reference[0]))
+      self.assertAllClose(
+          sess.run(gradients[0]), sess.run(gradients_reference[0]))
+
+
+class SarsaLambdaTest(tf.test.TestCase):
+
+  def setUp(self):
+    super(SarsaLambdaTest, self).setUp()
+    # Tensor dimensions below: TxBxA (time, batch id, action).
+    self.q_tm1 = tf.constant(
+        [[[1.1, 2.1], [2.1, 3.1]], [[-1.1, 1.1], [-1.1, 0.1]],
+         [[3.1, -3.1], [-2.1, -1.1]]],
+        dtype=tf.float32)
+    self.q_t = tf.constant([[[1.2, 2.2], [4.2, 2.2]], [[-1.2, 0.2], [1.2, 1.2]],
+                            [[2.2, -1.2], [-1.2, -2.2]]],
+                           dtype=tf.float32)
+    # Tensor dimensions below: TxB (time, batch id).
+    self.a_tm1 = tf.constant([[0, 1], [1, 0], [0, 0]], dtype=tf.int32)
+    self.pcont_t = tf.constant([[0.00, 0.88], [0.89, 1.00], [0.85, 0.83]],
+                               dtype=tf.float32)
+    self.r_t = tf.constant([[-1.3, 1.3], [-1.3, 5.3], [2.3, -3.3]],
+                           dtype=tf.float32)
+    self.lambda_ = 0.65
+    self.a_t = tf.constant([[1, 0], [0, 0], [0, 1]], dtype=tf.int32)
+    self.sarsa = rl.sarsa_lambda(self.q_tm1, self.a_tm1, self.r_t, self.pcont_t,
+                                 self.q_t, self.a_t, self.lambda_)
+
+  def testRankCheck(self):
+    q_tm1 = tf.placeholder(tf.float32, [None, 3])
+    with self.assertRaisesRegexp(
+        ValueError, "SarsaLambda: Error in rank and/or compatibility check"):
+      self.sarsa = rl.sarsa_lambda(q_tm1, self.a_tm1, self.r_t, self.pcont_t,
+                                   self.q_t, self.a_t, self.lambda_)
+
+  def testCompatibilityCheck(self):
+    r_t = tf.placeholder(tf.float32, [4, 2])
+    with self.assertRaisesRegexp(
+        ValueError, "SarsaLambda: Error in rank and/or compatibility check"):
+      self.sarsa = rl.sarsa_lambda(self.q_tm1, self.a_tm1, r_t, self.pcont_t,
+                                   self.q_t, self.a_t, self.lambda_)
+
+  def testNoOtherGradients(self):
+    # Gradients are only defined for q_tm1, not any other input.
+    # Bellman residual variants could potentially generate a gradient wrt q_t.
+    gradients = tf.gradients(
+        [self.sarsa.loss],
+        [self.q_t, self.r_t, self.a_tm1, self.pcont_t, self.a_t, self.lambda_])
+    self.assertEqual(gradients, [None, None, None, None, None, None])
 
 
 class QVTest(tf.test.TestCase):
@@ -597,8 +646,9 @@ class QVTest(tf.test.TestCase):
     self.pcont_t = tf.constant([0, 1], dtype=tf.float32)
     self.r_t = tf.constant([1, 1], dtype=tf.float32)
     self.v_t = tf.constant([1, 3], dtype=tf.float32)
-    self.loss_op, self.extra_ops = rl.qv_learning(
-        self.q_tm1, self.a_tm1, self.r_t, self.pcont_t, self.v_t)
+    self.loss_op, self.extra_ops = rl.qv_learning(self.q_tm1, self.a_tm1,
+                                                  self.r_t, self.pcont_t,
+                                                  self.v_t)
 
   def testRankCheck(self):
     q_tm1 = tf.placeholder(tf.float32, [None])
@@ -665,8 +715,8 @@ class QVTest(tf.test.TestCase):
     """Tests no gradient propagates through any tensors other than `q_tm1`."""
     # Gradients are only defined for q_tm1, not any other input.
     # Bellman residual variants could potentially generate a gradient wrt q_t.
-    gradients = tf.gradients(
-        [self.loss_op], [self.r_t, self.a_tm1, self.pcont_t, self.v_t])
+    gradients = tf.gradients([self.loss_op],
+                             [self.r_t, self.a_tm1, self.pcont_t, self.v_t])
     self.assertEqual(gradients, [None, None, None, None])
 
 

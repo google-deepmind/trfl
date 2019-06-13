@@ -20,6 +20,7 @@ from trfl.action_value_ops import qlambda
 from trfl.action_value_ops import qlearning
 from trfl.action_value_ops import qv_learning
 from trfl.action_value_ops import sarsa
+from trfl.action_value_ops import sarsa_lambda
 from trfl.action_value_ops import sarse
 from trfl.base_ops import assert_rank_and_shape_compatibility
 from trfl.base_ops import best_effort_shape

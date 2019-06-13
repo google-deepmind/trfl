@@ -365,6 +365,62 @@ def qlambda(
     return base_ops.LossOutput(loss, QExtra(target, td_error))
 
 
+def sarsa_lambda(q_tm1,
+                 a_tm1,
+                 r_t,
+                 pcont_t,
+                 q_t,
+                 a_t,
+                 lambda_,
+                 name="SarsaLambda"):
+  """Implements SARSA(lambda) loss as a TensorFlow op.
+
+  See "Reinforcement Learning: An Introduction" by Sutton and Barto.
+  (http://incompleteideas.net/book/ebook/node77.html).
+
+  Args:
+    q_tm1: `Tensor` holding a sequence of Q-values starting at the first
+      timestep; shape `[T, B, num_actions]`
+    a_tm1: `Tensor` holding a sequence of action indices, shape `[T, B]`
+    r_t: Tensor holding a sequence of rewards, shape `[T, B]`
+    pcont_t: `Tensor` holding a sequence of pcontinue values, shape `[T, B]`
+    q_t: `Tensor` holding a sequence of Q-values for second timestep;
+      shape `[T, B, num_actions]`.
+    a_t: `Tensor` holding a sequence of action indices for second timestep;
+      shape `[T, B]`
+    lambda_: a scalar specifying the ratio of mixing between bootstrapped and
+      MC returns.
+    name: a name of the op.
+
+  Returns:
+    A namedtuple with fields:
+
+    * `loss`: a tensor containing the batch of losses, shape `[T, B]`.
+    * `extra`: a namedtuple with fields:
+        * `target`: batch of target values for `q_tm1[a_tm1]`, shape `[T, B]`.
+        * `td_error`: batch of temporal difference errors, shape `[T, B]`.
+  """
+  # Rank and compatibility checks.
+  base_ops.wrap_rank_shape_assert(
+      [[q_tm1, q_t], [a_tm1, r_t, pcont_t, a_t]], [3, 2], name)
+
+  # SARSALambda op.
+  with tf.name_scope(name, values=[q_tm1, a_tm1, r_t, pcont_t, q_t, a_t]):
+
+    # Select head to update and build target.
+    qa_tm1 = indexing_ops.batched_index(q_tm1, a_tm1)
+    qa_t = indexing_ops.batched_index(q_t, a_t)
+    target = sequence_ops.multistep_forward_view(
+        r_t, pcont_t, qa_t, lambda_, back_prop=False)
+    target = tf.stop_gradient(target)
+
+    # Temporal difference error and loss.
+    # Loss is MSE scaled by 0.5, so the gradient is equal to the TD error.
+    td_error = target - qa_tm1
+    loss = 0.5 * tf.square(td_error)
+    return base_ops.LossOutput(loss, QExtra(target, td_error))
+
+
 def qv_learning(q_tm1, a_tm1, r_t, pcont_t, v_t, name="QVLearning"):
   """Implements the QV loss as a TensorFlow op.
 
