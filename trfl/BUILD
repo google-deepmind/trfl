@@ -347,6 +347,8 @@ py_test(
     srcs_version = "PY2AND3",
     deps = [
         ":indexing_ops",
+        # absl/testing:parameterized dep,
+        # numpy dep,
         # tensorflow dep,
     ],
 )

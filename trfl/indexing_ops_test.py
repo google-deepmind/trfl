@@ -19,13 +19,16 @@ from __future__ import division
 from __future__ import print_function
 
 # Dependency imports
+from absl.testing import parameterized
+import numpy as np
 import tensorflow as tf
 from trfl import indexing_ops
 
 
-class BatchIndexingTest(tf.test.TestCase):
+class BatchIndexingTest(tf.test.TestCase, parameterized.TestCase):
 
-  def testOrdinaryValues(self):
+  @parameterized.parameters([None, True, False])
+  def testOrdinaryValues(self, keepdims):
     """Indexing value functions by action for a minibatch of values."""
     values = [[1.1, 1.2, 1.3],
               [1.4, 1.5, 1.6],
@@ -36,8 +39,11 @@ class BatchIndexingTest(tf.test.TestCase):
               [4.1, 4.2, 4.3],
               [4.4, 4.5, 4.6]]
     action_indices = [0, 2, 1, 0, 2, 1, 0, 2]
-    result = indexing_ops.batched_index(values, action_indices)
+    result = indexing_ops.batched_index(
+        values, action_indices, keepdims=keepdims)
     expected_result = [1.1, 1.6, 2.2, 2.4, 3.3, 3.5, 4.1, 4.6]
+    if keepdims:
+      expected_result = np.expand_dims(expected_result, axis=-1)
 
     with self.test_session() as sess:
       self.assertAllClose(sess.run(result), expected_result)

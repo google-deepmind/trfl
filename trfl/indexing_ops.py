@@ -60,7 +60,7 @@ def assert_compatible_shapes(value_shape, index_shape):
         "runtime without error!")
 
 
-def batched_index(values, indices):
+def batched_index(values, indices, keepdims=None):
   """Equivalent to `values[:, indices]`.
 
   Performs indexing on batches and sequence-batches by reducing over
@@ -75,6 +75,8 @@ def batched_index(values, indices):
   Args:
     values: tensor of shape `[B, num_values]` or `[T, B, num_values]`
     indices: tensor of shape `[B]` or `[T, B]` containing indices.
+    keepdims: If `True`, the returned tensor will have an added 1 dimension at
+      the end (e.g. `[B, 1]` or `[T, B, 1]`).
 
   Returns:
     Tensor of shape `[B]` or `[T, B]` containing values for the given indices.
@@ -90,4 +92,4 @@ def batched_index(values, indices):
 
     one_hot_indices = tf.one_hot(
         indices, tf.shape(values)[-1], dtype=values.dtype)
-    return tf.reduce_sum(values * one_hot_indices, axis=-1)
+    return tf.reduce_sum(values * one_hot_indices, axis=-1, keepdims=keepdims)
