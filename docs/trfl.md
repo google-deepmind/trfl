@@ -27,7 +27,7 @@ equal or unspecified. E.g. `[2, 3]` is compatible with all of `[2, 3]`,
     compatibility asserts.
 
 
-### [`batched_index(values, indices)`](https://github.com/deepmind/trfl/blob/master/trfl/indexing_ops.py?l=64)<!-- RULE: batched_index .code-reference -->
+### [`batched_index(values, indices, keepdims=None)`](https://github.com/deepmind/trfl/blob/master/trfl/indexing_ops.py?l=64)<!-- RULE: batched_index .code-reference -->
 
 Equivalent to `values[:, indices]`.
 
@@ -45,6 +45,8 @@ runtime! See `indexing_ops_test` for detailed examples.
 
 * `values`: tensor of shape `[B, num_values]` or `[T, B, num_values]`
 * `indices`: tensor of shape `[B]` or `[T, B]` containing indices.
+* `keepdims`: If `True`, the returned tensor will have an added 1 dimension at
+    the end (e.g. `[B, 1]` or `[T, B, 1]`).
 
 ##### Returns:
 
