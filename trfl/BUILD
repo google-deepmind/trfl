@@ -3,7 +3,7 @@ load(":trfl.bzl", "gen_op_wrapper_py")
 
 licenses(["notice"])  # Apache 2.0 License
 
-package(default_visibility = [":__subpackages__"])
+package(default_visibility = ["//visibility:public"])
 
 exports_files([
     "LICENSE",
@@ -15,7 +15,6 @@ py_library(
     name = "trfl",
     srcs = ["__init__.py"],
     srcs_version = "PY2AND3",
-    visibility = ["//visibility:public"],
     deps = [
         ":action_value_ops",
         ":base_ops",
@@ -40,9 +39,6 @@ py_library(
     name = "action_value_ops",
     srcs = ["action_value_ops.py"],
     srcs_version = "PY2AND3",
-    visibility = [
-        # visibility removed.
-    ],
     deps = [
         ":base_ops",
         ":indexing_ops",
@@ -74,9 +70,6 @@ py_library(
     name = "discrete_policy_gradient_ops",
     srcs = ["discrete_policy_gradient_ops.py"],
     srcs_version = "PY2AND3",
-    visibility = [
-        # visibility removed.
-    ],
     deps = [
         ":base_ops",
         ":value_ops",
@@ -106,9 +99,6 @@ py_library(
         "distribution_ops.py",
     ],
     srcs_version = "PY2AND3",
-    visibility = [
-        # visibility removed.
-    ],
     deps = [
         ":gen_distribution_ops",
         # tensorflow dep,
@@ -120,9 +110,6 @@ py_library(
     name = "dist_value_ops",
     srcs = ["dist_value_ops.py"],
     srcs_version = "PY2AND3",
-    visibility = [
-        # visibility removed.
-    ],
     deps = [
         ":base_ops",
         ":distribution_ops",
@@ -134,9 +121,6 @@ py_library(
     name = "dpg_ops",
     srcs = ["dpg_ops.py"],
     srcs_version = "PY2AND3",
-    visibility = [
-        # visibility removed.
-    ],
     deps = [
         ":base_ops",
         # tensorflow dep,
@@ -147,9 +131,6 @@ py_library(
     name = "indexing_ops",
     srcs = ["indexing_ops.py"],
     srcs_version = "PY2AND3",
-    visibility = [
-        # visibility removed.
-    ],
     deps = [
         # tensorflow dep,
     ],
@@ -159,9 +140,6 @@ py_library(
     name = "periodic_ops",
     srcs = ["periodic_ops.py"],
     srcs_version = "PY2AND3",
-    visibility = [
-        # visibility removed.
-    ],
     deps = [
         # tensorflow dep,
     ],
@@ -171,9 +149,6 @@ py_library(
     name = "pixel_control_ops",
     srcs = ["pixel_control_ops.py"],
     srcs_version = "PY2AND3",
-    visibility = [
-        # visibility removed.
-    ],
     deps = [
         ":action_value_ops",
         ":base_ops",
@@ -186,9 +161,6 @@ py_library(
     name = "policy_gradient_ops",
     srcs = ["policy_gradient_ops.py"],
     srcs_version = "PY2AND3",
-    visibility = [
-        # visibility removed.
-    ],
     deps = [
         ":base_ops",
         ":value_ops",
@@ -211,9 +183,6 @@ py_library(
     name = "retrace_ops",
     srcs = ["retrace_ops.py"],
     srcs_version = "PY2AND3",
-    visibility = [
-        # visibility removed.
-    ],
     deps = [
         ":base_ops",
         ":indexing_ops",
@@ -227,9 +196,6 @@ py_library(
     name = "sequence_ops",
     srcs = ["sequence_ops.py"],
     srcs_version = "PY2AND3",
-    visibility = [
-        # visibility removed.
-    ],
     deps = [
         # tensorflow dep,
     ],
@@ -239,9 +205,6 @@ py_library(
     name = "target_update_ops",
     srcs = ["target_update_ops.py"],
     srcs_version = "PY2AND3",
-    visibility = [
-        # visibility removed.
-    ],
     deps = [
         ":periodic_ops",
         # tensorflow dep,
@@ -252,9 +215,6 @@ py_library(
     name = "value_ops",
     srcs = ["value_ops.py"],
     srcs_version = "PY2AND3",
-    visibility = [
-        # visibility removed.
-    ],
     deps = [
         ":base_ops",
         ":sequence_ops",
