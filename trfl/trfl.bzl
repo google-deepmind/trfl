@@ -9,7 +9,7 @@ def gen_op_wrapper_py(
         visibility = None):
     """Generates a Python library target wrapping the given ops."""
 
-    # NOTE(slebedev): _ is neded to avoid collision with the py_library.
+    # NOTE(slebedev): _ is needed to avoid collision with the py_library.
     op_lib_so_name = "_" + name + ".so"
     native.cc_binary(
         # NOTE(slebedev): has to have the shared library suffix, otherwise

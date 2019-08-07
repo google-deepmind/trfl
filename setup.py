@@ -26,10 +26,10 @@ from setuptools.dist import Distribution
 REQUIRED_PACKAGES = ['six', 'absl-py', 'numpy', 'dm-sonnet', 'wrapt']
 EXTRA_PACKAGES = {
     'tensorflow': [
-        'tensorflow>=1.13,<1.14', 'tensorflow-probability>=0.6,<0.7'
+        'tensorflow>=1.14,<1.15', 'tensorflow-probability>=0.7,<0.8'
     ],
     'tensorflow with gpu': [
-        'tensorflow-gpu>=1.13,<1.14', 'tensorflow-probability>=0.6,<0.7'
+        'tensorflow-gpu>=1.14,<1.15', 'tensorflow-probability>=0.7,<0.8'
     ],
 }
 

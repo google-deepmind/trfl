@@ -10,8 +10,9 @@ if [ "$#" -ne 2 ]; then
 fi
 
 cat <<EOF
+import os.path
 import tensorflow as tf
-_op_lib = tf.load_op_library(tf.resource_loader.get_path_to_datafile("$1"))
+_op_lib = tf.load_op_library(os.path.join(os.path.dirname(__file__), "$1"))
 EOF
 
 for name in $(echo $2 | tr "," "\n")
