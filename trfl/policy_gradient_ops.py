@@ -25,6 +25,7 @@ from six.moves import zip
 import tensorflow as tf
 from trfl import base_ops
 from trfl import value_ops
+from tensorflow.python.util.nest import flatten_up_to
 
 nest = tf.nest
 
@@ -105,7 +106,7 @@ def policy_gradient_loss(policies, actions, action_values, policy_vars=None,
   """
   actions = nest.flatten(actions)
   if policy_vars:
-    policy_vars = nest.flatten_up_to(policies, policy_vars)
+    policy_vars = flatten_up_to(policies, policy_vars)
   else:
     policy_vars = [list()] * len(actions)
   policies = nest.flatten(policies)
