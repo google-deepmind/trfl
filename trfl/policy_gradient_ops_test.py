@@ -26,7 +26,7 @@ import tensorflow as tf
 import tensorflow_probability as tfp
 from trfl import policy_gradient_ops as pg_ops
 
-nest = tf.contrib.framework.nest
+nest = tf.nest
 
 
 class MockDistribution(object):

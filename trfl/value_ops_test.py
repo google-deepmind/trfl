@@ -23,7 +23,7 @@ from absl.testing import parameterized
 import tensorflow as tf
 from trfl import value_ops
 
-nest = tf.contrib.framework.nest
+nest = tf.nest
 
 
 class TDLearningTest(tf.test.TestCase):

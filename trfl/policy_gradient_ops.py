@@ -26,7 +26,7 @@ import tensorflow as tf
 from trfl import base_ops
 from trfl import value_ops
 
-nest = tf.contrib.framework.nest
+nest = tf.nest
 
 PolicyEntropyExtra = collections.namedtuple("policy_entropy_extra", ["entropy"])
 SequenceA2CExtra = collections.namedtuple(

@@ -25,7 +25,7 @@ from six.moves import xrange  # pylint: disable=redefined-builtin
 import tensorflow as tf
 from trfl import discrete_policy_gradient_ops as pg_ops
 
-nest = tf.contrib.framework.nest
+nest = tf.nest
 
 
 class EntropyCostTest(parameterized.TestCase, tf.test.TestCase):

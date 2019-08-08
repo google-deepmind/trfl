@@ -26,7 +26,7 @@ import tensorflow as tf
 from trfl import base_ops
 from trfl import value_ops
 
-nest = tf.contrib.framework.nest
+nest = tf.nest
 
 DiscretePolicyEntropyExtra = collections.namedtuple(
     "discrete_policy_entropy_extra", ["entropy"])

@@ -23,7 +23,7 @@ import collections
 # Dependency imports
 import tensorflow as tf
 
-nest = tf.contrib.framework.nest
+nest = tf.nest
 
 VTraceFromLogitsReturns = collections.namedtuple(
     'VTraceFromLogitsReturns',
