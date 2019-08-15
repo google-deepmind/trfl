@@ -342,7 +342,9 @@ def qlambda(
   """
   # Rank and compatibility checks.
   base_ops.wrap_rank_shape_assert([[q_tm1, q_t]], [3], name)
-  if isinstance(lambda_, tf.Tensor) and lambda_.get_shape().ndims > 0:
+  if isinstance(
+      lambda_, tf.Tensor
+  ) and lambda_.get_shape().ndims is not None and lambda_.get_shape().ndims > 0:
     base_ops.wrap_rank_shape_assert([[a_tm1, r_t, pcont_t, lambda_]], [2], name)
   else:
     base_ops.wrap_rank_shape_assert([[a_tm1, r_t, pcont_t]], [2], name)
