@@ -950,7 +950,7 @@ See "Reinforcement Learning: An Introduction" by Sutton and Barto.
       * `td_error`: batch of temporal difference errors, shape `[B]`.
 
 
-### [`qv_learning(q_tm1, a_tm1, r_t, pcont_t, v_t, name='QVLearning')`](https://github.com/deepmind/trfl/blob/master/trfl/action_value_ops.py?l=425)<!-- RULE: qv_learning .code-reference -->
+### [`qv_learning(q_tm1, a_tm1, r_t, pcont_t, v_t, name='QVLearning')`](https://github.com/deepmind/trfl/blob/master/trfl/action_value_ops.py?l=427)<!-- RULE: qv_learning .code-reference -->
 
 Implements the QV loss as a TensorFlow op.
 
@@ -1213,7 +1213,7 @@ See "Reinforcement Learning: An Introduction" by Sutton and Barto.
       * `td_error`: batch of temporal difference errors, shape `[B]`.
 
 
-### [`sarsa_lambda(q_tm1, a_tm1, r_t, pcont_t, q_t, a_t, lambda_, name='SarsaLambda')`](https://github.com/deepmind/trfl/blob/master/trfl/action_value_ops.py?l=369)<!-- RULE: sarsa_lambda .code-reference -->
+### [`sarsa_lambda(q_tm1, a_tm1, r_t, pcont_t, q_t, a_t, lambda_, name='SarsaLambda')`](https://github.com/deepmind/trfl/blob/master/trfl/action_value_ops.py?l=371)<!-- RULE: sarsa_lambda .code-reference -->
 
 Implements SARSA(lambda) loss as a TensorFlow op.
 
