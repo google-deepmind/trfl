@@ -24,7 +24,7 @@ import tensorflow as tf
 import tensorflow_probability as tfp
 
 
-def epsilon_greedy(action_values, epsilon):
+def epsilon_greedy(action_values, epsilon, legal_actions_mask=None):
   """Computes an epsilon-greedy distribution over actions.
 
   This returns a categorical distribution over a discrete action space. It is
@@ -42,6 +42,11 @@ def epsilon_greedy(action_values, epsilon):
       Shape can be flat ([A]), batched ([B, A]), a batch of sequences
       ([T, B, A]), and so on.
     epsilon: A scalar Tensor (or Python float) with value between 0 and 1.
+    legal_actions_mask: An optional one-hot tensor having the shame shape and
+      dtypes as `action_values`, defining the legal actions:
+      legal_actions_mask[..., a] = 1 if a is legal, 0 otherwise.
+      If not provided, all actions will be considered legal and
+      `tf.ones_like(action_values)`.
 
   Returns:
     policy: tfp.distributions.Categorical distribution representing the policy.
@@ -56,7 +61,11 @@ def epsilon_greedy(action_values, epsilon):
     num_actions = tf.cast(tf.shape(action_values)[-1], action_values.dtype)
 
     # Dithering action distribution.
-    dither_probs = 1 / num_actions * tf.ones_like(action_values)
+    if legal_actions_mask is None:
+      dither_probs = 1 / num_actions * tf.ones_like(action_values)
+    else:
+      dither_probs = 1 / tf.reduce_sum(
+          legal_actions_mask, axis=-1, keepdims=True) * legal_actions_mask
 
     # Greedy action distribution, breaking ties uniformly at random.
     max_value = tf.reduce_max(action_values, axis=-1, keepdims=True)
