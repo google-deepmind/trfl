@@ -402,7 +402,7 @@ Degris, Wierstra, Riedmiller (http://proceedings.mlr.press/v32/silver14.pdf).
 * `ValueError`: If `q_max` doesn't depend on `a_max` or if `dqda_clipping <= 0`.
 
 
-### [`epsilon_greedy(action_values, epsilon)`](https://github.com/deepmind/trfl/blob/master/trfl/policy_ops.py?l=28)<!-- RULE: epsilon_greedy .code-reference -->
+### [`epsilon_greedy(action_values, epsilon, legal_actions_mask=None)`](https://github.com/deepmind/trfl/blob/master/trfl/policy_ops.py?l=28)<!-- RULE: epsilon_greedy .code-reference -->
 
 Computes an epsilon-greedy distribution over actions.
 
@@ -423,6 +423,11 @@ action value, breaking ties uniformly at random.
     Shape can be flat ([A]), batched ([B, A]), a batch of sequences
     ([T, B, A]), and so on.
 * `epsilon`: A scalar Tensor (or Python float) with value between 0 and 1.
+* `legal_actions_mask`: An optional one-hot tensor having the shame shape and
+    dtypes as `action_values`, defining the legal actions:
+    legal_actions_mask[..., a] = 1 if a is legal, 0 otherwise.
+    If not provided, all actions will be considered legal and
+    `tf.ones_like(action_values)`.
 
 ##### Returns:
 
@@ -1978,7 +1983,7 @@ Projects one categorical distribution onto another.
   A `Tensor` of type `float32`.
 
 
-### [`gen_distribution_ops.project_distribution_eager_fallback(support, weights, new_support, method, name=None, ctx=None)`](https://github.com/deepmind/trfl/blob/master/trfl/gen_distribution_ops.py?l=103)<!-- RULE: gen_distribution_ops.project_distribution_eager_fallback .code-reference -->
+### [`gen_distribution_ops.project_distribution_eager_fallback(support, weights, new_support, method, name=None, ctx=None)`](https://github.com/deepmind/trfl/blob/master/trfl/gen_distribution_ops.py?l=99)<!-- RULE: gen_distribution_ops.project_distribution_eager_fallback .code-reference -->
 
 This is the slowpath function for Eager mode.
 This is for function project_distribution
