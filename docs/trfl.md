@@ -1965,7 +1965,7 @@ Projects one categorical distribution onto another.
   A `Tensor` of type `float32`.
 
 
-### [`gen_distribution_ops.project_distribution(support, weights, new_support, method, name=None)`](https://github.com/deepmind/trfl/blob/master/trfl/gen_distribution_ops.py?l=29)<!-- RULE: gen_distribution_ops.project_distribution .code-reference -->
+### [`gen_distribution_ops.project_distribution(support, weights, new_support, method, name=None)`](https://github.com/deepmind/trfl/blob/master/trfl/gen_distribution_ops.py?l=26)<!-- RULE: gen_distribution_ops.project_distribution .code-reference -->
 
 Projects one categorical distribution onto another.
 
@@ -1983,10 +1983,9 @@ Projects one categorical distribution onto another.
   A `Tensor` of type `float32`.
 
 
-### [`gen_distribution_ops.project_distribution_eager_fallback(support, weights, new_support, method, name=None, ctx=None)`](https://github.com/deepmind/trfl/blob/master/trfl/gen_distribution_ops.py?l=102)<!-- RULE: gen_distribution_ops.project_distribution_eager_fallback .code-reference -->
+### [`gen_distribution_ops.project_distribution_eager_fallback(support, weights, new_support, method, name, ctx)`](https://github.com/deepmind/trfl/blob/master/trfl/gen_distribution_ops.py?l=91)<!-- RULE: gen_distribution_ops.project_distribution_eager_fallback .code-reference -->
 
-This is the slowpath function for Eager mode.
-This is for function project_distribution
+
 
 
 ### [`indexing_ops.assert_compatible_shapes(value_shape, index_shape)`](https://github.com/deepmind/trfl/blob/master/trfl/indexing_ops.py?l=32)<!-- RULE: indexing_ops.assert_compatible_shapes .code-reference -->
