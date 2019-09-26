@@ -26,6 +26,7 @@ from __future__ import division
 from __future__ import print_function
 
 # Dependency imports
+import numpy as np
 import tensorflow as tf
 
 
@@ -58,14 +59,18 @@ def periodically(body, period, name="periodically"):
   if not callable(body):
     raise TypeError("body must be callable.")
 
-  if period is None or period == 0:
+  if period is None:
     return tf.no_op()
 
-  if period < 0:
-    raise ValueError("period cannot be less than 0.")
+  elif isinstance(period, (int, float)):
+    if period == 0:
+      return tf.no_op()
 
-  if period == 1:
-    return body()
+    if period < 0:
+      raise ValueError("period cannot be less than 0.")
+
+    if period == 1:
+      return body()
 
   with tf.variable_scope(None, default_name=name):
     counter = tf.get_variable(
@@ -73,7 +78,8 @@ def periodically(body, period, name="periodically"):
         shape=[],
         dtype=tf.int64,
         trainable=False,
-        initializer=tf.constant_initializer(period, dtype=tf.int64))
+        initializer=tf.constant_initializer(
+            np.iinfo(np.int64).max, dtype=tf.int64))
 
     def _wrapped_body():
       with tf.control_dependencies([body()]):
@@ -81,6 +87,7 @@ def periodically(body, period, name="periodically"):
         return counter.assign(1)
 
     update = tf.cond(
-        tf.equal(counter, period), _wrapped_body, lambda: counter.assign_add(1))
+        tf.math.greater_equal(counter, tf.to_int64(period)),
+        _wrapped_body, lambda: counter.assign_add(1))
 
   return update

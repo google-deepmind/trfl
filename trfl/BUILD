@@ -1,7 +1,8 @@
 # Placeholder for internal Python version compatibility macro.
 load(":trfl.bzl", "gen_op_wrapper_py")
 
-licenses(["notice"])  # Apache 2.0 License
+# Apache 2.0 License
+licenses(["notice"])
 
 package(default_visibility = ["//visibility:public"])
 
@@ -141,6 +142,7 @@ py_library(
     srcs = ["periodic_ops.py"],
     srcs_version = "PY2AND3",
     deps = [
+        # numpy dep,
         # tensorflow dep,
     ],
 )
