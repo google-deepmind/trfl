@@ -616,7 +616,7 @@ The update rule is:
   An op that periodically updates `target_variables` with `source_variables`.
 
 
-### [`periodically(body, period, name='periodically')`](https://github.com/deepmind/trfl/blob/master/trfl/periodic_ops.py?l=33)<!-- RULE: periodically .code-reference -->
+### [`periodically(body, period, name='periodically')`](https://github.com/deepmind/trfl/blob/master/trfl/periodic_ops.py?l=34)<!-- RULE: periodically .code-reference -->
 
 Periodically performs a tensorflow op.
 
