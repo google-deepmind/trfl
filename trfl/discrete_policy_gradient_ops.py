@@ -23,10 +23,12 @@ import collections
 # Dependency imports
 from six.moves import zip
 import tensorflow as tf
+import tree as nest
 from trfl import base_ops
 from trfl import value_ops
 
-nest = tf.contrib.framework.nest
+# pylint: disable=g-complex-comprehension
+
 
 DiscretePolicyEntropyExtra = collections.namedtuple(
     "discrete_policy_entropy_extra", ["entropy"])

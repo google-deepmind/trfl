@@ -23,10 +23,10 @@ import collections
 # Dependency imports
 from six.moves import zip
 import tensorflow as tf
+import tree as nest
 from trfl import base_ops
 from trfl import value_ops
 
-nest = tf.contrib.framework.nest
 
 PolicyEntropyExtra = collections.namedtuple("policy_entropy_extra", ["entropy"])
 SequenceA2CExtra = collections.namedtuple(

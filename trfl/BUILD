@@ -76,6 +76,7 @@ py_library(
         ":value_ops",
         # six dep,
         # tensorflow dep,
+        # tree dep,
     ],
 )
 
@@ -168,6 +169,7 @@ py_library(
         ":value_ops",
         # six dep,
         # tensorflow dep,
+        # tree dep,
     ],
 )
 
@@ -265,6 +267,7 @@ py_test(
         # numpy dep,
         # six dep,
         # tensorflow dep,
+        # tree dep,
     ],
 )
 
@@ -347,6 +350,7 @@ py_test(
         # six dep,
         # tensorflow dep,
         # tensorflow_probability dep,
+        # tree dep,
     ],
 )
 
@@ -403,6 +407,7 @@ py_test(
         ":value_ops",
         # absl/testing:parameterized dep,
         # tensorflow dep,
+        # tree dep,
     ],
 )
 

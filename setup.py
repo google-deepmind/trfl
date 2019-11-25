@@ -23,7 +23,7 @@ from setuptools import find_packages
 from setuptools import setup
 from setuptools.dist import Distribution
 
-REQUIRED_PACKAGES = ['six', 'absl-py', 'numpy', 'dm-sonnet', 'wrapt']
+REQUIRED_PACKAGES = ['six', 'absl-py', 'numpy', 'dm-sonnet', 'wrapt', 'dm-tree']
 EXTRA_PACKAGES = {
     'tensorflow': [
         'tensorflow>=1.14,<1.15', 'tensorflow-probability>=0.7,<0.8'

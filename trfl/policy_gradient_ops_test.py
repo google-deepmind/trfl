@@ -24,9 +24,8 @@ import numpy as np
 from six.moves import xrange  # pylint: disable=redefined-builtin
 import tensorflow as tf
 import tensorflow_probability as tfp
+import tree as nest
 from trfl import policy_gradient_ops as pg_ops
-
-nest = tf.contrib.framework.nest
 
 
 class MockDistribution(object):
