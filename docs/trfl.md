@@ -211,7 +211,7 @@ Dabney and Munos. (https://arxiv.org/abs/1707.06887).
 * `ValueError`: If the tensors do not have the correct rank or compatibility.
 
 
-### [`discrete_policy_entropy_loss(policy_logits, normalise=False, name='discrete_policy_entropy_loss')`](https://github.com/deepmind/trfl/blob/master/trfl/discrete_policy_gradient_ops.py?l=40)<!-- RULE: discrete_policy_entropy_loss .code-reference -->
+### [`discrete_policy_entropy_loss(policy_logits, normalise=False, name='discrete_policy_entropy_loss')`](https://github.com/deepmind/trfl/blob/master/trfl/discrete_policy_gradient_ops.py?l=42)<!-- RULE: discrete_policy_entropy_loss .code-reference -->
 
 Computes the entropy 'loss' for a batch of policy logits.
 
@@ -249,7 +249,7 @@ H is the Shannon entropy.
       * `entropy`: Entropy of the policy, shape `[B]`.
 
 
-### [`discrete_policy_gradient(policy_logits, actions, action_values, name='discrete_policy_gradient')`](https://github.com/deepmind/trfl/blob/master/trfl/discrete_policy_gradient_ops.py?l=221)<!-- RULE: discrete_policy_gradient .code-reference -->
+### [`discrete_policy_gradient(policy_logits, actions, action_values, name='discrete_policy_gradient')`](https://github.com/deepmind/trfl/blob/master/trfl/discrete_policy_gradient_ops.py?l=223)<!-- RULE: discrete_policy_gradient .code-reference -->
 
 Computes a batch of discrete-action policy gradient losses.
 
@@ -302,7 +302,7 @@ having matching sizes for each batch dimension.
       do not match.
 
 
-### [`discrete_policy_gradient_loss(policy_logits, actions, action_values, name='discrete_policy_gradient_loss')`](https://github.com/deepmind/trfl/blob/master/trfl/discrete_policy_gradient_ops.py?l=277)<!-- RULE: discrete_policy_gradient_loss .code-reference -->
+### [`discrete_policy_gradient_loss(policy_logits, actions, action_values, name='discrete_policy_gradient_loss')`](https://github.com/deepmind/trfl/blob/master/trfl/discrete_policy_gradient_ops.py?l=279)<!-- RULE: discrete_policy_gradient_loss .code-reference -->
 
 Computes discrete policy gradient losses for a batch of trajectories.
 
@@ -1424,7 +1424,7 @@ used across all action dimensions for each timestep.
           shape `[T, B]`.
 
 
-### [`sequence_advantage_actor_critic_loss(policy_logits, baseline_values, actions, rewards, pcontinues, bootstrap_value, lambda_=1, entropy_cost=None, baseline_cost=1, normalise_entropy=False, name='SequenceAdvantageActorCriticLoss')`](https://github.com/deepmind/trfl/blob/master/trfl/discrete_policy_gradient_ops.py?l=97)<!-- RULE: sequence_advantage_actor_critic_loss .code-reference -->
+### [`sequence_advantage_actor_critic_loss(policy_logits, baseline_values, actions, rewards, pcontinues, bootstrap_value, lambda_=1, entropy_cost=None, baseline_cost=1, normalise_entropy=False, name='SequenceAdvantageActorCriticLoss')`](https://github.com/deepmind/trfl/blob/master/trfl/discrete_policy_gradient_ops.py?l=99)<!-- RULE: sequence_advantage_actor_critic_loss .code-reference -->
 
 Calculates the loss for an A2C update along a batch of trajectories.
 
@@ -1614,7 +1614,7 @@ The update rule is:
   An op that executes all the variable updates.
 
 
-### [`vtrace_from_importance_weights(log_rhos, discounts, rewards, values, bootstrap_value, clip_rho_threshold=1.0, clip_pg_rho_threshold=1.0, name='vtrace_from_importance_weights')`](https://github.com/deepmind/trfl/blob/master/trfl/vtrace_ops.py?l=155)<!-- RULE: vtrace_from_importance_weights .code-reference -->
+### [`vtrace_from_importance_weights(log_rhos, discounts, rewards, values, bootstrap_value, clip_rho_threshold=1.0, clip_pg_rho_threshold=1.0, name='vtrace_from_importance_weights')`](https://github.com/deepmind/trfl/blob/master/trfl/vtrace_ops.py?l=154)<!-- RULE: vtrace_from_importance_weights .code-reference -->
 
 V-trace from log importance weights.
 
@@ -1664,7 +1664,7 @@ is `[B, C]`.
       advantage in the calculation of policy gradients.
 
 
-### [`vtrace_from_logits(behaviour_policy_logits, target_policy_logits, actions, discounts, rewards, values, bootstrap_value, clip_rho_threshold=1.0, clip_pg_rho_threshold=1.0, name='vtrace_from_logits')`](https://github.com/deepmind/trfl/blob/master/trfl/vtrace_ops.py?l=62)<!-- RULE: vtrace_from_logits .code-reference -->
+### [`vtrace_from_logits(behaviour_policy_logits, target_policy_logits, actions, discounts, rewards, values, bootstrap_value, clip_rho_threshold=1.0, clip_pg_rho_threshold=1.0, name='vtrace_from_logits')`](https://github.com/deepmind/trfl/blob/master/trfl/vtrace_ops.py?l=61)<!-- RULE: vtrace_from_logits .code-reference -->
 
 V-trace for softmax policies.
 
@@ -2155,7 +2155,7 @@ Alias for field number 0
 
 
 
-### [`vtrace_ops.log_probs_from_logits_and_actions(policy_logits, actions)`](https://github.com/deepmind/trfl/blob/master/trfl/vtrace_ops.py?l=36)<!-- RULE: vtrace_ops.log_probs_from_logits_and_actions .code-reference -->
+### [`vtrace_ops.log_probs_from_logits_and_actions(policy_logits, actions)`](https://github.com/deepmind/trfl/blob/master/trfl/vtrace_ops.py?l=35)<!-- RULE: vtrace_ops.log_probs_from_logits_and_actions .code-reference -->
 
 Computes action log-probs from policy logits and actions.
 
