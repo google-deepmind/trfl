@@ -14,3 +14,13 @@ py_test(
         "//trfl:action_value_ops",
     ],
 )
+
+py_test(
+    name = "clipping_ops_test",
+    srcs = ["clipping_ops_test.py"],
+    deps = [
+        # numpy dep,
+        # tensorflow dep,
+        "//trfl:clipping_ops",
+    ],
+)
