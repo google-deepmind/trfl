@@ -24,3 +24,12 @@ py_test(
         "//trfl:clipping_ops",
     ],
 )
+
+py_test(
+    name = "policy_ops_test",
+    srcs = ["policy_ops_test.py"],
+    deps = [
+        # tensorflow dep,
+        "//trfl:policy_ops",
+    ],
+)
