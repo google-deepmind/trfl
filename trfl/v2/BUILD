@@ -48,6 +48,16 @@ py_test(
 )
 
 py_test(
+    name = "pixel_control_ops_test",
+    srcs = ["pixel_control_ops_test.py"],
+    deps = [
+        # numpy dep,
+        # tensorflow dep,
+        "//trfl:pixel_control_ops",
+    ],
+)
+
+py_test(
     name = "policy_ops_test",
     srcs = ["policy_ops_test.py"],
     deps = [
