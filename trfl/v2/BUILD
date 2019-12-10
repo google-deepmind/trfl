@@ -66,3 +66,14 @@ py_test(
         "//trfl:indexing_ops",
     ],
 )
+
+py_test(
+    name = "sequence_ops_test",
+    srcs = ["sequence_ops_test.py"],
+    deps = [
+        # numpy dep,
+        # six dep,
+        # tensorflow dep,
+        "//trfl:sequence_ops",
+    ],
+)
