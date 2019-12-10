@@ -28,7 +28,6 @@ from __future__ import print_function
 import collections
 
 # Dependency imports
-import sonnet as snt
 import tensorflow as tf
 from trfl import action_value_ops
 from trfl import base_ops
@@ -73,7 +72,11 @@ def pixel_control_rewards(observations, cell_size):
   # [T,B,H,W,C] if we have a colour channel. We want to use the TF avg_pool3d
   # op, but it expects 5D inputs so we collapse all channel dimensions.
   # Merge remaining dimensions after W: [T,B,H,W,C'].
-  abs_diff = snt.FlattenTrailingDimensions(dim_from=4)(abs_diff)
+  full_shape = tf.shape(abs_diff)
+  preserved_shape = full_shape[:4]
+  trailing_shape = (tf.reduce_prod(full_shape[4:]),)
+  shape = tf.concat([preserved_shape, trailing_shape], 0)
+  abs_diff = tf.reshape(abs_diff, shape)
   # Apply the averaging using average pooling and reducing over channel.
   avg_abs_diff = tf.nn.avg_pool3d(
       abs_diff,

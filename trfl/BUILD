@@ -155,7 +155,6 @@ py_library(
     deps = [
         ":action_value_ops",
         ":base_ops",
-        # sonnet dep,
         # tensorflow dep,
     ],
 )
