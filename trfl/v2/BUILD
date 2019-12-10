@@ -55,3 +55,14 @@ py_test(
         "//trfl:policy_ops",
     ],
 )
+
+py_test(
+    name = "indexing_ops_test",
+    srcs = ["indexing_ops_test.py"],
+    deps = [
+        # absl/testing:parameterized dep,
+        # numpy dep,
+        # tensorflow dep,
+        "//trfl:indexing_ops",
+    ],
+)
