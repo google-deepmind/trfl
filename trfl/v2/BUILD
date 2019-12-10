@@ -18,6 +18,17 @@ py_test(
 )
 
 py_test(
+    name = "retrace_ops_test",
+    srcs = ["retrace_ops_test.py"],
+    deps = [
+        # numpy dep,
+        # six dep,
+        # tensorflow dep,
+        "//trfl:retrace_ops",
+    ],
+)
+
+py_test(
     name = "action_value_ops_test",
     srcs = ["action_value_ops_test.py"],
     deps = [
