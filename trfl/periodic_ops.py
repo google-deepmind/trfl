@@ -30,7 +30,7 @@ import numpy as np
 import tensorflow as tf
 
 
-def periodically(body, period, name="periodically"):
+def periodically(body, period, counter=None, name="periodically"):
   """Periodically performs a tensorflow op.
 
   The body tensorflow op will be executed every `period` times the periodically
@@ -47,6 +47,10 @@ def periodically(body, period, name="periodically"):
       an internal counter is divisible by the period. The op must have no
       output (for example, a tf.group()).
     period: inverse frequency with which to perform the op.
+    counter: an optional tensorflow variable to use as a counter relative to the
+      period. It will be incremented per call and reset to 1 in every update. In
+      order to ensure that `body` is run in the first count, initialize the
+      counter at a value bigger than `period`.
     name: name of the variable_scope.
 
   Raises:
@@ -72,22 +76,23 @@ def periodically(body, period, name="periodically"):
     if period == 1:
       return body()
 
-  with tf.variable_scope(None, default_name=name):
-    counter = tf.get_variable(
-        "counter",
-        shape=[],
-        dtype=tf.int64,
-        trainable=False,
-        initializer=tf.constant_initializer(
-            np.iinfo(np.int64).max, dtype=tf.int64))
+  if counter is None:
+    with tf.variable_scope(None, default_name=name):
+      counter = tf.get_variable(
+          "counter",
+          shape=[],
+          dtype=tf.int64,
+          trainable=False,
+          initializer=tf.constant_initializer(
+              np.iinfo(np.int64).max, dtype=tf.int64))
 
-    def _wrapped_body():
-      with tf.control_dependencies([body()]):
-        # Done the deed, resets the counter.
-        return counter.assign(1)
+  def _wrapped_body():
+    with tf.control_dependencies([body()]):
+      # Done the deed, resets the counter.
+      return counter.assign(1)
 
-    update = tf.cond(
-        tf.math.greater_equal(counter, tf.to_int64(period)),
-        _wrapped_body, lambda: counter.assign_add(1))
+  update = tf.cond(
+      tf.math.greater_equal(counter, tf.to_int64(period)),
+      _wrapped_body, lambda: counter.assign_add(1))
 
   return update

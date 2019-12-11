@@ -59,6 +59,16 @@ py_test(
 )
 
 py_test(
+    name = "periodic_ops_test",
+    srcs = ["periodic_ops_test.py"],
+    deps = [
+        # numpy dep,
+        # tensorflow dep,
+        "//trfl:periodic_ops",
+    ],
+)
+
+py_test(
     name = "pixel_control_ops_test",
     srcs = ["pixel_control_ops_test.py"],
     deps = [
