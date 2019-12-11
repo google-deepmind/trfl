@@ -29,6 +29,17 @@ py_test(
 )
 
 py_test(
+    name = "vtrace_ops_test",
+    srcs = ["vtrace_ops_test.py"],
+    deps = [
+        # absl/testing:parameterized dep,
+        # numpy dep,
+        # tensorflow dep,
+        "//trfl:vtrace_ops",
+    ],
+)
+
+py_test(
     name = "action_value_ops_test",
     srcs = ["action_value_ops_test.py"],
     deps = [
