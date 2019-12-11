@@ -51,8 +51,7 @@ def _slice_with_actions(embeddings, actions):
   Returns:
     Tensor of embeddings indexed by actions
   """
-  shape = tuple(t.value for t in embeddings.get_shape())
-  batch_size, num_actions = shape[0], shape[1]
+  batch_size, num_actions = embeddings.get_shape()[:2]
 
   # Values are the 'values' in a sparse tensor we will be setting
   act_indx = tf.cast(actions, tf.int64)[:, None]

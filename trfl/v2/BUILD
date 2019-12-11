@@ -108,3 +108,13 @@ py_test(
         "//trfl:sequence_ops",
     ],
 )
+
+py_test(
+    name = "dist_value_ops_test",
+    srcs = ["dist_value_ops_test.py"],
+    deps = [
+        # numpy dep,
+        # tensorflow dep,
+        "//trfl:dist_value_ops",
+    ],
+)
