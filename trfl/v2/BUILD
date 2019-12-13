@@ -59,6 +59,19 @@ py_test(
 )
 
 py_test(
+    name = "discrete_policy_gradient_ops_test",
+    srcs = ["discrete_policy_gradient_ops_test.py"],
+    deps = [
+        # absl/testing:parameterized dep,
+        # numpy dep,
+        # six dep,
+        # tensorflow dep,
+        # tree dep,
+        "//trfl:discrete_policy_gradient_ops",
+    ],
+)
+
+py_test(
     name = "periodic_ops_test",
     srcs = ["periodic_ops_test.py"],
     deps = [

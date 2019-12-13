@@ -115,6 +115,9 @@ def scan_discounted_sum(sequence, decay, initial_value, reverse=False,
                      initializer=tf.convert_to_tensor(initial_value),
                      parallel_iterations=1,
                      back_prop=back_prop)
+
+    if not back_prop:
+      summed = tf.stop_gradient(summed)
     if reverse:
       summed = _reverse_seq(summed, sequence_lengths)
     return summed
