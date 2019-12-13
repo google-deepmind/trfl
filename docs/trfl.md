@@ -86,7 +86,7 @@ Extract as much static shape information from a tensor as possible.
     statically-known number of dimensions.
 
 
-### [`categorical_dist_double_qlearning(atoms_tm1, logits_q_tm1, a_tm1, r_t, pcont_t, atoms_t, logits_q_t, q_t_selector, name='CategoricalDistDoubleQLearning')`](https://github.com/deepmind/trfl/blob/master/trfl/dist_value_ops.py?l=149)<!-- RULE: categorical_dist_double_qlearning .code-reference -->
+### [`categorical_dist_double_qlearning(atoms_tm1, logits_q_tm1, a_tm1, r_t, pcont_t, atoms_t, logits_q_t, q_t_selector, name='CategoricalDistDoubleQLearning')`](https://github.com/deepmind/trfl/blob/master/trfl/dist_value_ops.py?l=148)<!-- RULE: categorical_dist_double_qlearning .code-reference -->
 
 Implements Distributional Double Q-learning as TensorFlow ops.
 
@@ -132,7 +132,7 @@ Hessel, Modayil, van Hasselt, Schaul et al.
 * `ValueError`: If the tensors do not have the correct rank or compatibility.
 
 
-### [`categorical_dist_qlearning(atoms_tm1, logits_q_tm1, a_tm1, r_t, pcont_t, atoms_t, logits_q_t, name='CategoricalDistQLearning')`](https://github.com/deepmind/trfl/blob/master/trfl/dist_value_ops.py?l=74)<!-- RULE: categorical_dist_qlearning .code-reference -->
+### [`categorical_dist_qlearning(atoms_tm1, logits_q_tm1, a_tm1, r_t, pcont_t, atoms_t, logits_q_t, name='CategoricalDistQLearning')`](https://github.com/deepmind/trfl/blob/master/trfl/dist_value_ops.py?l=73)<!-- RULE: categorical_dist_qlearning .code-reference -->
 
 Implements Distributional Q-learning as TensorFlow ops.
 
@@ -172,7 +172,7 @@ Dabney and Munos. (https://arxiv.org/abs/1707.06887).
 * `ValueError`: If the tensors do not have the correct rank or compatibility.
 
 
-### [`categorical_dist_td_learning(atoms_tm1, logits_v_tm1, r_t, pcont_t, atoms_t, logits_v_t, name='CategoricalDistTDLearning')`](https://github.com/deepmind/trfl/blob/master/trfl/dist_value_ops.py?l=231)<!-- RULE: categorical_dist_td_learning .code-reference -->
+### [`categorical_dist_td_learning(atoms_tm1, logits_v_tm1, r_t, pcont_t, atoms_t, logits_v_t, name='CategoricalDistTDLearning')`](https://github.com/deepmind/trfl/blob/master/trfl/dist_value_ops.py?l=230)<!-- RULE: categorical_dist_td_learning .code-reference -->
 
 Implements Distributional TD-learning as TensorFlow ops.
 
@@ -617,7 +617,7 @@ The update rule is:
   An op that periodically updates `target_variables` with `source_variables`.
 
 
-### [`periodically(body, period, name='periodically')`](https://github.com/deepmind/trfl/blob/master/trfl/periodic_ops.py?l=34)<!-- RULE: periodically .code-reference -->
+### [`periodically(body, period, counter=None, name='periodically')`](https://github.com/deepmind/trfl/blob/master/trfl/periodic_ops.py?l=34)<!-- RULE: periodically .code-reference -->
 
 Periodically performs a tensorflow op.
 
@@ -637,6 +637,10 @@ If `period` is 0 or `None`, it would not perform any op and would return a
     an internal counter is divisible by the period. The op must have no
     output (for example, a tf.group()).
 * `period`: inverse frequency with which to perform the op.
+* `counter`: an optional tensorflow variable to use as a counter relative to the
+    period. It will be incremented per call and reset to 1 in every update. In
+    order to ensure that `body` is run in the first count, initialize the
+    counter at a value bigger than `period`.
 * `name`: name of the variable_scope.
 
 ##### Raises:
@@ -685,7 +689,7 @@ by Bellemare, Ostrovski, Guez et al. (https://arxiv.org/abs/1512.04860).
       * `td_error`: batch of temporal difference errors, shape `[B]`.
 
 
-### [`pixel_control_loss(observations, actions, action_values, cell_size, discount_factor, scale, crop_height_dim=(None, None), crop_width_dim=(None, None))`](https://github.com/deepmind/trfl/blob/master/trfl/pixel_control_ops.py?l=92)<!-- RULE: pixel_control_loss .code-reference -->
+### [`pixel_control_loss(observations, actions, action_values, cell_size, discount_factor, scale, crop_height_dim=(None, None), crop_width_dim=(None, None))`](https://github.com/deepmind/trfl/blob/master/trfl/pixel_control_ops.py?l=95)<!-- RULE: pixel_control_loss .code-reference -->
 
 Calculate n-step Q-learning loss for pixel control auxiliary task.
 
@@ -735,7 +739,7 @@ Mnih, Czarnecki et al. (https://arxiv.org/abs/1611.05397).
     the pseudo-rewards derived from the observations.
 
 
-### [`pixel_control_rewards(observations, cell_size)`](https://github.com/deepmind/trfl/blob/master/trfl/pixel_control_ops.py?l=42)<!-- RULE: pixel_control_rewards .code-reference -->
+### [`pixel_control_rewards(observations, cell_size)`](https://github.com/deepmind/trfl/blob/master/trfl/pixel_control_ops.py?l=41)<!-- RULE: pixel_control_rewards .code-reference -->
 
 Calculates pixel control task rewards from observation sequence.
 
