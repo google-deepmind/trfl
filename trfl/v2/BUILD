@@ -72,6 +72,18 @@ py_test(
 )
 
 py_test(
+    name = "distribution_ops_test",
+    srcs = ["distribution_ops_test.py"],
+    deps = [
+        # absl/testing:parameterized dep,
+        # numpy dep,
+        # tensorflow dep,
+        # tensorflow_probability dep,
+        "//trfl:distribution_ops",
+    ],
+)
+
+py_test(
     name = "periodic_ops_test",
     srcs = ["periodic_ops_test.py"],
     deps = [
