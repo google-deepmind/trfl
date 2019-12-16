@@ -47,7 +47,7 @@ def best_effort_shape(tensor, with_rank=None):
     ValueError: If `with_rank` is None and `tensor` does not have
       statically-known number of dimensions.
   """
-  tensor_shape = tensor.get_shape()
+  tensor_shape = tf.TensorShape(tensor.shape)
   if with_rank:
     tensor_shape = tensor_shape.with_rank(with_rank)
   if tensor_shape.ndims is None:
@@ -80,7 +80,7 @@ def assert_rank_and_shape_compatibility(tensors, rank):
 
   union_of_shapes = tf.TensorShape(None)
   for tensor in tensors:
-    tensor_shape = tensor.get_shape()
+    tensor_shape = tf.TensorShape(tensor.shape)
     tensor_shape.assert_has_rank(rank)
     union_of_shapes = union_of_shapes.merge_with(tensor_shape)
 
