@@ -143,3 +143,17 @@ py_test(
         "//trfl:dist_value_ops",
     ],
 )
+
+py_test(
+    name = "policy_gradient_ops_test",
+    srcs = ["policy_gradient_ops_test.py"],
+    deps = [
+        # absl/testing:parameterized dep,
+        # numpy dep,
+        # six dep,
+        # tensorflow dep,
+        # tensorflow_probability dep,
+        # tree dep,
+        "//trfl:policy_gradient_ops",
+    ],
+)
