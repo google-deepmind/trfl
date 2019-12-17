@@ -90,6 +90,7 @@ def periodic_target_update(target_variables,
                            update_period,
                            tau=1.0,
                            use_locking=False,
+                           counter=None,
                            name="periodic_target_update"):
   """Returns an op to periodically update a list of target variables.
 
@@ -108,6 +109,9 @@ def periodic_target_update(target_variables,
       representing a full update (that is, a straight copy).
     use_locking: use `tf.variable.Assign`'s locking option when assigning
       source variable values to target variables.
+    counter: an optional tensorflow variable to use as a counter relative to
+      `update_period`, which be passed to `periodic_ops.periodically`. See
+      description in `periodic_ops.periodically` for details.
     name: sets the `name_scope` for this op.
 
   Returns:
@@ -119,4 +123,4 @@ def periodic_target_update(target_variables,
         target_variables, source_variables, tau, use_locking)
 
   with tf.name_scope(name, values=target_variables + source_variables):
-    return periodic_ops.periodically(update_op, update_period)
+    return periodic_ops.periodically(update_op, update_period, counter=counter)

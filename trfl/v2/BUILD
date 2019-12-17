@@ -145,6 +145,16 @@ py_test(
 )
 
 py_test(
+    name = "target_update_ops_test",
+    srcs = ["target_update_ops_test.py"],
+    deps = [
+        # absl/testing:parameterized dep,
+        # tensorflow dep,
+        "//trfl:target_update_ops",
+    ],
+)
+
+py_test(
     name = "policy_gradient_ops_test",
     srcs = ["policy_gradient_ops_test.py"],
     deps = [

@@ -50,7 +50,9 @@ def periodically(body, period, counter=None, name="periodically"):
     counter: an optional tensorflow variable to use as a counter relative to the
       period. It will be incremented per call and reset to 1 in every update. In
       order to ensure that `body` is run in the first count, initialize the
-      counter at a value bigger than `period`.
+      counter at a value bigger than `period`. If not given, an internal counter
+      will be created in the graph. (not that this is incompatible with
+      Tensorflow 2 behavior)
     name: name of the variable_scope.
 
   Raises:
