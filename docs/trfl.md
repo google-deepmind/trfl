@@ -524,7 +524,7 @@ This is, for instance, how gradients are clipped in DQN and its variants.
 * `ValueError`: if quadratic_linear_boundary <= 0.
 
 
-### [`multistep_forward_view(rewards, pcontinues, state_values, lambda_, back_prop=True, sequence_lengths=None, name='multistep_forward_view_op')`](https://github.com/deepmind/trfl/blob/master/trfl/sequence_ops.py?l=124)<!-- RULE: multistep_forward_view .code-reference -->
+### [`multistep_forward_view(rewards, pcontinues, state_values, lambda_, back_prop=True, sequence_lengths=None, name='multistep_forward_view_op')`](https://github.com/deepmind/trfl/blob/master/trfl/sequence_ops.py?l=127)<!-- RULE: multistep_forward_view .code-reference -->
 
 Evaluates complex backups (forward view of eligibility traces).
 
