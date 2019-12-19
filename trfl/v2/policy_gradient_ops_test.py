@@ -130,8 +130,7 @@ class PolicyGradientTest(parameterized.TestCase, tf.test.TestCase):
         dtype=tf.float32, shape=(sequence_length, batch_size))
 
     @tf.function(input_signature=[self._policy_vars, self._actions,
-                                  self._action_values],
-                 autograph=False)
+                                  self._action_values])
     def _loss_fn(policy_vars, actions, action_values):
       policies = nest.map_structure_up_to(policy_callables,
                                           lambda fn, args: fn(*args),
@@ -195,8 +194,7 @@ class PolicyGradientLossTest(parameterized.TestCase, tf.test.TestCase):
         dtype=tf.float32, shape=(sequence_length, batch_size))
     all_inputs = [self._actions, self._policy_vars, self._action_values]
 
-    # Tracing fails when autograph is enabled.
-    @tf.function(input_signature=all_inputs, autograph=False)
+    @tf.function(input_signature=all_inputs)
     def _loss_fn(actions, policy_vars, action_values):
       with tf.GradientTape() as tape:
         tape.watch(policy_vars)
@@ -258,7 +256,7 @@ class EntropyCostTest(parameterized.TestCase, tf.test.TestCase):
                                       lambda fn, args: fn(*args),
                                       policy_callables, policy_vars)
 
-    @tf.function(input_signature=[self._policy_vars], autograph=False)
+    @tf.function(input_signature=[self._policy_vars])
     def _loss_fn(policy_vars):
       concrete_policies = _build_policies(policy_vars)
       loss = pg_ops.policy_entropy_loss(concrete_policies, policy_vars,
@@ -369,7 +367,7 @@ class SequenceA2CLossTest(parameterized.TestCase, tf.test.TestCase):
     all_inputs = [self._policy_vars, self._baseline_values, self._actions,
                   self._rewards, self._pcontinues, self._bootstrap_value]
 
-    @tf.function(input_signature=all_inputs, autograph=False)
+    @tf.function(input_signature=all_inputs)
     def _loss_fn(policy_vars, baseline_values, actions, rewards, pcontinues,
                  bootstrap_value):
       policies = nest.map_structure_up_to(callables,
