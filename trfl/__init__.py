@@ -55,4 +55,4 @@ from trfl.value_ops import td_learning
 from trfl.vtrace_ops import vtrace_from_importance_weights
 from trfl.vtrace_ops import vtrace_from_logits
 
-__version__ = '1.0.1'
+__version__ = '1.0.2'
