@@ -22,7 +22,7 @@ import collections
 # Dependency imports
 
 from six.moves import zip
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 
 LossOutput = collections.namedtuple("loss_output", ["loss", "extra"])
 

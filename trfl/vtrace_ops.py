@@ -21,7 +21,7 @@ from __future__ import print_function
 import collections
 
 # Dependency imports
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 
 
 VTraceFromLogitsReturns = collections.namedtuple(

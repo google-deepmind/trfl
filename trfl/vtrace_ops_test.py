@@ -21,7 +21,7 @@ from __future__ import print_function
 # Dependency imports
 from absl.testing import parameterized
 import numpy as np
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 from trfl import vtrace_ops
 
 

@@ -32,7 +32,7 @@ import collections
 
 # Dependency imports
 from six.moves import zip
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 from trfl import base_ops
 from trfl import indexing_ops
 from trfl import sequence_ops

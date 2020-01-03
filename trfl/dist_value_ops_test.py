@@ -19,7 +19,7 @@ from __future__ import print_function
 
 # Dependency imports
 import numpy as np
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 from trfl import dist_value_ops as rl
 
 

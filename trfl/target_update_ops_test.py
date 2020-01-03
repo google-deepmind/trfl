@@ -20,7 +20,7 @@ from __future__ import print_function
 
 # Dependency imports
 from absl.testing import parameterized
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 from trfl import target_update_ops
 
 

@@ -20,7 +20,7 @@ from __future__ import print_function
 
 # Dependency imports
 from absl.testing import parameterized
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 import tree as nest
 from trfl import value_ops
 

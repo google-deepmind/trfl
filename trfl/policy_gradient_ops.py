@@ -22,7 +22,7 @@ import collections
 
 # Dependency imports
 from six.moves import zip
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 import tree as nest
 from trfl import base_ops
 from trfl import value_ops
