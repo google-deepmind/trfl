@@ -589,7 +589,7 @@ Evaluates complex backups (forward view of eligibility traces).
     Tensor of shape `[T, B]` containing multistep returns.
 
 
-### [`periodic_target_update(target_variables, source_variables, update_period, tau=1.0, use_locking=False, name='periodic_target_update')`](https://github.com/deepmind/trfl/blob/master/trfl/target_update_ops.py?l=89)<!-- RULE: periodic_target_update .code-reference -->
+### [`periodic_target_update(target_variables, source_variables, update_period, tau=1.0, use_locking=False, counter=None, name='periodic_target_update')`](https://github.com/deepmind/trfl/blob/master/trfl/target_update_ops.py?l=89)<!-- RULE: periodic_target_update .code-reference -->
 
 Returns an op to periodically update a list of target variables.
 
@@ -610,6 +610,9 @@ The update rule is:
     representing a full update (that is, a straight copy).
 * `use_locking`: use `tf.variable.Assign`'s locking option when assigning
     source variable values to target variables.
+* `counter`: an optional tensorflow variable to use as a counter relative to
+    `update_period`, which be passed to `periodic_ops.periodically`. See
+    description in `periodic_ops.periodically` for details.
 * `name`: sets the `name_scope` for this op.
 
 ##### Returns:
@@ -640,7 +643,9 @@ If `period` is 0 or `None`, it would not perform any op and would return a
 * `counter`: an optional tensorflow variable to use as a counter relative to the
     period. It will be incremented per call and reset to 1 in every update. In
     order to ensure that `body` is run in the first count, initialize the
-    counter at a value bigger than `period`.
+    counter at a value bigger than `period`. If not given, an internal counter
+    will be created in the graph. (not that this is incompatible with
+    Tensorflow 2 behavior)
 * `name`: name of the variable_scope.
 
 ##### Raises:
