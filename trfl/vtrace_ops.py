@@ -170,7 +170,7 @@ def vtrace_from_importance_weights(
   is `[B, C]`.
 
   Args:
-    log_rhos: A float32 tensor of shape `[T, B, NUM_ACTIONS]` representing the
+    log_rhos: A float32 tensor of shape `[T, B]` representing the
       log importance sampling weights, i.e.
       log(target_policy(a) / behaviour_policy(a)). V-trace performs operations
       on rhos in log-space for numerical stability.
