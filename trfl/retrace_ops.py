@@ -249,10 +249,10 @@ def _general_off_policy_corrected_multistep_target(r_t,
   # Define:
   #   T_tm1   = T(x_{t-1}, a_{t-1})
   #   T_t     = T(x_t, a_t)
-  #   exp_q_t = 𝔼_π Q(x_{t+1},.)
+  #   exp_q_t = 𝔼_π Q(x_t,.)
   #   qa_t    = Q(x_t, a_t)
   # Hence:
-  #   T_tm1   = (r_t + γ * exp_q_t - c_t * qa_t) + γ * c_t * T_t
+  #   T_tm1   = r_t + γ * (exp_q_t - c_t * qa_t) + γ * c_t * T_t
   # Define:
   #   current = r_t + γ * (exp_q_t - c_t * qa_t)
   # Thus:
