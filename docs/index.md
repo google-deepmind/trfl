@@ -195,7 +195,6 @@ Throughout the package, we use the following conventions:
 *   Distributions
 
     *   [l2_project](trfl.md#l2_projectsupport-weights-new_support)
-    *   [hard_cumulative_project](trfl.md#hard_cumulative_projectsupport-weights-new_support-reverse)
     *   [factorised_kl_gaussian](trfl.md#factorised_kl_gaussiandist1_mean-dist1_covariance_or_scale-dist2_mean-dist2_covariance_or_scale-both_diagonalfalse)
 
 *   Indexing ops

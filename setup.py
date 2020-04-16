@@ -18,7 +18,6 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-import unittest
 from setuptools import find_packages
 from setuptools import setup
 from setuptools.dist import Distribution
@@ -32,12 +31,6 @@ EXTRA_PACKAGES = {
         'tensorflow-gpu>=1.15,<1.16', 'tensorflow-probability>=0.8,<0.9'
     ],
 }
-
-
-def trfl_test_suite():
-  test_loader = unittest.TestLoader()
-  test_suite = test_loader.discover('trfl', pattern='*_test.py')
-  return test_suite
 
 
 class BinaryDistribution(Distribution):
@@ -83,5 +76,6 @@ setup(
     ],
     license='Apache 2.0',
     keywords='trfl truffle tensorflow tensor machine reinforcement learning',
-    test_suite='setup.trfl_test_suite',
+    test_suite='nose.collector',
+    tests_require=['nose'],
 )
