@@ -56,9 +56,9 @@ def update_target_variables(target_variables,
   Returns:
     An op that executes all the variable updates.
   """
-  if not isinstance(tau, float):
+  if not isinstance(tau, float) and not tf.is_tensor(tau):
     raise TypeError("Tau has wrong type (should be float) {}".format(tau))
-  if not 0.0 < tau <= 1.0:
+  if not tf.is_tensor(tau) and not 0.0 < tau <= 1.0:
     raise ValueError("Invalid parameter tau {}".format(tau))
   if len(target_variables) != len(source_variables):
     raise ValueError("Number of target variables {} is not the same as "
