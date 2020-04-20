@@ -20,7 +20,6 @@ from __future__ import print_function
 
 from setuptools import find_packages
 from setuptools import setup
-from setuptools.dist import Distribution
 
 REQUIRED_PACKAGES = ['six', 'absl-py', 'numpy', 'wrapt', 'dm-tree']
 EXTRA_PACKAGES = {
@@ -31,14 +30,6 @@ EXTRA_PACKAGES = {
         'tensorflow-gpu>=1.15', 'tensorflow-probability>=0.8'
     ],
 }
-
-
-class BinaryDistribution(Distribution):
-  """This class is needed in order to create OS specific wheels."""
-
-  def has_ext_modules(self):
-    return True
-
 
 setup(
     name='trfl',
@@ -56,7 +47,6 @@ setup(
     # Add in any packaged data.
     include_package_data=True,
     zip_safe=False,
-    distclass=BinaryDistribution,
     # PyPI package information.
     classifiers=[
         'Development Status :: 4 - Beta',
