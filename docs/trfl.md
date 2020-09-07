@@ -1634,11 +1634,10 @@ Importance Weighted Actor-Learner Architectures"
 by Espeholt, Soyer, Munos et al.
 
 In the notation used throughout documentation and comments, T refers to the
-time dimension ranging from 0 to T-1. B refers to the batch size and
-NUM_ACTIONS refers to the number of actions. This code also supports the
-case where all tensors have the same number of additional dimensions, e.g.,
-`rewards` is `[T, B, C]`, `values` is `[T, B, C]`, `bootstrap_value`
-is `[B, C]`.
+time dimension ranging from 0 to T-1. B refers to the batch size. This code
+also supports the case where all tensors have the same number of additional
+dimensions, e.g., `rewards` is `[T, B, C]`, `values` is `[T, B, C]`,
+`bootstrap_value` is `[B, C]`.
 
 ##### Args:
 
@@ -1957,7 +1956,7 @@ Alias for field number 0
 
 
 
-### [`gen_distribution_ops.ProjectDistribution(support, weights, new_support, method, name=None)`](https://github.com/deepmind/trfl/blob/master/trfl/gen_distribution_ops.py?l=387)<!-- RULE: gen_distribution_ops.ProjectDistribution .code-reference -->
+### [`gen_distribution_ops.ProjectDistribution(support, weights, new_support, method, name=None)`](https://github.com/deepmind/trfl/blob/master/trfl/gen_distribution_ops.py?l=398)<!-- RULE: gen_distribution_ops.ProjectDistribution .code-reference -->
 
 Projects one categorical distribution onto another.
 
@@ -1975,7 +1974,7 @@ Projects one categorical distribution onto another.
   A `Tensor` of type `float32`.
 
 
-### [`gen_distribution_ops.project_distribution(support, weights, new_support, method, name=None)`](https://github.com/deepmind/trfl/blob/master/trfl/gen_distribution_ops.py?l=23)<!-- RULE: gen_distribution_ops.project_distribution .code-reference -->
+### [`gen_distribution_ops.project_distribution(support, weights, new_support, method, name=None)`](https://github.com/deepmind/trfl/blob/master/trfl/gen_distribution_ops.py?l=24)<!-- RULE: gen_distribution_ops.project_distribution .code-reference -->
 
 Projects one categorical distribution onto another.
 
@@ -1993,7 +1992,7 @@ Projects one categorical distribution onto another.
   A `Tensor` of type `float32`.
 
 
-### [`gen_distribution_ops.project_distribution_eager_fallback(support, weights, new_support, method, name, ctx)`](https://github.com/deepmind/trfl/blob/master/trfl/gen_distribution_ops.py?l=88)<!-- RULE: gen_distribution_ops.project_distribution_eager_fallback .code-reference -->
+### [`gen_distribution_ops.project_distribution_eager_fallback(support, weights, new_support, method, name, ctx)`](https://github.com/deepmind/trfl/blob/master/trfl/gen_distribution_ops.py?l=92)<!-- RULE: gen_distribution_ops.project_distribution_eager_fallback .code-reference -->
 
 
 
