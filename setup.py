@@ -33,7 +33,7 @@ EXTRA_PACKAGES = {
 
 setup(
     name='trfl',
-    version='1.1.0',
+    version='1.2.0',
     description=('trfl is a library of building blocks for '
                  'reinforcement learning algorithms.'),
     long_description='',
