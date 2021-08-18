@@ -20,6 +20,7 @@ from __future__ import print_function
 
 # Dependency imports
 
+import numpy as np
 import tensorflow.compat.v1 as tf
 import tensorflow_probability as tfp
 
@@ -51,7 +52,8 @@ def epsilon_greedy(action_values, epsilon, legal_actions_mask=None):
   Returns:
     policy: tfp.distributions.Categorical distribution representing the policy.
   """
-  with tf.name_scope("epsilon_greedy", values=[action_values, epsilon]):
+  with tf.name_scope("epsilon_greedy",
+                     values=[action_values, epsilon, legal_actions_mask]):
 
     # Convert inputs to Tensors if they aren't already.
     action_values = tf.convert_to_tensor(action_values)
@@ -60,17 +62,27 @@ def epsilon_greedy(action_values, epsilon, legal_actions_mask=None):
     # We compute the action space dynamically.
     num_actions = tf.cast(tf.shape(action_values)[-1], action_values.dtype)
 
-    # Dithering action distribution.
     if legal_actions_mask is None:
+      # Dithering action distribution.
       dither_probs = 1 / num_actions * tf.ones_like(action_values)
+      # Greedy action distribution, breaking ties uniformly at random.
+      max_value = tf.reduce_max(action_values, axis=-1, keepdims=True)
+      greedy_probs = tf.cast(tf.equal(action_values, max_value),
+                             action_values.dtype)
     else:
+      legal_actions_mask = tf.convert_to_tensor(legal_actions_mask)
+      # Dithering action distribution.
       dither_probs = 1 / tf.reduce_sum(
           legal_actions_mask, axis=-1, keepdims=True) * legal_actions_mask
+      masked_action_values = tf.where(tf.equal(legal_actions_mask, 1),
+                                      action_values,
+                                      tf.fill(tf.shape(action_values), -np.inf))
+      # Greedy action distribution, breaking ties uniformly at random.
+      max_value = tf.reduce_max(masked_action_values, axis=-1, keepdims=True)
+      greedy_probs = tf.cast(
+          tf.equal(action_values * legal_actions_mask, max_value),
+          action_values.dtype)
 
-    # Greedy action distribution, breaking ties uniformly at random.
-    max_value = tf.reduce_max(action_values, axis=-1, keepdims=True)
-    greedy_probs = tf.cast(tf.equal(action_values, max_value),
-                           action_values.dtype)
     greedy_probs /= tf.reduce_sum(greedy_probs, axis=-1, keepdims=True)
 
     # Epsilon-greedy action distribution.

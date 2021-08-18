@@ -105,6 +105,18 @@ class EpsilonGreedyTest(tf.test.TestCase):
     with self.test_session() as sess:
       self.assertAllClose(sess.run(result), expected)
 
+  def testLegalActionsMask2(self):
+    action_values = [-0.8, 1., -0.8, -2.0]
+    legal_actions_mask = [0., 0., 1., 1.]
+    epsilon = 0.1
+
+    expected = [0.00, 0.00, 0.95, 0.05]
+
+    result = policy_ops.epsilon_greedy(action_values, epsilon,
+                                       legal_actions_mask).probs
+    with self.test_session() as sess:
+      self.assertAllClose(sess.run(result), expected)
+
 
 if __name__ == "__main__":
   tf.test.main()
