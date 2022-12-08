@@ -93,7 +93,7 @@ def wrap_rank_shape_assert(tensors_list, expected_ranks, op_name):
     error_message = ("{}: Error in rank and/or "
                      "compatibility check, {}".format(op_name, e))
     tf.logging.error(error_message)
-    raise ValueError(error_message)
+    raise ValueError(error_message) from e
 
 
 def assert_arg_bounded(value, min_value, max_value, op_name, arg_name):
