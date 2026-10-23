@@ -1,5 +1,7 @@
 # TRFL
 
+[English](README.md) | [简体中文](https://github.com/google-deepmind/trfl/blob/master/README.zh.md)
+
 TRFL (pronounced "truffle") is a library built on top of TensorFlow that exposes
 several useful building blocks for implementing Reinforcement Learning agents.
 
